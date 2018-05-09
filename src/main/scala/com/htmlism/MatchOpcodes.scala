@@ -60,6 +60,57 @@ object MatchOpcodes {
   def doStuff(out: PrintWriter): Unit = {
     val lookup = generatedOpcodes ++ injectedOpcodes
 
+
+
+
+
+    out.print("<table>")
+
+    // print headers
+    out.print("<tr>")
+    out.print("<th/>")
+
+    val fancyColumns =
+      for {
+        c <- 0 to 3
+        b <- 0 to 7
+      } yield b * 4 + c
+
+    for (f <- fancyColumns)
+      out.print(s"<th>${paddedBinary(f, 8)}</th>")
+
+    out.print("</tr>")
+
+
+    for (r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0, 0xE0)) {
+      out.print("<tr>")
+
+      // left header
+      out.print(s"<th>${paddedBinary(r, 3)}</th>")
+
+      for (f <- fancyColumns) {
+        val fullInt = r + f
+
+        lookup.get(fullInt) match {
+          case Some((ints, mode)) =>
+            val hex = f"$fullInt%2X"
+            out.print(s"<th class=${'"' + ints.theme + '"'} style=${'"' + "background-color: " + ints.color + '"'}>$ints $mode<br>$hex</th>")
+
+          case None =>
+            out.print(s"<td>UNDEF</td>")
+        }
+      }
+
+      out.print("</tr>")
+    }
+
+    out.print("</table>")
+
+
+
+
+
+
     out.print("<table>")
 
     // print headers
