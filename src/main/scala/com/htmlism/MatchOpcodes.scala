@@ -9,13 +9,13 @@ object MatchOpcodes {
   def main(args: Array[String]): Unit =
     write(args(0))(doStuff)
 
-  def doStuff(out: PrintWriter): Unit = {
-    val generated =
-      (0 to 255)
-        .map(n => n -> toOpcode(n))
-        .collect { case (n, Some(x)) => (n, x) }
-        .toMap
+  def generatedOpcodes: Map[Int, (Instruction, AddressingMode)] =
+    (0 to 255)
+      .map(n => n -> toOpcode(n))
+      .collect { case (n, Some(x)) => (n, x) }
+      .toMap
 
+  def doStuff(out: PrintWriter): Unit = {
     val injected =
       Map(
         0x10 -> BPL,
@@ -58,7 +58,7 @@ object MatchOpcodes {
         0xEA -> NOP
       ).mapValues(x => x -> Implied)
 
-    val lookup = generated ++ injected
+    val lookup = generatedOpcodes ++ injected
 
     out.print("<table>")
 
