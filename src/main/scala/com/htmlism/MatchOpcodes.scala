@@ -165,8 +165,9 @@ object MatchOpcodes {
     val columns =
       for {
         y <- 0 to 1
-        xx <- Seq(3, 1, 2, 0)
-      } yield (xx << 1) + y
+        x <- 0 to 1
+        z <- 0 to 1
+      } yield (z << 2) + (x << 1) + y
 
     val rows =
       0 to 7
