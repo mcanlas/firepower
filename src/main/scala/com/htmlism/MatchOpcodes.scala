@@ -62,10 +62,6 @@ object MatchOpcodes {
   def doStuff(out: PrintWriter): Unit = {
     val lookup = generatedOpcodes ++ injectedOpcodes
 
-
-
-
-
     out.print("<table>")
 
     // print headers
@@ -82,7 +78,6 @@ object MatchOpcodes {
       out.print(s"<th>${paddedBinary(f, 8)}</th>")
 
     out.print("</tr>")
-
 
     for (r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0, 0xE0)) {
       out.print("<tr>")
@@ -109,11 +104,6 @@ object MatchOpcodes {
 
     out.print("</table>")
 
-
-
-
-
-
     out.print("<table>")
 
     // print headers
@@ -124,7 +114,6 @@ object MatchOpcodes {
       out.print(s"<th>${paddedBinary(c, 5)}</th>")
 
     out.print("</tr>")
-
 
     for (r <- wideRows) {
       out.print("<tr>")
