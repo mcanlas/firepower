@@ -28,12 +28,13 @@ object AtomExtractor {
       pow(ex - 1, acc * 2)
 }
 
-abstract class PrimitiveBitExtractor(val length: Int) extends BitExtractor[Int] {
+abstract class PrimitiveBitExtractor(val length: Int)
+    extends BitExtractor[Int] {
   private lazy val mask = AtomExtractor.pow(length) - 1
 
   def unapply(n: Int): Option[Int] = Some(n & mask)
 }
 
-object OneBit extends PrimitiveBitExtractor(1)
-object TwoBits extends PrimitiveBitExtractor(2)
+object OneBit    extends PrimitiveBitExtractor(1)
+object TwoBits   extends PrimitiveBitExtractor(2)
 object ThreeBits extends PrimitiveBitExtractor(3)
