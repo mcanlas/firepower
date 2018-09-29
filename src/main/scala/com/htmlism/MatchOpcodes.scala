@@ -146,9 +146,7 @@ object MatchOpcodes {
     quartile(out, 3, lookup)
   }
 
-  def quartile(out: PrintWriter,
-               n: Int,
-               lookup: Map[Int, (Instruction, AddressingMode)]) = {
+  def quartile(out: PrintWriter, n: Int, lookup: Map[Int, (Instruction, AddressingMode)]) = {
     out.print(s"<h2>${paddedBinary(n, 2)}</h2>")
 
     out.print("<table>")
@@ -234,14 +232,7 @@ object MatchOpcodes {
       Seq(ORA, AND, EOR, ADC, STA, LDA, CMP, SBC)(aaa)
 
     val addressingMode =
-      Seq(IndirectX,
-          ZeroPage,
-          Immediate,
-          Absolute,
-          IndirectY,
-          ZeroPageX,
-          AbsoluteY,
-          AbsoluteX)(bbb)
+      Seq(IndirectX, ZeroPage, Immediate, Absolute, IndirectY, ZeroPageX, AbsoluteY, AbsoluteX)(bbb)
 
     Some(instruction -> addressingMode)
   }
@@ -251,14 +242,7 @@ object MatchOpcodes {
       Seq(ASL, ROL, LSR, ROR, STX, LDX, DEC, INC)(aaa)
 
     val addressingMode =
-      Seq(Immediate,
-          ZeroPage,
-          Accumulator,
-          Absolute,
-          NoMode,
-          ZeroPageX,
-          NoMode,
-          AbsoluteX)(bbb)
+      Seq(Immediate, ZeroPage, Accumulator, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
     Some(instruction -> addressingMode)
   }
@@ -268,14 +252,7 @@ object MatchOpcodes {
       Seq(NoInstruction, BIT, JMP, JMP, STY, LDY, CPY, CPX)(aaa)
 
     val addressingMode =
-      Seq(Immediate,
-          ZeroPage,
-          NoMode,
-          Absolute,
-          NoMode,
-          ZeroPageX,
-          NoMode,
-          AbsoluteX)(bbb)
+      Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
     Some(instruction -> addressingMode)
   }
