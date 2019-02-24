@@ -1,4 +1,4 @@
-scalaVersion := '2.12.8'
+scalaVersion := "2.12.8"
 
 initialCommands in console := "import com.htmlism._"
 
