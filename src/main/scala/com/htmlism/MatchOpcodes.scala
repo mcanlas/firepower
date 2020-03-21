@@ -92,7 +92,7 @@ object MatchOpcodes {
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
-              s"<th class=${'"' + ints.theme + '"'} style=${'"' + "background-color: " + ints.color + '"'}>$ints $mode<br>$hex</th>"
+              s"""<th class="${ints.theme}" style="${"background-color: " + ints.color}">$ints $mode<br>$hex</th>"""
             )
 
           case None =>
@@ -129,7 +129,7 @@ object MatchOpcodes {
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
-              s"<th class=${'"' + ints.theme + '"'} style=${'"' + "background-color: " + ints.color + '"'}>$ints $mode<br>$hex</th>"
+              s"""<th class="${ints.theme}" style="${"background-color: " + ints.color}">$ints $mode<br>$hex</th>"""
             )
 
           case None =>
@@ -185,7 +185,7 @@ object MatchOpcodes {
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
-              s"<th class=${'"' + ints.theme + '"'} style=${'"' + "background-color: " + ints.color + '"'}>$ints $mode<br>$hex</th>"
+              s"""<th class="${ints.theme}" style="${"background-color: " + ints.color}">$ints $mode<br>$hex</th>"""
             )
 
           case None =>
