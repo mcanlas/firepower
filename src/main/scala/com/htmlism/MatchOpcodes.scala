@@ -56,7 +56,7 @@ object MatchOpcodes {
       0xBA -> TSX,
       0xCA -> DEX,
       0xEA -> NOP
-    ).mapValues(x => x -> Implied)
+    ).view.mapValues(x => x -> Implied).toMap
   // format: on
 
   def doStuff(out: PrintWriter): Unit = {
