@@ -1,7 +1,8 @@
-scalaVersion := "2.12.10"
-
-initialCommands in console := "import com.htmlism._"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.0" % "test"
-
-scalafmtOnCompile := true
+lazy val root =
+  project
+    .in(file("."))
+    .settings(
+      initialCommands in console := "import com.htmlism._",
+      libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % "test",
+      scalafmtOnCompile := true
+    )
