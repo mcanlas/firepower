@@ -1,5 +1,5 @@
 package com.htmlism
 
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class BitMatchingSpec extends FlatSpec {}
+class BitMatchingSpec extends AnyFlatSpec {}
