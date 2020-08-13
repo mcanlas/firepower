@@ -35,6 +35,13 @@ object DslDemo extends App {
     A.add(0xc4)
   }
 
+  // first color example
+  withAssemblyContext { implicit ctx =>
+    cpu.A = Color.White : Color
+    cpu.A = Color.Green : Color
+    cpu.A = Color.Orange : Color
+  }
+
   def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
     val ctx: AssemblyContext =
       new AssemblyContext
@@ -88,6 +95,13 @@ class CPU {
     registers.A
 
   def A_=(n: Int)(implicit ctx: AssemblyContext): Unit = {
+    ctx.describe(s"set a to value $n")
+    ctx.pushAsm(f"LDA #$$$n%h")
+  }
+
+  def A_=[A : EnumAsByte](x: A)(implicit ctx: AssemblyContext): Unit = {
+    val n = implicitly[EnumAsByte[A]].toByte(x)
+
     ctx.describe(s"set a to value $n")
     ctx.pushAsm(f"LDA #$$$n%h")
   }
