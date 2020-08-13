@@ -266,12 +266,27 @@ object MatchOpcodes {
       Seq(ASL, ROL, LSR, ROR, STX, LDX, DEC, INC)(aaa)
 
     val addressingMode =
-      Seq(Immediate, ZeroPage, Accumulator, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
+      Seq(Immediate, ZeroPage, Accumulator, Absolute, NoMode, ZeroPageX, Implied, AbsoluteX)(bbb)
 
-    if (addressingMode == NoMode)
-      None
-    else
+    val useLookup =
       (instruction -> addressingMode).some
+
+    (instruction, addressingMode) match {
+      case (ASL | ROL | LSR | ROR, ZeroPage | Accumulator | Absolute | ZeroPageX | AbsoluteX) =>
+        useLookup
+
+      case (STX, ZeroPage | Absolute) =>
+        useLookup
+
+      case (DEC | INC, ZeroPage | Absolute | AbsoluteX | ZeroPageX) =>
+        useLookup
+
+      case (LDX, Immediate | ZeroPage | Absolute) =>
+        useLookup
+
+      case _ =>
+        None
+    }
   }
 
   def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
@@ -281,18 +296,21 @@ object MatchOpcodes {
     val addressingMode =
       Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
+    val useLookup =
+      (instruction -> addressingMode).some
+
     (instruction, addressingMode) match {
       case (BIT, ZeroPage | Absolute) =>
-        (instruction -> addressingMode).some
+        useLookup
 
       case (STY, ZeroPage | Absolute | ZeroPageX) =>
-        (instruction -> addressingMode).some
+        useLookup
 
       case (LDY, Immediate | ZeroPage | Absolute | ZeroPageX | AbsoluteX) =>
-        (instruction -> addressingMode).some
+        useLookup
 
       case (CPY | CPX, Immediate | ZeroPage | Absolute) =>
-        (instruction -> addressingMode).some
+        useLookup
 
       case _ =>
         None
