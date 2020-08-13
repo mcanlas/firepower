@@ -222,11 +222,11 @@ object MatchOpcodes {
     val BitPattern = ThreeBits >> ThreeBits >> TwoBits
 
     n match {
-      case BitPattern(aaabbb, cc) =>
+      case BitPattern((aaa, bbb), cc) =>
         cc match {
-          case 0 => (c00 _).tupled(aaabbb).some
-          case 1 => (c01 _).tupled(aaabbb).some
-          case 2 => (c10 _).tupled(aaabbb).some
+          case 0 => c00(aaa, bbb).some
+          case 1 => c01(aaa, bbb).some
+          case 2 => c10(aaa, bbb).some
           case 3 => None
         }
     }
