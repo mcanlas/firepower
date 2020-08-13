@@ -273,23 +273,23 @@ object MatchOpcodes {
       Seq(NoInstruction, BIT, NoInstruction, NoInstruction, STY, LDY, CPY, CPX)(aaa)
 
     val addressingMode =
-      instruction match {
-        case BIT =>
-          Seq(NoMode, ZeroPage, NoMode, Absolute, NoMode, NoMode, NoMode, NoMode)(bbb)
+      Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
-        case STY =>
-          Seq(NoMode, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, NoMode)(bbb)
+    (instruction, addressingMode) match {
+      case (BIT, ZeroPage | Absolute) =>
+        (instruction -> addressingMode).some
 
-        case LDY =>
-          Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
+      case (STY, ZeroPage | Absolute | ZeroPageX) =>
+        (instruction -> addressingMode).some
 
-        case _ =>
-          Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, NoMode, NoMode, NoMode)(bbb)
-      }
+      case (LDY, Immediate | ZeroPage | Absolute | ZeroPageX | AbsoluteX) =>
+        (instruction -> addressingMode).some
 
-    if (instruction == NoInstruction || addressingMode == NoMode)
-      None
-    else
-      (instruction -> addressingMode).some
+      case (CPY | CPX, Immediate | ZeroPage | Absolute) =>
+        (instruction -> addressingMode).some
+
+      case _ =>
+        None
+    }
   }
 }
