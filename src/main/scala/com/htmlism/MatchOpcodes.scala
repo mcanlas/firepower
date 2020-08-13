@@ -230,41 +230,47 @@ object MatchOpcodes {
     n match {
       case BitPattern((aaa, bbb), cc) =>
         cc match {
-          case 0 => c00(aaa, bbb).some
-          case 1 => c01(aaa, bbb).some
-          case 2 => c10(aaa, bbb).some
+          case 0 => c00(aaa, bbb)
+          case 1 => c01(aaa, bbb)
+          case 2 => c10(aaa, bbb)
           case 3 => None
         }
     }
   }
 
-  def c01(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
+  def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
     val instruction =
       Seq(ORA, AND, EOR, ADC, STA, LDA, CMP, SBC)(aaa)
 
     val addressingMode =
       Seq(IndirectX, ZeroPage, Immediate, Absolute, IndirectY, ZeroPageX, AbsoluteY, AbsoluteX)(bbb)
 
-    instruction -> addressingMode
+    (instruction -> addressingMode).some
   }
 
-  def c10(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
+  def c10(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
     val instruction =
       Seq(ASL, ROL, LSR, ROR, STX, LDX, DEC, INC)(aaa)
 
     val addressingMode =
       Seq(Immediate, ZeroPage, Accumulator, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
-    instruction -> addressingMode
+    if (addressingMode == NoMode)
+      None
+    else
+      (instruction -> addressingMode).some
   }
 
-  def c00(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
+  def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
     val instruction =
       Seq(NoInstruction, BIT, JMP, JMP, STY, LDY, CPY, CPX)(aaa)
 
     val addressingMode =
       Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
-    instruction -> addressingMode
+    if (addressingMode == NoMode)
+      None
+    else
+      (instruction -> addressingMode).some
   }
 }
