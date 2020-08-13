@@ -3,16 +3,13 @@ package com.htmlism.mos6502.dsl
 import scala.collection.mutable.ListBuffer
 
 object DslDemo extends App {
-  private implicit val ctx: AssemblyContext =
-    new AssemblyContext
-
   val cpu =
     new CPU
 
   import registers.{A, X}
 
   // address demonstration
-  withAssemblyContext {
+  withAssemblyContext { implicit ctx =>
     val payloadLocation =
       0x01.z
 
@@ -22,13 +19,13 @@ object DslDemo extends App {
   }
 
   // a becomes others
-  withAssemblyContext {
+  withAssemblyContext { implicit ctx =>
     cpu.A = cpu.X
     cpu.A = cpu.Y
   }
 
   // demonstrate first example
-  withAssemblyContext {
+  withAssemblyContext { implicit ctx =>
     cpu.A = 0xC0
 
     cpu.X = cpu.A
@@ -38,8 +35,11 @@ object DslDemo extends App {
     A.add(0xc4)
   }
 
-  def withAssemblyContext(f: => Unit)(implicit ctx: AssemblyContext): Unit = {
-    f
+  def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
+    val ctx: AssemblyContext =
+      new AssemblyContext
+
+    f(ctx)
 
     ctx.printOut()
     println()
