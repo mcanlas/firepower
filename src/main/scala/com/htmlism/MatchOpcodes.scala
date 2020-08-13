@@ -18,10 +18,14 @@ object MatchOpcodes {
       .toMap
 
   // format: off
-  def injectedOpcodesJump: Map[Int, (Instruction, AddressingMode)] =
+  def injectedOpcodesSpecific: Map[Int, (Instruction, AddressingMode)] =
     Map(
       0x4C -> (JMP -> Absolute),
       0x6C -> (JMP -> Indirect),
+
+      0x96 -> (STX -> ZeroPageY),
+      0xB6 -> (LDX -> ZeroPageY),
+      0xBE -> (LDX -> AbsoluteY),
     )
 
   def injectedOpcodesRelative: Map[Int, (Instruction, AddressingMode)] =
@@ -75,7 +79,7 @@ object MatchOpcodes {
       generatedOpcodes ++
         injectedOpcodesImplied ++
         injectedOpcodesRelative ++
-        injectedOpcodesJump
+        injectedOpcodesSpecific
 
     out.print("<table>")
 
