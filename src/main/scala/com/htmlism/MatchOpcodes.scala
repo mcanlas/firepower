@@ -18,6 +18,12 @@ object MatchOpcodes {
       .toMap
 
   // format: off
+  def injectedOpcodesJump: Map[Int, (Instruction, AddressingMode)] =
+    Map(
+      0x4C -> (JMP -> Absolute),
+      0x6C -> (JMP -> Indirect),
+    )
+
   def injectedOpcodesRelative: Map[Int, (Instruction, AddressingMode)] =
     Map(
       0x10 -> BPL,
@@ -68,7 +74,8 @@ object MatchOpcodes {
     val lookup =
       generatedOpcodes ++
         injectedOpcodesImplied ++
-        injectedOpcodesRelative
+        injectedOpcodesRelative ++
+        injectedOpcodesJump
 
     out.print("<table>")
 
@@ -263,12 +270,24 @@ object MatchOpcodes {
 
   def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
     val instruction =
-      Seq(NoInstruction, BIT, JMP, JMP, STY, LDY, CPY, CPX)(aaa)
+      Seq(NoInstruction, BIT, NoInstruction, NoInstruction, STY, LDY, CPY, CPX)(aaa)
 
     val addressingMode =
-      Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
+      instruction match {
+        case BIT =>
+          Seq(NoMode, ZeroPage, NoMode, Absolute, NoMode, NoMode, NoMode, NoMode)(bbb)
 
-    if (addressingMode == NoMode)
+        case STY =>
+          Seq(NoMode, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, NoMode)(bbb)
+
+        case LDY =>
+          Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
+
+        case _ =>
+          Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, NoMode, NoMode, NoMode)(bbb)
+      }
+
+    if (instruction == NoInstruction || addressingMode == NoMode)
       None
     else
       (instruction -> addressingMode).some
