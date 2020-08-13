@@ -64,16 +64,19 @@ object registers {
   case object A extends Register {
     def add(n: Int)(implicit ctx: AssemblyContext): Unit = {
       ctx.describe(s"add $n to a")
+      ctx.pushAsm(f"ADC #$$$n%h")
     }
 
     def add(n: ZeroAddress)(implicit ctx: AssemblyContext): Unit = {
       ctx.describe(s"add to A value from zero page $n")
+      ctx.pushAsm(f"ADC $$$n%h")
     }
   }
 
   case object X extends Register with DestinationA {
     def incr(implicit ctx: AssemblyContext): Unit = {
       ctx.describe("incr x")
+      ctx.pushAsm("INX")
     }
   }
 
@@ -86,6 +89,7 @@ class CPU {
 
   def A_=(n: Int)(implicit ctx: AssemblyContext): Unit = {
     ctx.describe(s"set a to value $n")
+    ctx.pushAsm(f"LDA #$$$n%h")
   }
 
   def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
@@ -94,8 +98,10 @@ class CPU {
   def X: registers.X.type =
     registers.X
 
-  def X_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
+  def X_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit = {
     ctx.describe(s"set x to register $reg")
+    ctx.pushAsm("TAX")
+  }
 
   def Y: registers.Y.type =
     registers.Y
@@ -108,9 +114,17 @@ class AssemblyContext {
   val xs: ListBuffer[String] =
     ListBuffer()
 
+  val asm: ListBuffer[String] =
+    ListBuffer()
+
+  def pushAsm(s: String): Unit =
+    asm.append(s)
+
   def describe(s: String): Unit =
     xs.append(s)
 
-  def printOut(): Unit =
+  def printOut(): Unit = {
+    asm.foreach(println)
     xs.foreach(println)
+  }
 }
