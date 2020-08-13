@@ -18,7 +18,7 @@ object MatchOpcodes {
       .toMap
 
   // format: off
-  def injectedOpcodes: Map[Int, (Instruction, AddressingMode)] =
+  def injectedOpcodesRelative: Map[Int, (Instruction, AddressingMode)] =
     Map(
       0x10 -> BPL,
       0x30 -> BMI,
@@ -28,7 +28,10 @@ object MatchOpcodes {
       0xB0 -> BCS,
       0xD0 -> BNE,
       0xF0 -> BEQ,
+    ).view.mapValues(x => x -> Relative).toMap
 
+  def injectedOpcodesImplied: Map[Int, (Instruction, AddressingMode)] =
+    Map(
       0x00 -> BRK,
       0x20 -> JSR,
       0x40 -> RTI,
@@ -62,7 +65,10 @@ object MatchOpcodes {
   // format: on
 
   def doStuff(out: PrintWriter): Unit = {
-    val lookup = generatedOpcodes ++ injectedOpcodes
+    val lookup =
+      generatedOpcodes ++
+        injectedOpcodesImplied ++
+        injectedOpcodesRelative
 
     out.print("<table>")
 
