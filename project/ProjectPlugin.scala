@@ -7,4 +7,12 @@ object ProjectPlugin extends AutoPlugin {
   override lazy val projectSettings = Seq(
     scalaVersion := "2.13.3"
   )
+
+  object autoImport {
+    implicit class ProjectOps(p: Project) {
+      def withCats: Project =
+        p
+          .settings(libraryDependencies += "org.typelevel" %% "cats-core" % "2.2.0-RC2")
+    }
+  }
 }

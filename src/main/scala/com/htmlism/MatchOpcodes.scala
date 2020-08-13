@@ -1,5 +1,7 @@
 package com.htmlism
 
+import cats.implicits._
+
 import java.io.PrintWriter
 
 object MatchOpcodes {
@@ -222,41 +224,41 @@ object MatchOpcodes {
     n match {
       case BitPattern(aaabbb, cc) =>
         cc match {
-          case 0 => (c00 _).tupled(aaabbb)
-          case 1 => (c01 _).tupled(aaabbb)
-          case 2 => (c10 _).tupled(aaabbb)
+          case 0 => (c00 _).tupled(aaabbb).some
+          case 1 => (c01 _).tupled(aaabbb).some
+          case 2 => (c10 _).tupled(aaabbb).some
           case 3 => None
         }
     }
   }
 
-  def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c01(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
     val instruction =
       Seq(ORA, AND, EOR, ADC, STA, LDA, CMP, SBC)(aaa)
 
     val addressingMode =
       Seq(IndirectX, ZeroPage, Immediate, Absolute, IndirectY, ZeroPageX, AbsoluteY, AbsoluteX)(bbb)
 
-    Some(instruction -> addressingMode)
+    instruction -> addressingMode
   }
 
-  def c10(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c10(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
     val instruction =
       Seq(ASL, ROL, LSR, ROR, STX, LDX, DEC, INC)(aaa)
 
     val addressingMode =
       Seq(Immediate, ZeroPage, Accumulator, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
-    Some(instruction -> addressingMode)
+    instruction -> addressingMode
   }
 
-  def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c00(aaa: Int, bbb: Int): (Instruction, AddressingMode) = {
     val instruction =
       Seq(NoInstruction, BIT, JMP, JMP, STY, LDY, CPY, CPX)(aaa)
 
     val addressingMode =
       Seq(Immediate, ZeroPage, NoMode, Absolute, NoMode, ZeroPageX, NoMode, AbsoluteX)(bbb)
 
-    Some(instruction -> addressingMode)
+    instruction -> addressingMode
   }
 }

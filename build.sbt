@@ -6,3 +6,4 @@ lazy val root =
       libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.1" % "test",
       scalafmtOnCompile := true
     )
+    .withCats
