@@ -1,5 +1,10 @@
 package com.htmlism
 
+import scala.annotation.tailrec
+
+/**
+  * Given an `Int`, destructure it into smaller `Int`s that use less bits
+  */
 trait BitExtractor[A] {
   self =>
 
@@ -7,6 +12,9 @@ trait BitExtractor[A] {
 
   def unapply(n: Int): Option[A]
 
+  /**
+    * A combinator for appending one extractor to another
+    */
   def >>[B](that: BitExtractor[B]): BitExtractor[(A, B)] =
     new BitExtractor[(A, B)] {
       def length: Int = self.length + that.length
@@ -21,6 +29,7 @@ trait BitExtractor[A] {
 }
 
 object AtomExtractor {
+  @tailrec
   def pow(ex: Int, acc: Int = 1): Int =
     if (ex == 0)
       acc
@@ -29,9 +38,11 @@ object AtomExtractor {
 }
 
 abstract class PrimitiveBitExtractor(val length: Int) extends BitExtractor[Int] {
-  private lazy val mask = AtomExtractor.pow(length) - 1
+  private lazy val mask =
+    AtomExtractor.pow(length) - 1
 
-  def unapply(n: Int): Option[Int] = Some(n & mask)
+  def unapply(n: Int): Option[Int] =
+    Some(n & mask)
 }
 
 object OneBit    extends PrimitiveBitExtractor(1)
