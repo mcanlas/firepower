@@ -252,7 +252,13 @@ object MatchOpcodes {
     val addressingMode =
       Seq(IndirectX, ZeroPage, Immediate, Absolute, IndirectY, ZeroPageX, AbsoluteY, AbsoluteX)(bbb)
 
-    (instruction -> addressingMode).some
+    (instruction, addressingMode) match {
+      case (STA, Immediate) =>
+        None
+
+      case _ =>
+        (instruction -> addressingMode).some
+    }
   }
 
   def c10(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
