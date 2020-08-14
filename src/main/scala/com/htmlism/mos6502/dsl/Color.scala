@@ -1,29 +1,33 @@
 package com.htmlism.mos6502.dsl
 
+import cats.implicits._
+
 sealed trait Color
 
 object Color {
-  implicit val ev: EnumAsByte[Color] =
-    new EnumAsByte[Color] {
-      def toByte(x: Color): Int =
-        x match {
-          case Black => 0x0
-          case White => 0x1
-          case Red => 0x2
-          case Cyan => 0x3
-          case Purple => 0x4
-          case Green => 0x5
-          case Blue => 0x6
-          case Yellow => 0x7
-          case Orange => 0x8
-          case Brown => 0x9
-          case LightRed => 0xA
-          case DarkGrey => 0xB
-          case Grey => 0xC
-          case LightGreen => 0xD
-          case LightBlue => 0xE
-          case LightGrey => 0xF
-        }
+  implicit val ev: Operand[Color] =
+    Operand
+      .operandInt
+      .contramap(toByte)
+
+  def toByte(x: Color): Int =
+    x match {
+      case Black => 0x0
+      case White => 0x1
+      case Red => 0x2
+      case Cyan => 0x3
+      case Purple => 0x4
+      case Green => 0x5
+      case Blue => 0x6
+      case Yellow => 0x7
+      case Orange => 0x8
+      case Brown => 0x9
+      case LightRed => 0xA
+      case DarkGrey => 0xB
+      case Grey => 0xC
+      case LightGreen => 0xD
+      case LightBlue => 0xE
+      case LightGrey => 0xF
     }
 
   case object Black extends Color

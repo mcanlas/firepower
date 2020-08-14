@@ -1,11 +1,15 @@
 package com.htmlism.mos6502.dsl
 
-case class GlobalAddress(n: Int) {
-  def write[A : EnumAsByte](x: A)(implicit ctx: AssemblyContext): Unit = {
-    val b = implicitly[EnumAsByte[A]].toByte(x)
+import com.htmlism._
 
-    ctx.describe(s"write value $b to address $n")
-    ctx.pushAsm("LDA #" + hex(b))
-    ctx.pushAsm("STA " + hex(this))
+object GlobalAddress {
+  implicit val operandGlobal: Operand[GlobalAddress] =
+    (x: GlobalAddress) => String.format("$%04x", x.n)
+}
+
+case class GlobalAddress(n: Int) {
+  def write[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit = {
+    ctx.push(LDA, x, s"2: write value ${ev.toString(x)} to address $n")
+    ctx.push(STA, this)
   }
 }

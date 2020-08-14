@@ -1,6 +1,8 @@
 package com.htmlism.mos6502.dsl
 
 import scala.collection.mutable.ListBuffer
+import cats.implicits._
+import com.htmlism._
 
 object DslDemo extends App {
   val cpu =
@@ -75,22 +77,13 @@ object registers {
   sealed trait DestinationA
 
   case object A extends Register {
-    def add(n: Int)(implicit ctx: AssemblyContext): Unit = {
-      ctx.describe(s"add $n to a")
-      ctx.pushAsm("ADC #" + hex(n))
-    }
-
-    def add(n: ZeroAddress)(implicit ctx: AssemblyContext): Unit = {
-      ctx.describe(s"add to A value from zero page $n")
-      ctx.pushAsm("ADC " + hex(n))
-    }
+    def add[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
+      ctx.push(ADC, x, s"add ADDR | LITERAL to a")
   }
 
   case object X extends Register with DestinationA {
-    def incr(implicit ctx: AssemblyContext): Unit = {
-      ctx.describe("incr x")
-      ctx.pushAsm("INX")
-    }
+    def incr(implicit ctx: AssemblyContext): Unit =
+      ctx.push(INX, "incr x")
   }
 
   case object Y extends Register with DestinationA
@@ -100,51 +93,47 @@ class CPU {
   def A: registers.A.type =
     registers.A
 
-  def A_=(n: Int)(implicit ctx: AssemblyContext): Unit = {
-    ctx.describe(s"set a to value $n")
-    ctx.pushAsm(f"LDA #$$$n%h")
-  }
-
-  def A_=[A : EnumAsByte](x: A)(implicit ctx: AssemblyContext): Unit = {
-    val n = implicitly[EnumAsByte[A]].toByte(x)
-
-    ctx.describe(s"set a to value $n")
-    ctx.pushAsm("LDA #" + hex(n))
-  }
+  def A_=[A : Operand](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
+    ctx.push(LDA, "set A to value " + ev.toString(x))
 
   def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
-    ctx.describe(s"set a to register $reg")
+    reg match {
+      case registers.X =>
+        ctx.push(TXA)
+      case registers.Y =>
+        ctx.push(TYA)
+    }
 
   def X: registers.X.type =
     registers.X
 
-  def X_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit = {
-    ctx.describe(s"set x to register $reg")
-    ctx.pushAsm("TAX")
-  }
+  def X_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
+    ctx.push(TAX, s"set x to register $reg")
 
   def Y: registers.Y.type =
     registers.Y
 
   def Y_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
-    ctx.describe(s"set y to register $reg")
+    ctx.push(TAY, s"set x to register $reg")
 }
 
 class AssemblyContext {
-  val xs: ListBuffer[String] =
+  val xs: ListBuffer[Statement] =
     ListBuffer()
 
-  val asm: ListBuffer[String] =
-    ListBuffer()
+  def push(instruction: Instruction): Unit =
+    xs.append(UnaryInstruction(instruction, None))
 
-  def pushAsm(s: String): Unit =
-    asm.append(s)
+  def push(instruction: Instruction, s: String): Unit =
+    xs.append(UnaryInstruction(instruction, s.some))
 
-  def describe(s: String): Unit =
-    xs.append(s)
+  def push[A : Operand](instruction: Instruction, x: A): Unit =
+    xs.append(InstructionWithOperand(instruction, x, None))
+
+  def push[A : Operand](instruction: Instruction, x: A, s: String): Unit =
+    xs.append(InstructionWithOperand(instruction, x: A, s.some))
 
   def printOut(): Unit = {
-    asm.foreach(println)
     xs.foreach(println)
   }
 }
