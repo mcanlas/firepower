@@ -37,9 +37,12 @@ object DslDemo extends App {
 
   // first color example
   withAssemblyContext { implicit ctx =>
-    cpu.A = Color.White : Color
-    cpu.A = Color.Green : Color
-    cpu.A = Color.Orange : Color
+    val scr =
+      0x0200.indexed
+
+    scr(0).write[Color](Color.White)
+    scr(1).write[Color](Color.Green)
+    scr(2).write[Color](Color.Orange)
   }
 
   def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
@@ -59,6 +62,9 @@ object DslDemo extends App {
 
     def addr: GlobalAddress =
       GlobalAddress(n)
+
+    def indexed: IndexedAddressCollection =
+      IndexedAddressCollection(n)
   }
 }
 
@@ -71,12 +77,12 @@ object registers {
   case object A extends Register {
     def add(n: Int)(implicit ctx: AssemblyContext): Unit = {
       ctx.describe(s"add $n to a")
-      ctx.pushAsm(f"ADC #$$$n%h")
+      ctx.pushAsm("ADC #" + hex(n))
     }
 
     def add(n: ZeroAddress)(implicit ctx: AssemblyContext): Unit = {
       ctx.describe(s"add to A value from zero page $n")
-      ctx.pushAsm(f"ADC $$$n%h")
+      ctx.pushAsm("ADC " + hex(n))
     }
   }
 
@@ -103,7 +109,7 @@ class CPU {
     val n = implicitly[EnumAsByte[A]].toByte(x)
 
     ctx.describe(s"set a to value $n")
-    ctx.pushAsm(f"LDA #$$$n%h")
+    ctx.pushAsm("LDA #" + hex(n))
   }
 
   def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
