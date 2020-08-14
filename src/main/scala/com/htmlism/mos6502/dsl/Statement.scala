@@ -2,8 +2,37 @@ package com.htmlism.mos6502.dsl
 
 import com.htmlism._
 
-sealed trait Statement
+sealed trait Statement {
+  def toAsm: String
+}
 
-case class UnaryInstruction(instruction: Instruction, comment: Option[String]) extends Statement
+case class UnaryInstruction(instruction: Instruction, comment: Option[String]) extends Statement {
+  def toAsm: String = {
+    val left =
+      instruction.toString
 
-case class InstructionWithOperand[A : Operand](instruction: Instruction, operand: A, comment: Option[String]) extends Statement
+    comment match {
+      case Some(c) =>
+        f"$left%-16s ; " + c
+      case None =>
+        left
+    }
+  }
+}
+
+case class InstructionWithOperand[A](instruction: Instruction, operand: A, comment: Option[String])(implicit ev: Operand[A]) extends Statement {
+  def toAsm: String = {
+    val left =
+      instruction.toString
+
+    val operandStr =
+      ev.toString(operand)
+
+    comment match {
+      case Some(c) =>
+        f"$left%-5s $operandStr%-11s; " + c
+      case None =>
+        f"$left%-5s $operandStr"
+    }
+  }
+}

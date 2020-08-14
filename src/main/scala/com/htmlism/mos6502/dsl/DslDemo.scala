@@ -134,6 +134,8 @@ class AssemblyContext {
     xs.append(InstructionWithOperand(instruction, x: A, s.some))
 
   def printOut(): Unit = {
-    xs.foreach(println)
+    xs
+      .map(_.toAsm)
+      .foreach(println)
   }
 }
