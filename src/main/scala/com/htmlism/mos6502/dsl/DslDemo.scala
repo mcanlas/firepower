@@ -93,8 +93,8 @@ class CPU {
   def A: registers.A.type =
     registers.A
 
-  def A_=[A : Operand](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
-    ctx.push(LDA, "set A to value " + ev.toString(x))
+  def A_=[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
+    ctx.push(LDA, x, "set A to value " + ev.toString(x))
 
   def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
     reg match {
