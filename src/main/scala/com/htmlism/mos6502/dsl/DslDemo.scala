@@ -120,7 +120,7 @@ class CPU {
 }
 
 class AssemblyContext {
-  val xs: ListBuffer[Statement] =
+  private val xs: ListBuffer[Statement] =
     ListBuffer()
 
   def push(instruction: Instruction): Unit =
@@ -139,4 +139,9 @@ class AssemblyContext {
     xs.map(_.toAsm)
       .foreach(println)
   }
+
+  def triplets: List[(String, Option[String], Option[String])] =
+    xs
+      .map(_.toTriplet)
+      .toList
 }
