@@ -9,7 +9,7 @@ object GlobalAddress {
 
 case class GlobalAddress(n: Int) {
   def write[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit = {
-    ctx.push(LDA, x, s"write value ${ev.toString(x)} to address $n")
+    ctx.push(LDA, x, s"write value ${ev.toAddressLiteral(x)} to address $n")
     ctx.push(STA, this, "")
   }
 }

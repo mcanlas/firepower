@@ -26,7 +26,7 @@ case class InstructionWithOperand[A](instruction: Instruction, operand: A, comme
       instruction.toString
 
     val operandStr =
-      ev.toString(operand)
+      ev.toAddressLiteral(operand)
 
     comment match {
       case Some(c) =>
