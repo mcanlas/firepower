@@ -24,13 +24,11 @@ package object dsl {
   }
 
   def enum[A](implicit ctx: AsmDocumentContext, ev: EnumAsm[A]): Unit = {
-    val (_, xs) =
+    val xs =
       ev.all
         .map(ev.label)
-        .foldLeft(0 -> List.empty[(String, Int)]) {
-          case ((next, acc), s) =>
-            (next + 1) -> (acc :+ (s -> next))
-        }
+        .toList
+        .zip(List.iterate(0, ev.all.size)(_ + 1))
 
     val grp =
       DefinitionGroup(
@@ -47,13 +45,11 @@ package object dsl {
   }
 
   def bitField[A](implicit ctx: AsmDocumentContext, ev: BitField[A]): Unit = {
-    val (_, xs) =
+    val xs =
       ev.all
         .map(ev.label)
-        .foldLeft(1 -> List.empty[(String, Int)]) {
-          case ((next, acc), s) =>
-            (next << 1) -> (acc :+ (s -> next))
-        }
+        .toList
+        .zip(List.iterate(1, ev.all.size)(_ << 1))
 
     val grp =
       DefinitionGroup(

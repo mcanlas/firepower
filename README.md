@@ -15,7 +15,6 @@
 
 ## TODO
 
-- assembly doc w/ define support
-- label region as assembly doc
+- add mapping support
 - postfix operations to accumulator values
 - loops
