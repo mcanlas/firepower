@@ -78,7 +78,13 @@ object registers {
 
   case object A extends Register {
     def add[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
-      ctx.push(ADC, x, s"add ADDR | LITERAL to a")
+      ev.operandType match {
+        case ValueLiteral =>
+          ctx.push(ADC, x, s"add LITERAL to a")
+
+        case MemoryLocation =>
+          ctx.push(ADC, x, s"add ADDR to a")
+      }
   }
 
   case object X extends Register with DestinationA {

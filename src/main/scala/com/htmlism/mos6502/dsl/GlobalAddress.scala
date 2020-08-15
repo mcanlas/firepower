@@ -4,7 +4,13 @@ import com.htmlism._
 
 object GlobalAddress {
   implicit val operandGlobal: Operand[GlobalAddress] =
-    (x: GlobalAddress) => String.format("$%04x", x.n)
+    new Operand[GlobalAddress] {
+      val operandType: OperandType =
+        MemoryLocation
+
+      def toAddressLiteral(x: GlobalAddress): String =
+        String.format("$%04x", x.n)
+    }
 }
 
 case class GlobalAddress(n: Int) {
