@@ -1,14 +1,12 @@
 package com.htmlism.mos6502.dsl
 
-import cats.implicits._
-
 sealed trait Color
 
 object Color {
   implicit val ev: Operand[Color] =
     Operand
       .operandInt
-      .contramap(toByte)
+      .contra(toByte, _.toString)
 
   def toByte(x: Color): Int =
     x match {

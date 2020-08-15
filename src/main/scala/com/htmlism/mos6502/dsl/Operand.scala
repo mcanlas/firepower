@@ -1,13 +1,25 @@
 package com.htmlism.mos6502.dsl
 
-import cats.Contravariant
-
 trait Operand[A] {
+  self =>
+
   def toAddressLiteral(x: A): String
 
   def toShow(x: A): String
 
   def operandType: OperandType
+
+  def contra[B](f: B => A, show: B => String): Operand[B] =
+    new Operand[B] {
+      val operandType: OperandType =
+        self.operandType
+
+      def toShow(x: B): String =
+        show(x)
+
+      def toAddressLiteral(x: B): String =
+        self.toAddressLiteral(f(x))
+    }
 }
 
 object Operand {
@@ -21,20 +33,5 @@ object Operand {
 
       def toAddressLiteral(x: Int): String =
         String.format("#$%02x", x)
-    }
-
-  implicit val contra: Contravariant[Operand] =
-    new Contravariant[Operand] {
-      def contramap[A, B](fa: Operand[A])(f: B => A): Operand[B] =
-        new Operand[B] {
-          val operandType: OperandType =
-            fa.operandType
-
-          def toShow(x: B): String =
-            fa.toShow(f(x))
-
-          def toAddressLiteral(x: B): String =
-            fa.toAddressLiteral(f(x))
-        }
     }
 }
