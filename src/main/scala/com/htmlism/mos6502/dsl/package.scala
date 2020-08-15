@@ -34,6 +34,16 @@ package object dsl {
     definition
   }
 
+  def constant(name: String, x: Int)(implicit ctx: DefinitionGroupContext): Definition[Int] = {
+    val definition =
+      Definition(name, x)
+
+    ctx
+      .push(Definition(name, x))
+
+    definition
+  }
+
   implicit class AddressOps(n: Int) {
     def z: ZeroAddress =
       ZeroAddress(n)

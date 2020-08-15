@@ -26,6 +26,11 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
             define("sysLastKey", 0xff.z))
         }
 
+        group("constants test") { implicit g =>
+          (constant("margin", 16),
+            constant("secret", 42))
+        }
+
         ()
       }
 
@@ -35,15 +40,22 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
         Definition("snakeDirection", 0x02.z),
         Definition("snakeLength", 0x03.z)
       )),
+
       DefinitionGroup("ASCII values of keys controlling the snake", List(
         Definition("ASCII_w", 0x77.z),
         Definition("ASCII_a", 0x61.z),
         Definition("ASCII_s", 0x73.z),
         Definition("ASCII_d", 0x64.z)
       )),
+
       DefinitionGroup("System variables", List(
         Definition("sysRandom", 0xfe.z),
         Definition("sysLastKey", 0xff.z)
+      )),
+
+      DefinitionGroup("constants test", List(
+        Definition("margin", 16),
+        Definition("secret", 42)
       ))
     ))
   }
