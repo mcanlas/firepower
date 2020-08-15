@@ -68,7 +68,7 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   "enum" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        enum[Foo]
+        enum[Triforce]
       }
 
     doc shouldEqual AsmDocument(
@@ -88,7 +88,7 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   "bit field" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        bitField[Foo]
+        bitField[Direction]
       }
 
     doc shouldEqual AsmDocument(
@@ -107,36 +107,49 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   }
 }
 
-class Foo
+sealed trait Triforce
 
-object Foo {
-  implicit val enumFoo: EnumAsm[Foo] =
-    new EnumAsm[Foo] {
+case object Courage extends Triforce
+case object Wisdom  extends Triforce
+case object Power   extends Triforce
+
+object Triforce {
+  implicit val enumTriforce: EnumAsm[Triforce] =
+    new EnumAsm[Triforce] {
       def comment: String =
         "foo as enum"
 
-      def labels: NonEmptyList[String] =
-        NonEmptyList.of("courage", "wisdom", "power")
+      def all: NonEmptyList[Triforce] =
+        NonEmptyList.of(Courage, Wisdom, Power)
 
-      def label(x: Foo): String =
-        "fooNotEnum"
+      def label(x: Triforce): String =
+        x.toString.toLowerCase
 
-      def comment(x: Foo): String =
-        "Foo not an enum"
+      def comment(x: Triforce): String =
+        x.toString
     }
+}
 
-  implicit val bitFieldFoo: BitField[Foo] =
-    new BitField[Foo] {
+sealed trait Direction
+
+case object Up    extends Direction
+case object Down  extends Direction
+case object Left  extends Direction
+case object Right extends Direction
+
+object Direction {
+  implicit val bitFieldDirection: BitField[Direction] =
+    new BitField[Direction] {
       def comment: String =
         "foo as bit field"
 
-      def labels: NonEmptyList[String] =
-        NonEmptyList.of("up", "down", "left", "right")
+      def all: NonEmptyList[Direction] =
+        NonEmptyList.of(Up, Down, Left, Right)
 
-      def label(x: Foo): String =
-        "fooNotBitField"
+      def label(x: Direction): String =
+        x.toString.toLowerCase
 
-      def comment(x: Foo): String =
-        "Foo not a bit field"
+      def comment(x: Direction): String =
+        x.toString
     }
 }

@@ -5,15 +5,18 @@ import cats.data.NonEmptyList
 trait EnumAsm[A] {
   def comment: String
 
-  def labels: NonEmptyList[String]
+  /**
+    * An ordered list of every value in this enumeration
+    */
+  def all: NonEmptyList[A]
 
   /**
-   * ASM-safe label
-   */
+    * ASM-safe label
+    */
   def label(x: A): String
 
   /**
-   * Comment string
-   */
+    * Comment string
+    */
   def comment(x: A): String
 }
