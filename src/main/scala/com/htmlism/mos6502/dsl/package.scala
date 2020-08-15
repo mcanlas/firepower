@@ -7,8 +7,7 @@ package object dsl {
 
     f(ctx)
 
-    ctx
-      .toDoc
+    ctx.toDoc
   }
 
   def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): A = {
@@ -24,7 +23,51 @@ package object dsl {
     ret
   }
 
-  def define[A <: Address : Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Definition[A] = {
+  def enum[A](implicit ctx: AsmDocumentContext, ev: EnumAsm[A]): Unit = {
+    val (_, xs) =
+      ev.labels
+        .foldLeft(0 -> List.empty[(String, Int)]) {
+          case ((next, acc), s) =>
+            (next + 1) -> (acc :+ (s -> next))
+        }
+
+    val grp =
+      DefinitionGroup(
+        ev.comment,
+        xs
+          .map {
+            case (s, n) =>
+              Definition(s, n)
+          }
+      )
+
+    ctx
+      .push(grp)
+  }
+
+  def bitField[A](implicit ctx: AsmDocumentContext, ev: BitField[A]): Unit = {
+    val (_, xs) =
+      ev.labels
+        .foldLeft(1 -> List.empty[(String, Int)]) {
+          case ((next, acc), s) =>
+            (next << 1) -> (acc :+ (s -> next))
+        }
+
+    val grp =
+      DefinitionGroup(
+        ev.comment,
+        xs
+          .map {
+            case (s, n) =>
+              Definition(s, n)
+          }
+      )
+
+    ctx
+      .push(grp)
+  }
+
+  def define[A <: Address: Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Definition[A] = {
     val definition =
       Definition(name, x)
 

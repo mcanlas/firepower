@@ -32,7 +32,7 @@ class DefinitionGroupContext {
     DefinitionGroup(s, xs.toList)
 }
 
-case class Definition[A : Operand](name: String, x: A)
+case class Definition[A: Operand](name: String, x: A)
 
 class AsmBlockContext {
   private val xs: ListBuffer[Statement] =

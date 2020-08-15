@@ -7,5 +7,4 @@ lazy val root =
     )
     .withCats
     .withTesting
-    .withTestingBeta
     .withOrganizeImports
