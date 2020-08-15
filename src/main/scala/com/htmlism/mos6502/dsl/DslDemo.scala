@@ -40,11 +40,11 @@ object DslDemo extends App {
   // first color example
   withAssemblyContext { implicit ctx =>
     val scr =
-      0x0200.indexed
+      IndexedAddressCollection[Color](0x0200, "screen")
 
-    scr(0).write[Color](Color.White)
-    scr(1).write[Color](Color.Green)
-    scr(2).write[Color](Color.Orange)
+    scr.write(0, Color.White)
+    scr.write(1, Color.Green)
+    scr.write(2, Color.Orange)
   }
 
   def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
@@ -64,9 +64,6 @@ object DslDemo extends App {
 
     def addr: GlobalAddress =
       GlobalAddress(n)
-
-    def indexed: IndexedAddressCollection =
-      IndexedAddressCollection(n)
   }
 }
 
