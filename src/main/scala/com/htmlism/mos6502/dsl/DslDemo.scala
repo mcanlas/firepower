@@ -39,16 +39,6 @@ object DslDemo extends App {
     A.add(0xc4)
   }
 
-  // first color example
-  withAssemblyContext { implicit ctx =>
-    val scr =
-      IndexedAddressCollection[Color](0x0200, "screen")
-
-    scr.write(0, Color.White)
-    scr.write(1, Color.Green)
-    scr.write(2, Color.Orange)
-  }
-
   def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
     val ctx: AssemblyContext =
       new AssemblyContext
