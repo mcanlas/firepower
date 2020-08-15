@@ -49,14 +49,6 @@ object DslDemo extends App {
     println()
     println()
   }
-
-  implicit class AddressOps(n: Int) {
-    def z: ZeroAddress =
-      ZeroAddress(n)
-
-    def addr: GlobalAddress =
-      GlobalAddress(n)
-  }
 }
 
 object registers {
