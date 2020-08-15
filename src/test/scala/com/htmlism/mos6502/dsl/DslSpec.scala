@@ -117,6 +117,12 @@ object Foo {
 
       def labels: NonEmptyList[String] =
         NonEmptyList.of("courage", "wisdom", "power")
+
+      def label(x: Foo): String =
+        "fooNotEnum"
+
+      def comment(x: Foo): String =
+        "Foo not an enum"
     }
 
   implicit val bitFieldFoo: BitField[Foo] =
@@ -127,5 +133,10 @@ object Foo {
       def labels: NonEmptyList[String] =
         NonEmptyList.of("up", "down", "left", "right")
 
+      def label(x: Foo): String =
+        "fooNotBitField"
+
+      def comment(x: Foo): String =
+        "Foo not a bit field"
     }
 }
