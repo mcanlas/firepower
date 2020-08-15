@@ -67,7 +67,6 @@ object DslDemo extends App {
   }
 }
 
-
 object registers {
   sealed trait Register
 
@@ -130,15 +129,14 @@ class AssemblyContext {
   def push(instruction: Instruction, s: String): Unit =
     xs.append(UnaryInstruction(instruction, s.some))
 
-  def push[A : Operand](instruction: Instruction, x: A): Unit =
+  def push[A: Operand](instruction: Instruction, x: A): Unit =
     xs.append(InstructionWithOperand(instruction, x, None))
 
-  def push[A : Operand](instruction: Instruction, x: A, s: String): Unit =
+  def push[A: Operand](instruction: Instruction, x: A, s: String): Unit =
     xs.append(InstructionWithOperand(instruction, x: A, s.some))
 
   def printOut(): Unit = {
-    xs
-      .map(_.toAsm)
+    xs.map(_.toAsm)
       .foreach(println)
   }
 }

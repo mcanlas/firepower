@@ -26,7 +26,7 @@ object MatchOpcodes {
 
       0x96 -> (STX -> ZeroPageY),
       0xB6 -> (LDX -> ZeroPageY),
-      0xBE -> (LDX -> AbsoluteY),
+      0xBE -> (LDX -> AbsoluteY)
     )
 
   def injectedOpcodesRelative: Map[Int, (Instruction, AddressingMode)] =
@@ -38,7 +38,7 @@ object MatchOpcodes {
       0x90 -> BCC,
       0xB0 -> BCS,
       0xD0 -> BNE,
-      0xF0 -> BEQ,
+      0xF0 -> BEQ
     ).view.mapValues(x => x -> Relative).toMap
 
   def injectedOpcodesImplied: Map[Int, (Instruction, AddressingMode)] =
