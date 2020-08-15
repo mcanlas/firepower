@@ -5,6 +5,8 @@ import cats.Contravariant
 trait Operand[A] {
   def toAddressLiteral(x: A): String
 
+  def toShow(x: A): String
+
   def operandType: OperandType
 }
 
@@ -13,6 +15,9 @@ object Operand {
     new Operand[Int] {
       val operandType: OperandType =
         ValueLiteral
+
+      def toShow(x: Int): String =
+        x.toString
 
       def toAddressLiteral(x: Int): String =
         String.format("#$%02x", x)
@@ -25,10 +30,11 @@ object Operand {
           val operandType: OperandType =
             fa.operandType
 
+          def toShow(x: B): String =
+            fa.toShow(f(x))
+
           def toAddressLiteral(x: B): String =
-            fa.toAddressLiteral {
-              f(x)
-            }
+            fa.toAddressLiteral(f(x))
         }
     }
 }

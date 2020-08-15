@@ -6,6 +6,9 @@ object ZeroAddress {
       val operandType: OperandType =
         MemoryLocation
 
+      def toShow(x: ZeroAddress): String =
+        String.format("global address 0x%02x", x.n)
+
       def toAddressLiteral(x: ZeroAddress): String =
         String.format("$%02x", x.n)
     }
