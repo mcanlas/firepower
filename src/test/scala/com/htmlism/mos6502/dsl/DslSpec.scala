@@ -15,15 +15,15 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
         }
 
         group("ASCII values of keys controlling the snake") { implicit g =>
-          define("ASCII_w", 0x77)
-          define("ASCII_a", 0x61)
-          define("ASCII_s", 0x73)
-          define("ASCII_d", 0x64)
+          define("ASCII_w", 0x77.z)
+          define("ASCII_a", 0x61.z)
+          define("ASCII_s", 0x73.z)
+          define("ASCII_d", 0x64.z)
         }
 
         group("System variables") { implicit g =>
-          define("sysRandom", 0xfe)
-          define("sysLastKey", 0xff)
+          define("sysRandom", 0xfe.z)
+          define("sysLastKey", 0xff.z)
         }
       }
 
@@ -34,14 +34,14 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
         Definition("snakeLength", 0x03.z)
       )),
       DefinitionGroup("ASCII values of keys controlling the snake", List(
-        Definition("ASCII_w", 0x77),
-        Definition("ASCII_a", 0x61),
-        Definition("ASCII_s", 0x73),
-        Definition("ASCII_d", 0x64)
+        Definition("ASCII_w", 0x77.z),
+        Definition("ASCII_a", 0x61.z),
+        Definition("ASCII_s", 0x73.z),
+        Definition("ASCII_d", 0x64.z)
       )),
       DefinitionGroup("System variables", List(
-        Definition("sysRandom", 0xfe),
-        Definition("sysLastKey", 0xff)
+        Definition("sysRandom", 0xfe.z),
+        Definition("sysLastKey", 0xff.z)
       ))
     ))
   }

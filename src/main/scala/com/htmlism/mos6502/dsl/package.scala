@@ -21,7 +21,7 @@ package object dsl {
       .push(g.toGroup(s))
   }
 
-  def define[A : Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Unit =
+  def define[A <: Address : Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Unit =
     ctx
       .push(Definition(name, x))
 
