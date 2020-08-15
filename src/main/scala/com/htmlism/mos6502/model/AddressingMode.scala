@@ -1,4 +1,4 @@
-package com.htmlism
+package com.htmlism.mos6502.model
 
 sealed trait AddressingMode
 

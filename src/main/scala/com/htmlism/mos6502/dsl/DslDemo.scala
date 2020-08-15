@@ -2,7 +2,7 @@ package com.htmlism.mos6502.dsl
 
 import scala.collection.mutable.ListBuffer
 import cats.implicits._
-import com.htmlism._
+import com.htmlism.mos6502.model._
 
 object DslDemo extends App {
   val cpu =

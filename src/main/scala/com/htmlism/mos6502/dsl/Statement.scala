@@ -1,6 +1,6 @@
 package com.htmlism.mos6502.dsl
 
-import com.htmlism._
+import com.htmlism.mos6502.model.Instruction
 
 sealed trait Statement {
   def toAsm: String

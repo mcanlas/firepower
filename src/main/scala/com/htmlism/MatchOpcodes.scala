@@ -1,8 +1,9 @@
 package com.htmlism
 
 import cats.implicits._
-
 import java.io.PrintWriter
+
+import com.htmlism.mos6502.model._
 
 object MatchOpcodes {
   def paddedBinary(n: Int, width: Int) =
