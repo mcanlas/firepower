@@ -1,7 +1,8 @@
 package com.htmlism
 
-import cats.implicits._
 import java.io.PrintWriter
+
+import cats.implicits._
 
 import com.htmlism.mos6502.model._
 

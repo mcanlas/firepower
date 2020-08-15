@@ -8,9 +8,6 @@ object ProjectPlugin extends AutoPlugin {
     scalaVersion := "2.13.3"
   )
 
-  override lazy val globalSettings =
-    addCommandAlias("fmt", List("", "scalafmtSbt", "compile:scalafmt", "test:scalafmt").mkString(";"))
-
   object autoImport {
     implicit class ProjectOps(p: Project) {
       def withCats: Project =

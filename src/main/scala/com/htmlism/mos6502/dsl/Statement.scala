@@ -1,6 +1,7 @@
 package com.htmlism.mos6502.dsl
 
 import cats.implicits._
+
 import com.htmlism.mos6502.model.Instruction
 
 sealed trait Statement {

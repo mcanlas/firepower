@@ -1,9 +1,8 @@
 package com.htmlism.mos6502.dsl
 
 import cats.implicits._
-import org.scalatest._
-import flatspec._
-import matchers._
+import org.scalatest.flatspec._
+import org.scalatest.matchers._
 
 class Easy6502Spec extends AnyFlatSpec with should.Matchers {
 
