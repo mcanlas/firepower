@@ -19,7 +19,7 @@ sealed trait TopLevelAsmDocumentFragment
 
 sealed trait AsmBlockFragment extends TopLevelAsmDocumentFragment
 
-case class DefineGroup(xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment
+case class DefineGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment
 
 class DefineGroupContext {
   private val xs: ListBuffer[Definition[_]] =
@@ -28,8 +28,8 @@ class DefineGroupContext {
   def push(x: Definition[_]): Unit =
     xs.append(x)
 
-  def toGroup: DefineGroup =
-    DefineGroup(xs.toList)
+  def toGroup(s: String): DefineGroup =
+    DefineGroup(s, xs.toList)
 }
 
 case class Definition[A : Operand](name: String, x: A)

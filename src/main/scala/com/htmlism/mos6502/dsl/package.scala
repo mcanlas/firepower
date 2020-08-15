@@ -11,14 +11,14 @@ package object dsl {
       .toDoc
   }
 
-  def group(f: DefineGroupContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
+  def group(s: String)(f: DefineGroupContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
     val g: DefineGroupContext =
       new DefineGroupContext
 
     f(g)
 
     ctx
-      .push(g.toGroup)
+      .push(g.toGroup(s))
   }
 
   def define[A : Operand](name: String, x: A)(implicit ctx: DefineGroupContext): Unit =
