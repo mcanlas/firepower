@@ -19,12 +19,12 @@ object Color {
       case Yellow     => 0x7
       case Orange     => 0x8
       case Brown      => 0x9
-      case LightRed   => 0xA
-      case DarkGrey   => 0xB
-      case Grey       => 0xC
-      case LightGreen => 0xD
-      case LightBlue  => 0xE
-      case LightGrey  => 0xF
+      case LightRed   => 0xa
+      case DarkGrey   => 0xb
+      case Grey       => 0xc
+      case LightGreen => 0xd
+      case LightBlue  => 0xe
+      case LightGrey  => 0xf
     }
 
   case object Black      extends Color

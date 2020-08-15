@@ -27,8 +27,8 @@ case class UnaryInstruction(instruction: Instruction, comment: Option[String]) e
     (instruction.toString, None, comment)
 }
 
-case class InstructionWithOperand[A](instruction: Instruction, operand: A, comment: Option[String])(
-    implicit ev: Operand[A]
+case class InstructionWithOperand[A](instruction: Instruction, operand: A, comment: Option[String])(implicit
+    ev: Operand[A]
 ) extends Statement {
   def toAsm: String = {
     val left =

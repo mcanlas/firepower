@@ -30,7 +30,7 @@ object DslDemo extends App {
 
   // demonstrate first example
   withAssemblyContext { implicit ctx =>
-    cpu.A = 0xC0
+    cpu.A = 0xc0
 
     cpu.X = cpu.A
 
