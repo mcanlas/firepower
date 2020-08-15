@@ -141,7 +141,6 @@ class AssemblyContext {
   }
 
   def triplets: List[(String, Option[String], Option[String])] =
-    xs
-      .map(_.toTriplet)
+    xs.map(_.toTriplet)
       .toList
 }

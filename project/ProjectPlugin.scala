@@ -8,11 +8,13 @@ object ProjectPlugin extends AutoPlugin {
     scalaVersion := "2.13.3"
   )
 
+  override lazy val globalSettings =
+    addCommandAlias("fmt", List("", "scalafmtSbt", "compile:scalafmt", "test:scalafmt").mkString(";"))
+
   object autoImport {
     implicit class ProjectOps(p: Project) {
       def withCats: Project =
-        p
-          .settings(libraryDependencies += "org.typelevel" %% "cats-core" % "2.2.0-RC2")
+        p.settings(libraryDependencies += "org.typelevel" %% "cats-core" % "2.2.0-RC2")
 
       def withTesting: Project =
         p.settings(libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.1" % "test")
@@ -20,7 +22,8 @@ object ProjectPlugin extends AutoPlugin {
       def withTestingBeta: Project =
         p.settings(
           libraryDependencies += "com.disneystreaming" %% "weaver-framework" % "0.4.2" % Test,
-          testFrameworks += new TestFramework("weaver.framework.TestFramework"))
+          testFrameworks += new TestFramework("weaver.framework.TestFramework")
+        )
     }
   }
 }
