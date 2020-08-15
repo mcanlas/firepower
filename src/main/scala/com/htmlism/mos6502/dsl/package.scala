@@ -11,9 +11,9 @@ package object dsl {
       .toDoc
   }
 
-  def group(s: String)(f: DefineGroupContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
-    val g: DefineGroupContext =
-      new DefineGroupContext
+  def group(s: String)(f: DefinitionGroupContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
+    val g: DefinitionGroupContext =
+      new DefinitionGroupContext
 
     f(g)
 
@@ -21,7 +21,7 @@ package object dsl {
       .push(g.toGroup(s))
   }
 
-  def define[A : Operand](name: String, x: A)(implicit ctx: DefineGroupContext): Unit =
+  def define[A : Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Unit =
     ctx
       .push(Definition(name, x))
 

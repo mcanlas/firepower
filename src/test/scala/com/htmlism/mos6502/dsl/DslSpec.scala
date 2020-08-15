@@ -28,18 +28,18 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
       }
 
     doc shouldEqual AsmDocument(List(
-      DefineGroup("snake things", List(
+      DefinitionGroup("snake things", List(
         Definition("snakeBodyStart", 0x12.z),
         Definition("snakeDirection", 0x02.z),
         Definition("snakeLength", 0x03.z)
       )),
-      DefineGroup("ASCII values of keys controlling the snake", List(
+      DefinitionGroup("ASCII values of keys controlling the snake", List(
         Definition("ASCII_w", 0x77),
         Definition("ASCII_a", 0x61),
         Definition("ASCII_s", 0x73),
         Definition("ASCII_d", 0x64)
       )),
-      DefineGroup("System variables", List(
+      DefinitionGroup("System variables", List(
         Definition("sysRandom", 0xfe),
         Definition("sysLastKey", 0xff)
       ))
