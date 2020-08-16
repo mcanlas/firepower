@@ -57,7 +57,7 @@ class DefinitionGroupContext {
 case class Definition[A: Operand](name: String, x: A) {
   lazy val value: String =
     implicitly[Operand[A]]
-      .toAddressLiteral(x)
+      .toDefinitionLiteral(x)
 }
 
 class AsmBlockContext {

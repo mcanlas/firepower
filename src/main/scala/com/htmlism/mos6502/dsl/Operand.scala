@@ -9,6 +9,8 @@ trait Operand[A] {
 
   def operandType: OperandType
 
+  def toDefinitionLiteral(x: A): String
+
   def contra[B](f: B => A, show: B => String): Operand[B] =
     new Operand[B] {
       val operandType: OperandType =
@@ -16,6 +18,9 @@ trait Operand[A] {
 
       def toShow(x: B): String =
         show(x)
+
+      def toDefinitionLiteral(x: B): String =
+        toAddressLiteral(x)
 
       def toAddressLiteral(x: B): String =
         self.toAddressLiteral(f(x))
@@ -29,6 +34,9 @@ object Operand {
         ValueLiteral
 
       def toShow(x: Int): String =
+        x.toString
+
+      def toDefinitionLiteral(x: Int): String =
         x.toString
 
       def toAddressLiteral(x: Int): String =
