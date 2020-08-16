@@ -184,9 +184,9 @@ object Direction {
 
       def value(x: Direction): Int =
         x match {
-          case Up => 0x77
-          case Down => 0x61
-          case Left => 0x73
+          case Up    => 0x77
+          case Down  => 0x61
+          case Left  => 0x73
           case Right => 0x64
         }
 

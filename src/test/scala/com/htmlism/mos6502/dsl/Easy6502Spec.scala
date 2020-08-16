@@ -44,15 +44,9 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
         }
       }
 
-    doc
-      .xs
-      .foreach {
-        case DefinitionGroup(c, xs) =>
-          println(c)
-          xs.foreach(println)
-        case a: AsmFragment =>
-          a.printOut()
-      }
+    println(
+      doc.toAsm
+    )
   }
 
   def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext = {

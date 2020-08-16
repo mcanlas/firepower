@@ -3,8 +3,8 @@ package com.htmlism.mos6502.dsl
 import cats.data.NonEmptyList
 
 /**
- * Like an enum, but values are specified
- */
+  * Like an enum, but values are specified
+  */
 trait Mapping[A] {
   def comment: String
 

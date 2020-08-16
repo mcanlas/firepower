@@ -2,7 +2,12 @@ package com.htmlism.mos6502.dsl
 
 import scala.collection.mutable.ListBuffer
 
-case class AsmDocument(xs: List[TopLevelAsmDocumentFragment])
+case class AsmDocument(xs: List[TopLevelAsmDocumentFragment]) {
+  def toAsm: String =
+    xs
+      .map(_.toAsm)
+      .mkString("\n\n")
+}
 
 class AsmDocumentContext {
   private val xs: ListBuffer[TopLevelAsmDocumentFragment] =
@@ -15,16 +20,28 @@ class AsmDocumentContext {
     AsmDocument(xs.toList)
 }
 
-sealed trait TopLevelAsmDocumentFragment
-
-case class AsmFragment(xs: List[Statement]) extends TopLevelAsmDocumentFragment {
-  def printOut(): Unit = {
-    xs.map(_.toAsm)
-      .foreach(println)
-  }
+sealed trait TopLevelAsmDocumentFragment {
+  def toAsm: String
 }
 
-case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment
+case class AsmFragment(xs: List[Statement]) extends TopLevelAsmDocumentFragment {
+  def toAsm: String =
+    xs.map(_.toAsm).mkString("\n")
+}
+
+case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment {
+  def toAsm: String = {
+    val commentLine =
+      "; " + comment
+
+    val definitionLines =
+      xs
+        .map(d => f"define ${d.name}%-12s${d.value}")
+
+    (commentLine :: definitionLines)
+      .mkString("\n")
+  }
+}
 
 class DefinitionGroupContext {
   private val xs: ListBuffer[Definition[_]] =
@@ -37,7 +54,11 @@ class DefinitionGroupContext {
     DefinitionGroup(s, xs.toList)
 }
 
-case class Definition[A: Operand](name: String, x: A)
+case class Definition[A: Operand](name: String, x: A) {
+  lazy val value: String =
+    implicitly[Operand[A]]
+      .toAddressLiteral(x)
+}
 
 class AsmBlockContext {
   private val xs: ListBuffer[Statement] =

@@ -17,21 +17,21 @@ object Color {
       def all: NonEmptyList[Color] =
         NonEmptyList.of(
           Black,
-            White,
-            Red,
-            Cyan,
-            Purple,
-            Green,
-            Blue,
-            Yellow,
-            Orange,
-            Brown,
-            LightRed,
-            DarkGrey,
-            Grey,
-            LightGreen,
-            LightBlue,
-            LightGrey
+          White,
+          Red,
+          Cyan,
+          Purple,
+          Green,
+          Blue,
+          Yellow,
+          Orange,
+          Brown,
+          LightRed,
+          DarkGrey,
+          Grey,
+          LightGreen,
+          LightBlue,
+          LightGrey
         )
 
       def label(x: Color): String =
