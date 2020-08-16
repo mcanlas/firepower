@@ -15,6 +15,6 @@
 
 ## TODO
 
-- add mapping support
 - postfix operations to accumulator values
-- loops
+- implement jump registry
+- maybe implement define registry
