@@ -18,11 +18,11 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
       }
 
     doc.triplets shouldEqual List(
-      ("LDA", "#$01".some, "write White to screen (0)".some),
+      ("LDA", "#white".some, "write White to screen (0)".some),
       ("STA", "$0200".some, "".some),
-      ("LDA", "#$05".some, "write Green to screen (1)".some),
+      ("LDA", "#green".some, "write Green to screen (1)".some),
       ("STA", "$0201".some, "".some),
-      ("LDA", "#$08".some, "write Orange to screen (2)".some),
+      ("LDA", "#orange".some, "write Orange to screen (2)".some),
       ("STA", "$0202".some, "".some)
     )
 

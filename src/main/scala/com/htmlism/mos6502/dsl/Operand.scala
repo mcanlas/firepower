@@ -10,21 +10,6 @@ trait Operand[A] {
   def operandType: OperandType
 
   def toDefinitionLiteral(x: A): String
-
-  def contra[B](f: B => A, show: B => String): Operand[B] =
-    new Operand[B] {
-      val operandType: OperandType =
-        self.operandType
-
-      def toShow(x: B): String =
-        show(x)
-
-      def toDefinitionLiteral(x: B): String =
-        toAddressLiteral(x)
-
-      def toAddressLiteral(x: B): String =
-        self.toAddressLiteral(f(x))
-    }
 }
 
 object Operand {
