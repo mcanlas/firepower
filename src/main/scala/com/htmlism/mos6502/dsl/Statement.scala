@@ -10,6 +10,11 @@ sealed trait Statement {
   def toTriplet: (String, Option[String], Option[String])
 }
 
+object Statement {
+  val indent: String =
+    "  "
+}
+
 case class UnaryInstruction(instruction: Instruction, comment: Option[String]) extends Statement {
   def toAsm: String = {
     val left =
@@ -17,9 +22,9 @@ case class UnaryInstruction(instruction: Instruction, comment: Option[String]) e
 
     comment match {
       case Some(c) =>
-        f"$left%-16s ; " + c
+        Statement.indent + f"$left%-16s ; " + c
       case None =>
-        left
+        Statement.indent + left
     }
   }
 
@@ -39,9 +44,9 @@ case class InstructionWithOperand[A](instruction: Instruction, operand: A, comme
 
     comment match {
       case Some(c) =>
-        f"$left%-5s $operandStr%-11s; " + c
+        Statement.indent + f"$left%-5s $operandStr%-11s; " + c
       case None =>
-        f"$left%-5s $operandStr"
+        Statement.indent + f"$left%-5s $operandStr"
     }
   }
 
