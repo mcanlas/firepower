@@ -65,6 +65,26 @@ package object dsl {
       .push(grp)
   }
 
+  def mapping[A](implicit ctx: AsmDocumentContext, ev: Mapping[A]): Unit = {
+    val xs =
+      ev.all
+        .map(x => ev.label(x) -> ev.value(x))
+        .toList
+
+    val grp =
+      DefinitionGroup(
+        ev.comment,
+        xs
+          .map {
+            case (s, n) =>
+              Definition(s, n)
+          }
+      )
+
+    ctx
+      .push(grp)
+  }
+
   def define[A <: Address: Operand](name: String, x: A)(implicit ctx: DefinitionGroupContext): Definition[A] = {
     val definition =
       Definition(name, x)
