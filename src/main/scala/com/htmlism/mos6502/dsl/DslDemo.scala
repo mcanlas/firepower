@@ -56,6 +56,8 @@ object registers {
 
   sealed trait DestinationA
 
+  sealed trait IndexRegister
+
   case object A extends Register {
     def add[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
       ev.operandType match {
@@ -67,12 +69,36 @@ object registers {
       }
   }
 
-  case object X extends Register with DestinationA {
+  case object X extends Register with DestinationA with IndexRegister {
     def incr(implicit ctx: AssemblyContext): Unit =
       ctx.push(INX, "incr x")
+
+    def upTo(s: String, start: Int, stop: Int)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
+      ctx.push(LDX, start)
+
+      label(s)
+
+      f(ctx)
+
+      ctx.push(INX)
+      ctx.push(CPX, stop)
+      ctx.branch(BNE, s)
+    }
+
+    def downTo(s: String, start: Int, stop: Int)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
+      ctx.push(LDX, start)
+
+      label(s)
+
+      f(ctx)
+
+      ctx.push(DEX)
+      ctx.push(CPX, stop)
+      ctx.branch(BNE, s)
+    }
   }
 
-  case object Y extends Register with DestinationA
+  case object Y extends Register with DestinationA with IndexRegister
 }
 
 class CPU {
@@ -113,7 +139,7 @@ class AssemblyContext {
   def push(instruction: Instruction, s: String): Unit =
     xs.append(UnaryInstruction(instruction, s.some))
 
-  def push(s: String): Unit =
+  def label(s: String): Unit =
     xs.append(Label(s))
 
   def push[A: Operand](instruction: Instruction, x: A): Unit =
@@ -121,6 +147,9 @@ class AssemblyContext {
 
   def push[A: Operand](instruction: Instruction, x: A, s: String): Unit =
     xs.append(InstructionWithOperand(instruction, x: A, s.some))
+
+  def branch(instruction: Instruction, label: String): Unit =
+    xs.append(BranchingInstruction(instruction, label))
 
   def printOut(): Unit = {
     xs.map(_.toAsm)

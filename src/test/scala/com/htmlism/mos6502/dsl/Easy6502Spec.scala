@@ -4,6 +4,8 @@ import cats.implicits._
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 
+import com.htmlism.mos6502.model._
+
 class Easy6502Spec extends AnyFlatSpec with should.Matchers {
 
   "the three pixel demo" should "have the right instructions" in {
@@ -41,6 +43,21 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
           scr.write(0, Color.White)
           scr.write(1, Color.Green)
           scr.write(2, Color.Orange)
+        }
+      }
+
+    println(
+      doc.toAsm
+    )
+  }
+
+  "loop demo" should "compile" in {
+    val doc =
+      asmDoc { implicit ctx =>
+        asm { implicit a =>
+          registers.X.upTo("incrementing", 2, 5) { implicit a =>
+            a.push(INY)
+          }
         }
       }
 

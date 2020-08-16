@@ -61,3 +61,11 @@ case class Label(s: String) extends Statement {
   def toTriplet: (String, Option[String], Option[String]) =
     (s, None, None)
 }
+
+case class BranchingInstruction(instruction: Instruction, label: String) extends Statement {
+  def toAsm: String =
+    Statement.indent + instruction.toString + " " + label
+
+  def toTriplet: (String, Option[String], Option[String]) =
+    (instruction.toString, label.some, None)
+}
