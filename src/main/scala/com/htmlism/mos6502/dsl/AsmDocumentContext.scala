@@ -16,6 +16,9 @@ class AsmDocumentContext {
   def push(x: TopLevelAsmDocumentFragment): Unit =
     xs.append(x)
 
+  def attach(sub: Subroutine): Unit =
+    xs.append(sub)
+
   def toDoc: AsmDocument =
     AsmDocument(xs.toList)
 }
@@ -27,6 +30,11 @@ sealed trait TopLevelAsmDocumentFragment {
 case class AsmFragment(xs: List[Statement]) extends TopLevelAsmDocumentFragment {
   def toAsm: String =
     xs.map(_.toAsm).mkString("\n")
+}
+
+case class Subroutine(name: String, fragment: AsmFragment) extends TopLevelAsmDocumentFragment {
+  def toAsm: String =
+    name + ":" + "\n" + fragment.toAsm
 }
 
 case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment {

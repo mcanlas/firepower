@@ -66,6 +66,26 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
     )
   }
 
+  "sub demo" should "compile" in {
+    val init =
+      sub("init") { implicit a =>
+        registers.X.incr
+      }
+
+    val doc =
+      asmDoc { implicit ctx =>
+        asm { implicit a =>
+          jump(init)
+        }
+
+        ctx.attach(init)
+      }
+
+    println(
+      doc.toAsm
+    )
+  }
+
   def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext = {
     val ctx: AssemblyContext =
       new AssemblyContext
