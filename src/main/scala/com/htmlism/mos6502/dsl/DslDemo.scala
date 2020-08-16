@@ -126,4 +126,7 @@ class AssemblyContext {
 
   def triplets: List[(String, Option[String], Option[String])] =
     xs.map(_.toTriplet).toList
+
+  def toFragment: AsmFragment =
+    AsmFragment(xs.toList)
 }

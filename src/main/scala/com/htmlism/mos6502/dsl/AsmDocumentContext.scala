@@ -17,7 +17,12 @@ class AsmDocumentContext {
 
 sealed trait TopLevelAsmDocumentFragment
 
-sealed trait AsmBlockFragment extends TopLevelAsmDocumentFragment
+case class AsmFragment(xs: List[Statement]) extends TopLevelAsmDocumentFragment {
+  def printOut(): Unit = {
+    xs.map(_.toAsm)
+      .foreach(println)
+  }
+}
 
 case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment
 

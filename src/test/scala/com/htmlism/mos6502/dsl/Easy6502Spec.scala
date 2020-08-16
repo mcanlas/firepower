@@ -33,9 +33,26 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
     val doc =
       asmDoc { implicit ctx =>
         enum[Color]
+
+        asm { implicit a =>
+          val scr =
+            IndexedAddressCollection[Color](0x0200, "screen")
+
+          scr.write(0, Color.White)
+          scr.write(1, Color.Green)
+          scr.write(2, Color.Orange)
+        }
       }
 
-    println(doc)
+    doc
+      .xs
+      .foreach {
+        case DefinitionGroup(c, xs) =>
+          println(c)
+          xs.foreach(println)
+        case a: AsmFragment =>
+          a.printOut()
+      }
   }
 
   def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext = {

@@ -10,6 +10,16 @@ package object dsl {
     ctx.toDoc
   }
 
+  def asm(f: AssemblyContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
+    val asmCtx: AssemblyContext =
+      new AssemblyContext
+
+    f(asmCtx)
+
+    ctx
+      .push(asmCtx.toFragment)
+  }
+
   def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): A = {
     val g: DefinitionGroupContext =
       new DefinitionGroupContext
