@@ -20,6 +20,10 @@ package object dsl {
       .push(asmCtx.toFragment)
   }
 
+  def label(s: String)(implicit ctx: AssemblyContext): Unit =
+    ctx
+      .push(s)
+
   def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): A = {
     val g: DefinitionGroupContext =
       new DefinitionGroupContext

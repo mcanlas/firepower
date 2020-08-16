@@ -126,6 +126,25 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
       )
     )
   }
+
+  "label" should "compile" in {
+    val doc =
+      asmDoc { implicit ctx =>
+        asm { implicit a =>
+          label("init")
+        }
+      }
+
+    doc shouldEqual AsmDocument(
+      List(
+        AsmFragment(
+          List(
+            Label("init")
+          )
+        )
+      )
+    )
+  }
 }
 
 sealed trait Triforce

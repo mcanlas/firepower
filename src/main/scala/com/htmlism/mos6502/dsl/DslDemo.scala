@@ -113,6 +113,9 @@ class AssemblyContext {
   def push(instruction: Instruction, s: String): Unit =
     xs.append(UnaryInstruction(instruction, s.some))
 
+  def push(s: String): Unit =
+    xs.append(Label(s))
+
   def push[A: Operand](instruction: Instruction, x: A): Unit =
     xs.append(InstructionWithOperand(instruction, x, None))
 

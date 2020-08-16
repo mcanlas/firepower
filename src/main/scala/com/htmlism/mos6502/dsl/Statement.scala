@@ -53,3 +53,11 @@ case class InstructionWithOperand[A](instruction: Instruction, operand: A, comme
   def toTriplet: (String, Option[String], Option[String]) =
     (instruction.toString, ev.toAddressLiteral(operand).some, comment)
 }
+
+case class Label(s: String) extends Statement {
+  def toAsm: String =
+    s + ":"
+
+  def toTriplet: (String, Option[String], Option[String]) =
+    (s, None, None)
+}
