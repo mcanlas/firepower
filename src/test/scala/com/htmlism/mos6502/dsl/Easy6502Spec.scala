@@ -29,6 +29,15 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
     doc.printOut()
   }
 
+  "define style dsl" should "compile" in {
+    val doc =
+      asmDoc { implicit ctx =>
+        enum[Color]
+      }
+
+    println(doc)
+  }
+
   def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext = {
     val ctx: AssemblyContext =
       new AssemblyContext

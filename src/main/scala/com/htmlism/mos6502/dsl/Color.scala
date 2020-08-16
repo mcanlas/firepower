@@ -1,11 +1,45 @@
 package com.htmlism.mos6502.dsl
 
+import cats.data.NonEmptyList
+
 sealed trait Color
 
 object Color {
   implicit val ev: Operand[Color] =
     Operand.operandInt
       .contra(toByte, _.toString)
+
+  implicit val colorEnum: EnumAsm[Color] =
+    new EnumAsm[Color] {
+      def comment: String =
+        "Colors"
+
+      def all: NonEmptyList[Color] =
+        NonEmptyList.of(
+          Black,
+            White,
+            Red,
+            Cyan,
+            Purple,
+            Green,
+            Blue,
+            Yellow,
+            Orange,
+            Brown,
+            LightRed,
+            DarkGrey,
+            Grey,
+            LightGreen,
+            LightBlue,
+            LightGrey
+        )
+
+      def label(x: Color): String =
+        x.toString.toLowerCase()
+
+      def comment(x: Color): String =
+        x.toString
+    }
 
   def toByte(x: Color): Int =
     x match {
