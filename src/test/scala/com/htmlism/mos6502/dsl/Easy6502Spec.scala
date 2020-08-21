@@ -66,16 +66,57 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
     )
   }
 
-  "sub demo" should "compile" in {
+  "snake" should "compile" in {
     val init =
       sub("init") { implicit a =>
         registers.X.incr
+      }
+
+    val readKeys =
+      sub("readKeys") { implicit a =>
+        val _ = a
+      }
+
+    val checkCollision =
+      sub("checkCollision") { implicit a =>
+        val _ = a
+      }
+
+    val updateSnake =
+      sub("updateSnake") { implicit a =>
+        val _ = a
+      }
+
+    val drawApple =
+      sub("drawApple") { implicit a =>
+        val _ = a
+      }
+
+    val drawSnake =
+      sub("drawSnake") { implicit a =>
+        val _ = a
+      }
+
+    val spinWheels =
+      sub("spinWheels") { implicit a =>
+        val _ = a
+      }
+
+    val loop =
+      sub("loop") { implicit a =>
+        jump(readKeys)
+        jump(checkCollision)
+        jump(updateSnake)
+        jump(drawApple)
+        jump(drawSnake)
+        jump(spinWheels)
       }
 
     val doc =
       asmDoc { implicit ctx =>
         asm { implicit a =>
           jump(init)
+          jump(loop)
         }
       }
 

@@ -14,7 +14,7 @@ trait AsmSyntax {
 
     f(ctx)
 
-    Subroutine(s, ctx.toFragment)
+    Subroutine(s, ctx.toFragment, ctx.getJumps)
   }
 
   def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit = {
