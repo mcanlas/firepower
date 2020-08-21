@@ -17,4 +17,12 @@ package object dsl extends syntax.DefinitionGroupSyntax with syntax.AsmDocSyntax
     def addr: GlobalAddress =
       GlobalAddress(n)
   }
+
+  implicit class RangeOps(from: Int) {
+    def upTo(to: Int): Incrementing =
+      Incrementing(from, to)
+
+    def downTo(to: Int): Decrementing =
+      Decrementing(from, to)
+  }
 }

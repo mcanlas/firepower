@@ -74,26 +74,23 @@ object registers {
     def incr(implicit ctx: AssemblyContext): Unit =
       ctx.push(INX, "incr x")
 
-    def upTo(s: String, start: Int, stop: Int)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
+    def loop(s: String, spec: RangeSpec)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
+      val (start, stop, instruction) =
+        spec match {
+          case Incrementing(from, to) =>
+            (from, to, INX)
+
+          case Decrementing(from, to) =>
+            (from, to, DEX)
+        }
+
       ctx.push(LDX, start)
 
       label(s)
 
       f(ctx)
 
-      ctx.push(INX)
-      ctx.push(CPX, stop)
-      ctx.branch(BNE, s)
-    }
-
-    def downTo(s: String, start: Int, stop: Int)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
-      ctx.push(LDX, start)
-
-      label(s)
-
-      f(ctx)
-
-      ctx.push(DEX)
+      ctx.push(instruction)
       ctx.push(CPX, stop)
       ctx.branch(BNE, s)
     }
