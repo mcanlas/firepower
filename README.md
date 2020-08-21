@@ -15,6 +15,8 @@
 
 ## TODO
 
+1. operand support should be derived from enum support
+
 - postfix operations to accumulator values
 - maybe implement define registry
 - register locking (i.e. disallow X writes during indexed traversal that uses X)
