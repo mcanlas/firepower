@@ -1,4 +1,5 @@
 package com.htmlism.mos6502.dsl
+package snake
 
 import cats.implicits._
 import org.scalatest.flatspec._
@@ -125,6 +126,9 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
 
     val doc =
       asmDoc { implicit ctx =>
+        bitField[Direction]
+        mapping[AsciiValue]
+
         asm { implicit a =>
           jump(init)
           jump(loop)

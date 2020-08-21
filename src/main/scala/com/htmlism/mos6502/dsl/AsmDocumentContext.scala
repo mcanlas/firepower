@@ -25,7 +25,7 @@ class AsmDocumentContext {
 
   def toDoc: AsmDocument = {
     val asmFragmentsAndSubroutines =
-      xs.toList ::: jumps.toList  ++ jumps.flatMap(_.jumpRegistry).toList
+      xs.toList ::: jumps.toList ++ jumps.flatMap(_.jumpRegistry).toList
 
     AsmDocument(asmFragmentsAndSubroutines)
   }
@@ -40,7 +40,8 @@ case class AsmFragment(xs: List[Statement]) extends TopLevelAsmDocumentFragment 
     xs.map(_.toAsm).mkString("\n")
 }
 
-case class Subroutine(name: String, fragment: AsmFragment, jumpRegistry: ListSet[Subroutine]) extends TopLevelAsmDocumentFragment {
+case class Subroutine(name: String, fragment: AsmFragment, jumpRegistry: ListSet[Subroutine])
+    extends TopLevelAsmDocumentFragment {
   def toAsm: String =
     name + ":" + "\n" + fragment.toAsm
 }

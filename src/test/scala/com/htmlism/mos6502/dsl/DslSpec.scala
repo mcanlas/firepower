@@ -88,7 +88,7 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   "bit field" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        bitField[Direction]
+        bitField[TestDirection]
       }
 
     doc shouldEqual AsmDocument(
@@ -109,7 +109,7 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   "mapping" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        mapping[Direction]
+        mapping[TestDirection]
       }
 
     doc shouldEqual AsmDocument(
@@ -170,38 +170,38 @@ object Triforce {
     }
 }
 
-sealed trait Direction
+sealed trait TestDirection
 
-case object Up    extends Direction
-case object Down  extends Direction
-case object Left  extends Direction
-case object Right extends Direction
+case object Up    extends TestDirection
+case object Down  extends TestDirection
+case object Left  extends TestDirection
+case object Right extends TestDirection
 
-object Direction {
-  implicit val bitFieldDirection: BitField[Direction] =
-    new BitField[Direction] {
+object TestDirection {
+  implicit val bitFieldDirection: BitField[TestDirection] =
+    new BitField[TestDirection] {
       def comment: String =
         "foo as bit field"
 
-      def all: NonEmptyList[Direction] =
+      def all: NonEmptyList[TestDirection] =
         NonEmptyList.of(Up, Down, Left, Right)
 
-      def label(x: Direction): String =
+      def label(x: TestDirection): String =
         x.toString.toLowerCase
 
-      def comment(x: Direction): String =
+      def comment(x: TestDirection): String =
         x.toString
     }
 
-  implicit val mappingDirection: Mapping[Direction] =
-    new Mapping[Direction] {
+  implicit val mappingDirection: Mapping[TestDirection] =
+    new Mapping[TestDirection] {
       def comment: String =
         "foo as a mapping"
 
-      def all: NonEmptyList[Direction] =
+      def all: NonEmptyList[TestDirection] =
         NonEmptyList.of(Up, Down, Left, Right)
 
-      def value(x: Direction): Int =
+      def value(x: TestDirection): Int =
         x match {
           case Up    => 0x77
           case Down  => 0x61
@@ -209,10 +209,10 @@ object Direction {
           case Right => 0x64
         }
 
-      def label(x: Direction): String =
+      def label(x: TestDirection): String =
         x.toString.toLowerCase
 
-      def comment(x: Direction): String =
+      def comment(x: TestDirection): String =
         x.toString
     }
 }
