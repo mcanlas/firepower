@@ -77,8 +77,6 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
         asm { implicit a =>
           jump(init)
         }
-
-        ctx.attach(init)
       }
 
     println(

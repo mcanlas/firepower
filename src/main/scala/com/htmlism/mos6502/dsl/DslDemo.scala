@@ -1,5 +1,6 @@
 package com.htmlism.mos6502.dsl
 
+import scala.collection.immutable.ListSet
 import scala.collection.mutable.ListBuffer
 
 import cats.implicits._
@@ -133,6 +134,9 @@ class AssemblyContext {
   private val xs: ListBuffer[Statement] =
     ListBuffer()
 
+  private var jumps: ListSet[Subroutine] =
+    ListSet()
+
   def push(instruction: Instruction): Unit =
     xs.append(UnaryInstruction(instruction, None))
 
@@ -151,6 +155,9 @@ class AssemblyContext {
   def branch(instruction: Instruction, label: String): Unit =
     xs.append(BranchingInstruction(instruction, label))
 
+  def addJump(subroutine: Subroutine): Unit =
+    jumps = jumps + subroutine
+
   def printOut(): Unit = {
     xs.map(_.toAsm)
       .foreach(println)
@@ -161,4 +168,7 @@ class AssemblyContext {
 
   def toFragment: AsmFragment =
     AsmFragment(xs.toList)
+
+  def getJumps: ListSet[Subroutine] =
+    jumps
 }

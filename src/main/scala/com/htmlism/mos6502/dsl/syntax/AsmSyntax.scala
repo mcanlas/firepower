@@ -17,7 +17,11 @@ trait AsmSyntax {
     Subroutine(s, ctx.toFragment)
   }
 
-  def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit =
+  def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit = {
+    ctx
+      .addJump(s)
+
     ctx
       .branch(JSR, s.name)
+  }
 }

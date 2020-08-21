@@ -1,5 +1,6 @@
 package com.htmlism.mos6502.dsl
 
+import scala.collection.immutable.ListSet
 import scala.collection.mutable.ListBuffer
 
 case class AsmDocument(xs: List[TopLevelAsmDocumentFragment]) {
@@ -13,14 +14,21 @@ class AsmDocumentContext {
   private val xs: ListBuffer[TopLevelAsmDocumentFragment] =
     ListBuffer()
 
+  private var jumps: ListSet[Subroutine] =
+    ListSet()
+
   def push(x: TopLevelAsmDocumentFragment): Unit =
     xs.append(x)
 
-  def attach(sub: Subroutine): Unit =
-    xs.append(sub)
+  def addJumpRegistry(ys: ListSet[Subroutine]): Unit =
+    jumps = jumps ++ ys
 
-  def toDoc: AsmDocument =
-    AsmDocument(xs.toList)
+  def toDoc: AsmDocument = {
+    val asmFragmentsAndSubroutines =
+      xs.toList ::: jumps.toList
+
+    AsmDocument(asmFragmentsAndSubroutines)
+  }
 }
 
 sealed trait TopLevelAsmDocumentFragment {

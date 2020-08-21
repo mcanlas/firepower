@@ -16,7 +16,6 @@
 ## TODO
 
 - postfix operations to accumulator values
-- implement jump registry
 - maybe implement define registry
 - register locking (i.e. disallow X writes during indexed traversal that uses X)
 - compiler optimization

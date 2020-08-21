@@ -9,6 +9,9 @@ trait AsmDocSyntax {
     f(asmCtx)
 
     ctx
+      .addJumpRegistry(asmCtx.getJumps)
+
+    ctx
       .push(asmCtx.toFragment)
   }
 
