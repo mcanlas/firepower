@@ -67,9 +67,20 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
   }
 
   "snake" should "compile" in {
+    val initSnake =
+      sub("initSnake") { implicit a =>
+        registers.X.incr
+      }
+
+    val generateApplePosition =
+      sub("generateApplePosition") { implicit a =>
+        registers.X.incr
+      }
+
     val init =
       sub("init") { implicit a =>
-        registers.X.incr
+        jump(initSnake)
+        jump(generateApplePosition)
       }
 
     val readKeys =

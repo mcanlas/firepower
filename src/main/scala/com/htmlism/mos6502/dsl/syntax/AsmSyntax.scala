@@ -14,6 +14,8 @@ trait AsmSyntax {
 
     f(ctx)
 
+    ctx.push(RTS)
+
     Subroutine(s, ctx.toFragment, ctx.getJumps)
   }
 
