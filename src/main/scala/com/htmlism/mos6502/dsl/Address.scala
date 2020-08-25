@@ -1,6 +1,8 @@
 package com.htmlism.mos6502.dsl
 
-sealed trait Address
+sealed trait Address {
+  def n: Int
+}
 
 object ZeroAddress {
   implicit val operandZero: Operand[ZeroAddress] =
