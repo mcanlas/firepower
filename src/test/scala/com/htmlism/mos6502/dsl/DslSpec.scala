@@ -188,9 +188,6 @@ object TestDirection {
 
       def label(x: TestDirection): String =
         x.toString.toLowerCase
-
-      def comment(x: TestDirection): String =
-        x.toString
     }
 
   implicit val mappingDirection: Mapping[TestDirection] =

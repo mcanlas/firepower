@@ -14,9 +14,6 @@ object Direction {
 
       def label(x: Direction): String =
         "moving" + x.toString
-
-      def comment(x: Direction): String =
-        x.toString
     }
 }
 

@@ -14,9 +14,4 @@ trait BitField[A] {
     * ASM-safe label
     */
   def label(x: A): String
-
-  /**
-    * Comment string
-    */
-  def comment(x: A): String
 }
