@@ -68,8 +68,8 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
   }
 
   "snake" should "compile" in {
-    val sysRandom      = VolatileDevice[Int]("sysRandom", 0xfe.z)
-    val sysLastKey     = VolatileDevice[AsciiValue]("sysLastKey", 0xff.z)
+    val sysRandom  = VolatileDevice[Int]("sysRandom", 0xfe.z)
+    val sysLastKey = VolatileDevice[AsciiValue]("sysLastKey", 0xff.z)
 
     val appleLocation  = ReadWriteLocation[Int]("appleLocation", 0x00.z)
     val snakeDirection = ReadWriteLocation[Direction]("snakeDirection", 0x02.z)
@@ -135,6 +135,15 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
 
     val doc =
       asmDoc { implicit ctx =>
+        group("6502js") { implicit g =>
+          g.push(sysRandom)
+          g.push(sysLastKey)
+        }
+
+        group("snake") { implicit g =>
+          val _ = g
+        }
+
         bitField[Direction]
         mapping[AsciiValue]
 

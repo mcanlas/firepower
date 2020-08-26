@@ -64,8 +64,8 @@ class DefinitionGroupContext {
   private val xs: ListBuffer[Definition[_]] =
     ListBuffer()
 
-  def push(x: Definition[_]): Unit =
-    xs.append(x)
+  def push[A](x: A)(implicit ev: Definable[A]): Unit =
+    xs.append(ev.toDefinition(x))
 
   def toGroup(s: String): DefinitionGroup =
     DefinitionGroup(s, xs.toList)
@@ -75,6 +75,14 @@ case class Definition[A: Operand](name: String, x: A) {
   lazy val value: String =
     implicitly[Operand[A]]
       .toDefinitionLiteral(x)
+}
+
+object Definition {
+  implicit def definitionDefinable[A]: Definable[Definition[A]] =
+    new Definable[Definition[A]] {
+      def toDefinition(x: Definition[A]) =
+        x
+    }
 }
 
 class AsmBlockContext {

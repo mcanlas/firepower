@@ -11,7 +11,7 @@ object ZeroAddress {
         MemoryLocation
 
       def toShow(x: ZeroAddress): String =
-        String.format("global address 0x%02x", x.n)
+        String.format("zero address 0x%02x", x.n)
 
       def toDefinitionLiteral(x: ZeroAddress): String =
         toAddressLiteral(x)

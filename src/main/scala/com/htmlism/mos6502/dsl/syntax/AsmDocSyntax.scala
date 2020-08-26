@@ -15,17 +15,14 @@ trait AsmDocSyntax {
       .push(asmCtx.toFragment)
   }
 
-  def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): A = {
+  def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): Unit = {
     val g: DefinitionGroupContext =
       new DefinitionGroupContext
 
-    val ret =
-      f(g)
+    f(g)
 
     ctx
       .push(g.toGroup(s))
-
-    ret
   }
 
   def enum[A](implicit ctx: AsmDocumentContext, ev: EnumAsm[A]): Unit = {

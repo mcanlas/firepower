@@ -15,3 +15,11 @@ case class VolatileDevice[A](name: String, address: Address) {
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
   }
 }
+
+object VolatileDevice {
+  implicit def volatileDeviceDefinable[A]: Definable[VolatileDevice[A]] =
+    new Definable[VolatileDevice[A]] {
+      def toDefinition(x: VolatileDevice[A]): Definition[ZeroAddress] =
+        Definition(x.name, 0x00.z)
+    }
+}

@@ -18,3 +18,11 @@ case class ReadWriteLocation[A](name: String, address: Address) {
     //    ctx.push(STA, ev, s"write ${ev.toShow(x)} to $name ($n)")
   }
 }
+
+object ReadWriteLocation {
+  implicit def readWriteLocationDefinable[A]: Definable[ReadWriteLocation[A]] =
+    new Definable[ReadWriteLocation[A]] {
+      def toDefinition(x: ReadWriteLocation[A]): Definition[ZeroAddress] =
+        Definition(x.name, 0x00.z)
+    }
+}
