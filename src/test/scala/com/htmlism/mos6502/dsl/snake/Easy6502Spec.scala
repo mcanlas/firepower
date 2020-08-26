@@ -75,7 +75,7 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
 
     val initSnake =
       sub("initSnake") { implicit a =>
-        registers.X.incr
+        snakeDirection.write(Right)
       }
 
     val generateApplePosition =
@@ -137,7 +137,6 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
         asm { implicit a =>
           sysRandom.read
           sysLastKey.read
-          snakeDirection.read
           appleLocation.read
 
           jump(init)
