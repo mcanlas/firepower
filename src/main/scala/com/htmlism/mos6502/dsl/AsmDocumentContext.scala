@@ -3,6 +3,8 @@ package com.htmlism.mos6502.dsl
 import scala.collection.immutable.ListSet
 import scala.collection.mutable.ListBuffer
 
+import cats.implicits._
+
 case class AsmDocument(xs: List[TopLevelAsmDocumentFragment]) {
   def toAsm: String =
     xs
@@ -73,7 +75,7 @@ class DefinitionGroupContext {
     DefinitionGroup(s, xs.toList)
 }
 
-case class Definition[A: Operand](name: String, x: A) {
+case class Definition[A: Operand](name: String, x: A, comment: Option[String]) {
   lazy val value: String =
     implicitly[Operand[A]]
       .toDefinitionLiteral(x)
@@ -85,6 +87,12 @@ object Definition {
       def toDefinitions(x: Definition[A]): List[Definition[_]] =
         List(x)
     }
+
+  def apply[A: Operand](name: String, x: A): Definition[A] =
+    Definition(name, x, None)
+
+  def apply[A: Operand](name: String, x: A, comment: String): Definition[A] =
+    Definition(name, x, comment.some)
 }
 
 class AsmBlockContext {
