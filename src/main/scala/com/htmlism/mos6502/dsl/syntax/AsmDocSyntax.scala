@@ -25,47 +25,11 @@ trait AsmDocSyntax {
       .push(g.toGroup(s))
   }
 
-  def enum[A](implicit ctx: AsmDocumentContext, ev: EnumAsm[A]): Unit = {
-    val xs =
-      ev.all
-        .map(ev.label)
-        .toList
-        .zip(List.iterate(0, ev.all.size)(_ + 1))
+  def enum[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit =
+    mapping
 
-    val grp =
-      DefinitionGroup(
-        ev.comment,
-        xs
-          .map {
-            case (s, n) =>
-              Definition(s, n)
-          }
-      )
-
-    ctx
-      .push(grp)
-  }
-
-  def bitField[A](implicit ctx: AsmDocumentContext, ev: BitField[A]): Unit = {
-    val xs =
-      ev.all
-        .map(ev.label)
-        .toList
-        .zip(List.iterate(1, ev.all.size)(_ << 1))
-
-    val grp =
-      DefinitionGroup(
-        ev.definitionGroupComment,
-        xs
-          .map {
-            case (s, n) =>
-              Definition(s, n)
-          }
-      )
-
-    ctx
-      .push(grp)
-  }
+  def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit =
+    mapping
 
   def mapping[A](implicit ctx: AsmDocumentContext, ev: Mapping[A]): Unit = {
     val xs =

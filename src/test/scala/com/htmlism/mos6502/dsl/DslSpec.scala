@@ -68,27 +68,6 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
     )
   }
 
-  "mapping" should "compile" in {
-    val doc =
-      asmDoc { implicit ctx =>
-        mapping[TestDirection]
-      }
-
-    doc shouldEqual AsmDocument(
-      List(
-        DefinitionGroup(
-          "foo as a mapping",
-          List(
-            Definition("up", 0x77),
-            Definition("down", 0x61),
-            Definition("left", 0x73),
-            Definition("right", 0x64)
-          )
-        )
-      )
-    )
-  }
-
   "label" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
@@ -150,28 +129,5 @@ object TestDirection {
 
       def label(x: TestDirection): String =
         x.toString.toLowerCase
-    }
-
-  implicit val mappingDirection: Mapping[TestDirection] =
-    new Mapping[TestDirection] {
-      def definitionGroupComment: String =
-        "foo as a mapping"
-
-      def all: NonEmptyList[TestDirection] =
-        NonEmptyList.of(Up, Down, Left, Right)
-
-      def value(x: TestDirection): Int =
-        x match {
-          case Up    => 0x77
-          case Down  => 0x61
-          case Left  => 0x73
-          case Right => 0x64
-        }
-
-      def label(x: TestDirection): String =
-        x.toString.toLowerCase
-
-      def comment(x: TestDirection): String =
-        x.toString
     }
 }
