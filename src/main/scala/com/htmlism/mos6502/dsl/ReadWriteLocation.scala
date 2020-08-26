@@ -3,9 +3,11 @@ package com.htmlism.mos6502.dsl
 //import com.htmlism.mos6502.model._
 
 /**
+  * @param name A name for this location, used to alias its address
+  *
   * @tparam A The input type of the write and the output type of the read
   */
-case class ReadWriteLocation[A](address: Address) {
+case class ReadWriteLocation[A](name: String, address: Address) {
   def read(implicit ctx: AssemblyContext): Unit = {
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
