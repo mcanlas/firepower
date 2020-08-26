@@ -86,10 +86,10 @@ class DefinitionGroupContext {
 /**
   * @param comment Typically used by resources to describe their type safety
   */
-case class Definition[A: Operand](name: String, x: A, comment: Option[String]) {
+case class Definition[A](name: String, x: A, comment: Option[String])(implicit ev: DefinitionValue[A]) {
   lazy val value: String =
-    implicitly[Operand[A]]
-      .toDefinitionLiteral(x)
+    ev
+      .value(x)
 }
 
 object Definition {
@@ -99,10 +99,10 @@ object Definition {
         List(x)
     }
 
-  def apply[A: Operand](name: String, x: A): Definition[A] =
+  def apply[A: DefinitionValue](name: String, x: A): Definition[A] =
     Definition(name, x, None)
 
-  def apply[A: Operand](name: String, x: A, comment: String): Definition[A] =
+  def apply[A: DefinitionValue](name: String, x: A, comment: String): Definition[A] =
     Definition(name, x, comment.some)
 }
 

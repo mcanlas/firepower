@@ -11,11 +11,6 @@ trait Operand[A] {
   def toShow(x: A): String
 
   def operandType: OperandType
-
-  /**
-    * The value as presented in a `define` declaration (i.e. where no alias is possible)
-    */
-  def toDefinitionLiteral(x: A): String
 }
 
 object Operand {
@@ -25,9 +20,6 @@ object Operand {
         ValueLiteral
 
       def toShow(x: Int): String =
-        x.toString
-
-      def toDefinitionLiteral(x: Int): String =
         x.toString
 
       def toAddressLiteral(x: Int): String =
