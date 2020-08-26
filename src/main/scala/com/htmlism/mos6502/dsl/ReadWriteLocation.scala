@@ -24,7 +24,7 @@ object ReadWriteLocation {
     new Definable[ReadWriteLocation[A]] {
       def toDefinitions(x: ReadWriteLocation[A]): List[Definition[ZeroAddress]] =
         List {
-          Definition(x.name, x.address)
+          Definition(x.name, x.address, "Read/write location for A values")
         }
     }
 }

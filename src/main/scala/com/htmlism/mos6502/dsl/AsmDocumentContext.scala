@@ -50,14 +50,22 @@ case class Subroutine(name: String, fragment: AsmFragment, jumpRegistry: ListSet
 
 case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment {
   def toAsm: String = {
-    val commentLine =
+    val groupCommentLine =
       "; " + comment
 
     val definitionLines =
       xs
-        .map(d => f"define ${d.name}%-20s${d.value}")
+        .map { d =>
+          d.comment match {
+            case Some(c) =>
+              f"define ${d.name}%-20s${d.value} ; $c"
 
-    (commentLine :: definitionLines)
+            case None =>
+              f"define ${d.name}%-20s${d.value}"
+          }
+        }
+
+    (groupCommentLine :: definitionLines)
       .mkString("\n")
   }
 }
@@ -75,6 +83,9 @@ class DefinitionGroupContext {
     DefinitionGroup(s, xs.toList)
 }
 
+/**
+  * @param comment Typically used by resources to describe their type safety
+  */
 case class Definition[A: Operand](name: String, x: A, comment: Option[String]) {
   lazy val value: String =
     implicitly[Operand[A]]

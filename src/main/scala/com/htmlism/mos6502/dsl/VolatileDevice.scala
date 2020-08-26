@@ -21,7 +21,7 @@ object VolatileDevice {
     new Definable[VolatileDevice[A]] {
       def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
         List {
-          Definition(x.name, x.address)
+          Definition(x.name, x.address, "Volatile generator for A values")
         }
     }
 }
