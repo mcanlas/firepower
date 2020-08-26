@@ -10,6 +10,5 @@ trait DefinitionValue[A] {
 
 object DefinitionValue {
   implicit val definitionValueForInt: DefinitionValue[Int] =
-    Operand.operandInt
-      .toAddressLiteral(_)
+    (x: Int) => String.format("$%02x", x)
 }
