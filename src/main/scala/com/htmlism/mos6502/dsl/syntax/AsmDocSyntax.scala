@@ -58,7 +58,7 @@ trait AsmDocSyntax {
 
     val grp =
       DefinitionGroup(
-        ev.comment,
+        ev.definitionGroupComment,
         xs
           .map {
             case (s, n) =>
@@ -78,7 +78,7 @@ trait AsmDocSyntax {
 
     val grp =
       DefinitionGroup(
-        ev.comment,
+        ev.definitionGroupComment,
         xs
           .map {
             case (s, n) =>

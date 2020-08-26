@@ -6,8 +6,8 @@ import cats.data.NonEmptyList
 object Direction {
   implicit val directionBitField: BitField[Direction] =
     new BitField[Direction] {
-      def comment: String =
-        "foo as bit field"
+      def definitionGroupComment: String =
+        "Directions"
 
       def all: NonEmptyList[Direction] =
         NonEmptyList.of(Up, Down, Left, Right)

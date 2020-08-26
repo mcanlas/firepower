@@ -6,8 +6,8 @@ import cats.data.NonEmptyList
 object AsciiValue {
   implicit val asciiValueMapping: Mapping[AsciiValue] =
     new Mapping[AsciiValue] {
-      def comment: String =
-        "foo as a mapping"
+      def definitionGroupComment: String =
+        "ASCII values of keys controlling the snake"
 
       def all: NonEmptyList[AsciiValue] =
         NonEmptyList.of(AsciiW, AsciiA, AsciiS, AsciiD)

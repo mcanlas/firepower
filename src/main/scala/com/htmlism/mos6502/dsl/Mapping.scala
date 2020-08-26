@@ -6,7 +6,7 @@ import cats.data.NonEmptyList
   * Like an enum, but values are specified
   */
 trait Mapping[A] {
-  def comment: String
+  def definitionGroupComment: String
 
   /**
     * An ordered list of every value in this enumeration

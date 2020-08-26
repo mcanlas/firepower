@@ -180,7 +180,7 @@ case object Right extends TestDirection
 object TestDirection {
   implicit val bitFieldDirection: BitField[TestDirection] =
     new BitField[TestDirection] {
-      def comment: String =
+      def definitionGroupComment: String =
         "foo as bit field"
 
       def all: NonEmptyList[TestDirection] =
@@ -195,7 +195,7 @@ object TestDirection {
 
   implicit val mappingDirection: Mapping[TestDirection] =
     new Mapping[TestDirection] {
-      def comment: String =
+      def definitionGroupComment: String =
         "foo as a mapping"
 
       def all: NonEmptyList[TestDirection] =
