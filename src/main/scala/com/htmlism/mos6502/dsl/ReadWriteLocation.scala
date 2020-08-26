@@ -22,7 +22,9 @@ case class ReadWriteLocation[A](name: String, address: Address) {
 object ReadWriteLocation {
   implicit def readWriteLocationDefinable[A]: Definable[ReadWriteLocation[A]] =
     new Definable[ReadWriteLocation[A]] {
-      def toDefinition(x: ReadWriteLocation[A]): Definition[ZeroAddress] =
-        Definition(x.name, 0x00.z)
+      def toDefinitions(x: ReadWriteLocation[A]): List[Definition[ZeroAddress]] =
+        List {
+          Definition(x.name, 0x00.z)
+        }
     }
 }

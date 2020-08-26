@@ -65,7 +65,9 @@ class DefinitionGroupContext {
     ListBuffer()
 
   def push[A](x: A)(implicit ev: Definable[A]): Unit =
-    xs.append(ev.toDefinition(x))
+    ev
+      .toDefinitions(x)
+      .foreach(xs.append)
 
   def toGroup(s: String): DefinitionGroup =
     DefinitionGroup(s, xs.toList)
@@ -80,8 +82,8 @@ case class Definition[A: Operand](name: String, x: A) {
 object Definition {
   implicit def definitionDefinable[A]: Definable[Definition[A]] =
     new Definable[Definition[A]] {
-      def toDefinition(x: Definition[A]) =
-        x
+      def toDefinitions(x: Definition[A]): List[Definition[_]] =
+        List(x)
     }
 }
 

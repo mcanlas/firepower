@@ -19,7 +19,9 @@ case class VolatileDevice[A](name: String, address: Address) {
 object VolatileDevice {
   implicit def volatileDeviceDefinable[A]: Definable[VolatileDevice[A]] =
     new Definable[VolatileDevice[A]] {
-      def toDefinition(x: VolatileDevice[A]): Definition[ZeroAddress] =
-        Definition(x.name, 0x00.z)
+      def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
+        List {
+          Definition(x.name, 0x00.z)
+        }
     }
 }
