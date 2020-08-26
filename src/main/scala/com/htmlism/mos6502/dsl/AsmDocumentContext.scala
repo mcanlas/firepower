@@ -74,7 +74,7 @@ class DefinitionGroupContext {
   private val xs: ListBuffer[Definition[_]] =
     ListBuffer()
 
-  def push[A](x: A)(implicit ev: Definable[A]): Unit =
+  def push[A](x: A)(implicit ev: NamedResource[A]): Unit =
     ev
       .toDefinitions(x)
       .foreach(xs.append)
@@ -93,8 +93,8 @@ case class Definition[A: Operand](name: String, x: A, comment: Option[String]) {
 }
 
 object Definition {
-  implicit def definitionDefinable[A]: Definable[Definition[A]] =
-    new Definable[Definition[A]] {
+  implicit def namedResourceForDefinition[A]: NamedResource[Definition[A]] =
+    new NamedResource[Definition[A]] {
       def toDefinitions(x: Definition[A]): List[Definition[_]] =
         List(x)
     }
