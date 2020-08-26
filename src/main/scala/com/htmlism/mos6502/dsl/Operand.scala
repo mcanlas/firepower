@@ -5,10 +5,16 @@ trait Operand[A] {
 
   def toAddressLiteral(x: A): String
 
+  /**
+    * Suitable for comments
+    */
   def toShow(x: A): String
 
   def operandType: OperandType
 
+  /**
+    * The value as presented in a `define` declaration (i.e. where no alias is possible)
+    */
   def toDefinitionLiteral(x: A): String
 }
 
