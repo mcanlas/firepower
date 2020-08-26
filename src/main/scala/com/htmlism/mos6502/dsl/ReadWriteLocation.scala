@@ -15,11 +15,23 @@ case class ReadWriteLocation[A: Operand](name: String, address: ZeroAddress) {
 
   def write(x: A)(implicit ctx: AssemblyContext): Unit = {
     ctx.push(LDA, x)
-    ctx.push(STA, address) // should be named address
+    ctx.push(STA, this)
   }
 }
 
 object ReadWriteLocation {
+  implicit def operandForReadWriteLocation[A]: Operand[ReadWriteLocation[A]] =
+    new Operand[ReadWriteLocation[A]] {
+      def toAddressLiteral(x: ReadWriteLocation[A]): String =
+        x.name
+
+      def toShow(x: ReadWriteLocation[A]): String =
+        x.name
+
+      def operandType: OperandType =
+        MemoryLocation
+    }
+
   implicit def namedResourceForReadWriteLocation[A]: NamedResource[ReadWriteLocation[A]] =
     new NamedResource[ReadWriteLocation[A]] {
       def toDefinitions(x: ReadWriteLocation[A]): List[Definition[ZeroAddress]] =
