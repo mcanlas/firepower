@@ -9,7 +9,7 @@ package com.htmlism.mos6502.dsl
   *
   * @tparam A The return type of the read
   */
-case class VolatileDevice[A](name: String, address: Address) {
+case class VolatileDevice[A](name: String, address: ZeroAddress) {
   def read(implicit ctx: AssemblyContext): Unit = {
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
@@ -21,7 +21,7 @@ object VolatileDevice {
     new Definable[VolatileDevice[A]] {
       def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
         List {
-          Definition(x.name, 0x00.z)
+          Definition(x.name, x.address)
         }
     }
 }

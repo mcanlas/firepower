@@ -141,7 +141,9 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
         }
 
         group("snake") { implicit g =>
-          val _ = g
+          g.push(appleLocation)
+          g.push(snakeDirection)
+          g.push(snakeLength)
         }
 
         bitField[Direction]

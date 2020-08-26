@@ -7,7 +7,7 @@ package com.htmlism.mos6502.dsl
   *
   * @tparam A The input type of the write and the output type of the read
   */
-case class ReadWriteLocation[A](name: String, address: Address) {
+case class ReadWriteLocation[A](name: String, address: ZeroAddress) {
   def read(implicit ctx: AssemblyContext): Unit = {
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
@@ -24,7 +24,7 @@ object ReadWriteLocation {
     new Definable[ReadWriteLocation[A]] {
       def toDefinitions(x: ReadWriteLocation[A]): List[Definition[ZeroAddress]] =
         List {
-          Definition(x.name, 0x00.z)
+          Definition(x.name, x.address)
         }
     }
 }

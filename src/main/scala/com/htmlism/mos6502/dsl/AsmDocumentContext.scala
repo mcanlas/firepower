@@ -53,7 +53,7 @@ case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends Top
 
     val definitionLines =
       xs
-        .map(d => f"define ${d.name}%-12s${d.value}")
+        .map(d => f"define ${d.name}%-20s${d.value}")
 
     (commentLine :: definitionLines)
       .mkString("\n")
