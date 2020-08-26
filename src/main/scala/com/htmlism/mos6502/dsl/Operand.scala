@@ -25,4 +25,16 @@ object Operand {
       def toAddressLiteral(x: Int): String =
         String.format("#$%02x", x)
     }
+
+  implicit def operandForMapping[A](implicit ev: Mapping[A]): Operand[A] =
+    new Operand[A] {
+      def toAddressLiteral(x: A): String =
+        "#" + ev.label(x)
+
+      def toShow(x: A): String =
+        ev.label(x)
+
+      def operandType: OperandType =
+        ValueLiteral
+    }
 }
