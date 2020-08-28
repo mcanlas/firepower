@@ -5,7 +5,7 @@ object LintingPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override lazy val globalSettings =
-    addCommandAlias("fmt", List("all", "scalafmtSbt", "compile:scalafmt", "test:scalafmt").mkString(" ")) ++
+    addCommandAlias("fmt", "scalafmtAll") ++
       addCommandAlias("fix", "scalafixAll")
 
   object autoImport {

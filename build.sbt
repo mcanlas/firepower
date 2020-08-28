@@ -8,3 +8,7 @@ lazy val root =
     .withCats
     .withTesting
     .withOrganizeImports
+    .aggregate(nescant)
+
+lazy val nescant =
+  project.withCats.withTesting.withOrganizeImports
