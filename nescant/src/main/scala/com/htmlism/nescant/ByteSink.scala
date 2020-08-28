@@ -1,7 +1,7 @@
 package com.htmlism.nescant
 
-trait Sink[A]
+trait ByteSink[A]
 
-object Sink {
+object ByteSink {
   // TODO int cannot be a source
 }

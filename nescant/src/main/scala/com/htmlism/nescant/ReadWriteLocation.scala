@@ -8,11 +8,11 @@ package com.htmlism.nescant
 case class ReadWriteLocation[A](name: String, address: ZeroPageAddress)
 
 object ReadWriteLocation {
-  implicit def sourceForReadWriteLocation[A: Operand]: Source[ReadWriteLocation[A]] =
-    new Source[ReadWriteLocation[A]] {}
+  implicit def sourceForReadWriteLocation[A: Operand]: ByteSource[ReadWriteLocation[A]] =
+    new ByteSource[ReadWriteLocation[A]] {}
 
-  implicit def sinkForReadWriteLocation[A: Operand]: Sink[ReadWriteLocation[A]] =
-    new Sink[ReadWriteLocation[A]] {}
+  implicit def sinkForReadWriteLocation[A: Operand]: ByteSink[ReadWriteLocation[A]] =
+    new ByteSink[ReadWriteLocation[A]] {}
 
   implicit def operandForReadWriteLocation[A: Operand]: Operand[ReadWriteLocation[A]] =
     new Operand[ReadWriteLocation[A]] {

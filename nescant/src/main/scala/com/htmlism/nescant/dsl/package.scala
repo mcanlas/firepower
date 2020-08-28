@@ -9,8 +9,8 @@ package object dsl {
       GlobalAddress(n)
   }
 
-  implicit class SinkOps[A: Sink](x: A) {
-    def write[B: Source](src: B): Unit = {
+  implicit class SinkOps[A: ByteSink](x: A) {
+    def write[B: ByteSource](src: B): Unit = {
       val _ = src
     }
   }

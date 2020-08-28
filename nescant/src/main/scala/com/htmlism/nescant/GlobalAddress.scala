@@ -1,11 +1,11 @@
 package com.htmlism.nescant
 
 object GlobalAddress {
-  implicit val sourceForGlobalAddress: Source[GlobalAddress] =
-    new Source[GlobalAddress] {}
+  implicit val sourceForGlobalAddress: ByteSource[GlobalAddress] =
+    new ByteSource[GlobalAddress] {}
 
-  implicit val sinkForGlobalAddress: Sink[GlobalAddress] =
-    new Sink[GlobalAddress] {}
+  implicit val sinkForGlobalAddress: ByteSink[GlobalAddress] =
+    new ByteSink[GlobalAddress] {}
 }
 
 case class GlobalAddress(n: Int)
