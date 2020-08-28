@@ -15,6 +15,8 @@
 
 ## TODO - Nescant
 
+- mappings, enums, and bitfields are enums
+
 ## TODO
 
 1. operand support should be derived from enum support
