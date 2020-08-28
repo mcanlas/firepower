@@ -1,7 +1,10 @@
 package com.htmlism.nescant
 
-sealed trait Operand
+trait Operand[A] {
+  def encode(x: A): String
+}
 
-case class LiteralOperand(value: String) extends Operand
-
-case class NamedOperand(name: String, value: String) extends Operand
+object Operand {
+  implicit val operandForInt: Operand[Int] =
+    _.toString
+}

@@ -8,4 +8,10 @@ package object dsl {
     def g: GlobalAddress =
       GlobalAddress(n)
   }
+
+  implicit class SinkOps[A: Sink](x: A) {
+    def write[B: Source](src: B): Unit = {
+      val _ = src
+    }
+  }
 }
