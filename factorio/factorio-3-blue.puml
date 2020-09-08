@@ -1,0 +1,114 @@
+@startuml
+'component water
+'component wood
+'component coal
+component stone
+'component oil
+
+'oil --> plastic
+'oil --> sulfur
+'oil --> heavy_oil
+'heavy_oil --> petroleum
+'
+'water  ---> sulfuric_acid
+'sulfur --> sulfuric_acid
+
+'stone ---> stone_brick : 2x
+
+'stone_brick --> concrete
+
+'iron_plate --> iron_chest : 8x
+'steel_plate --> steel_chest : 8x
+
+'iron_plate_for_rails --> iron_stick
+'iron_plate_for_engine --> pipe
+
+'iron_gear   --> red_belt : 5x
+'yellow_belt --> red_belt : 1x
+
+'circuit_for_inserter       --> blue_inserter : 2x
+'iron_plate_for_inserter    --> blue_inserter : 2x
+'yellow_inserter            --> blue_inserter : 1x
+'
+'iron_gear_for_inserter   --> red_inserter : 1x
+'iron_plate_for_inserter  --> red_inserter : 1x
+'yellow_inserter          --> red_inserter : 1x
+
+'component science_lab
+
+'red_science   --> science_lab
+'green_science --> science_lab
+
+'stone       ...> rail : 1x
+'steel_plate_for_rails ..> rail : 1x
+'iron_stick  ..> rail : 1x
+
+'iron_plate_eng -----> pipe
+'iron_plate --> ground_pipe
+'ground_pipe --> pipe
+
+steel_plate_for_engine  ..> engine : 1x
+iron_gear_for_engine    ..> engine : 1x
+pipe         ..> engine : 2x
+
+'wood         ..> small_pole : 1x
+'copper_cable ..> small_pole : 2x
+
+'engine       --> locomotive : 20x
+'circuit_loco --> locomotive : 10x
+'steel_plate  --> locomotive : 30x
+
+'iron_plate_eng -->    iron_gear_eng : 2x
+'iron_gear_eng  -----> cargo_wagon : 10x
+'iron_plate_eng -->    cargo_wagon : 20x
+'steel_plate    ---->  cargo_wagon : 20x
+
+'circuit_asm      ---> assembler : 3x
+'iron_gear_asm    ---> assembler : 5x
+'iron_plate_asm   ---> assembler : 9x
+
+'steel_plate_asm  --> blue_assembler : 2x
+'circuit_asm      --> blue_assembler : 3x
+'iron_gear_asm    --> blue_assembler : 5x
+'assembler        --> blue_assembler : 1x
+
+'steel_plate     --> steel_furnace : 6x
+'stone_brick     --> steel_furnace : 10x
+
+plastic_for_red_circuit           ..> red_circuit
+copper_cable                     --> red_circuit
+green_circuit_for_red_circuit --> red_circuit
+
+engine_for_blue_sci      --> blue_science
+sulfur_for_blue_sci      ..> blue_science
+red_circuit --> blue_science
+
+'blue_science         --> science_lab
+
+green_circuit_for_blue_circuit --> blue_circuit
+red_circuit_for_blue_circuit   --> blue_circuit
+sulfuric_acid_for_blue_circuit --> blue_circuit
+
+petroleum_for_elec_eng       --> electric_engine
+engine_for_yellow_sci        --> electric_engine
+green_circuit_for_yellow_sci --> electric_engine
+
+sulfuric_acid_for_yellow_science --> battery
+iron_plate_for_yellow_science    --> battery
+copper_plate_for_battery         --> battery
+
+electric_engine              --> flying_robot_frame
+battery                     --> flying_robot_frame
+steel_plate_for_yellow_sci     --> flying_robot_frame
+green_circuit_for_yellow_sci                --> flying_robot_frame
+
+low_density_structure --> yellow_science
+blue_circuit          --> yellow_science
+flying_robot_frame    --> yellow_science
+'yellow_science --> science_lab
+
+steel_plate_for_yellow_sci  --> low_density_structure
+copper_plate_for_yellow_sci --> low_density_structure
+plastic_for_yellow_sci      --> low_density_structure
+
+@enduml

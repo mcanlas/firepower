@@ -1,0 +1,126 @@
+@startuml
+component wood
+component stone
+component iron_ore
+component copper_ore
+
+stone --> stone_furnace : 5x
+stone --> stone_brick : 2x
+
+iron_ore --> iron_plate
+iron_ore --> iron_plate1
+iron_plate1 --> iron_plate2
+iron_plate2 --> iron_plate3
+iron_plate3 --> iron_plate4
+iron_plate4 --> iron_plate5
+iron_plate5 --> iron_plate6
+
+copper_ore       --> copper_plate_bus
+copper_plate_bus --> copper_plate1
+copper_plate1    --> copper_plate2
+
+copper_plate1 --> copper_cable : .5x
+
+'iron_plate --> iron_chest : 8x
+'steel_plate --> steel_chest : 8x
+
+iron_plate3   --> iron_for_belt
+iron_for_belt --> iron_gear_for_belt : 2x
+iron_plate4   --> iron_plate_eng
+
+combi_copper_iron ------> red_science
+'copper_plate2  -----> red_science
+
+iron_plate2   ----> combi_copper_iron : 1x
+copper_plate2 ---> combi_copper_iron : 3x
+combi_copper_iron   -->  combi_copper_iron1
+combi_copper_iron1  --> combi_copper_iron2
+
+iron_for_belt       --> yellow_belt : .5x
+iron_gear_for_belt  --> yellow_belt : .5x
+
+iron_gear_for_belt   --> red_belt : 5x
+yellow_belt          --> red_belt : 1x
+
+combi_copper_iron1      --> inserter_bus
+iron_plate_for_inserter --> circuit_for_inserter
+iron_plate_for_inserter --> iron_gear_for_inserter
+inserter_bus            --> iron_plate_for_inserter : iron
+inserter_bus            --> circuit_for_inserter : copper
+
+circuit_for_inserter     --> yellow_inserter : 1x
+iron_gear_for_inserter   --> yellow_inserter : 1x
+iron_plate_for_inserter  --> yellow_inserter : 1x
+
+'circuit_for_inserter       --> blue_inserter : 2x
+'iron_plate_for_inserter    --> blue_inserter : 2x
+'yellow_inserter            --> blue_inserter : 1x
+'
+'iron_gear_for_inserter   --> red_inserter : 1x
+'iron_plate_for_inserter  --> red_inserter : 1x
+'yellow_inserter          --> red_inserter : 1x
+
+yellow_belt         --> yellow_belt_sci
+yellow_belt_sci     ---> green_science : 1x
+yellow_inserter     ---> green_science : 1x
+
+iron_plate5              -----> yellow_magazine : 4x
+yellow_magazine          --> red_magazine : 1x
+steel_plate1             --> red_magazine : 1x
+copper_plate_src         --> red_magazine : 5x
+
+component science_lab
+
+red_science   --> science_lab
+green_science --> science_lab
+
+component steel_smelt
+iron_plate6 --> steel_smelt : 5x
+steel_smelt --> steel_plate1
+steel_plate1 --> steel_plate
+
+iron_plate1 --> iron_stick : .5x
+
+'stone ..> rail : 1x
+'steel_plate ..> rail : 1x
+'iron_stick ..> rail : 1x
+
+'iron_plate_eng -----> pipe
+'iron_plate --> ground_pipe
+'ground_pipe --> pipe
+
+'steel_plate    .....> engine : 1x
+'iron_gear_eng  ..> engine : 1x
+'pipe           ..> engine : 2x
+
+wood             ..> small_pole : 1x
+copper_cable_src ..> small_pole : 2x
+
+'engine       --> locomotive : 20x
+'circuit_loco --> locomotive : 10x
+'steel_plate  --> locomotive : 30x
+
+'iron_plate_eng -->    iron_gear_eng : 2x
+'iron_gear_eng  -----> cargo_wagon : 10x
+'iron_plate_eng -->    cargo_wagon : 20x
+'steel_plate    ---->  cargo_wagon : 20x
+
+'combi_copper_iron2 --> asm_bus
+'
+'asm_bus        --> circuit_asm : copper
+'asm_bus        --> iron_plate_asm
+'iron_plate_asm --> iron_gear_asm
+'iron_plate_asm --> circuit_asm : iron
+'
+'circuit_asm      ---> assembler : 3x
+'iron_gear_asm    ---> assembler : 5x
+'iron_plate_asm   ---> assembler : 9x
+
+'steel_plate_asm  --> blue_assembler : 2x
+'circuit_asm      --> blue_assembler : 3x
+'iron_gear_asm    --> blue_assembler : 5x
+'assembler        --> blue_assembler : 1x
+
+steel_plate_src --> steel_furnace : 6x
+stone_brick     --> steel_furnace : 10x
+@enduml

@@ -1,0 +1,105 @@
+@startuml
+'component water
+'component wood
+'component coal
+'component stone
+component iron_ore
+component copper_ore
+'component oil
+
+'oil --> plastic
+'oil --> sulfur
+'oil --> heavy_oil
+'heavy_oil --> petroleum
+'
+'water  ---> sulfuric_acid
+'sulfur --> sulfuric_acid
+
+'stone ---> stone_brick : 2x
+'
+'stone_brick --> concrete
+
+iron_ore    --> iron_plate
+
+copper_ore   --> copper_plate
+copper_plate --> copper_cable : .5x
+
+iron_plate   --> green_circuit
+copper_cable --> green_circuit
+
+'iron_plate --> iron_chest : 8x
+'steel_plate --> steel_chest : 8x
+
+iron_plate --> iron_gear
+'iron_plate_for_rails --> iron_stick
+
+iron_gear --> iron_gear_for_red_sci
+copper_plate_for_red_sci --> red_science
+iron_gear_for_red_sci    --> red_science
+
+iron_plate  --> iron_plate_for_green_sci
+iron_gear --> iron_gear_for_green_sci
+iron_plate_for_green_sci  --> yellow_belt : .5x
+iron_gear_for_green_sci   --> yellow_belt : .5x
+
+'iron_gear   --> red_belt : 5x
+'yellow_belt --> red_belt : 1x
+
+green_circuit --> green_circuit_belt_for_yellow_ins
+green_circuit_belt_for_yellow_ins  --> yellow_inserter : 1x
+iron_gear_for_green_sci      --> yellow_inserter : 1x
+iron_plate_for_green_sci     --> yellow_inserter : 1x
+
+'circuit_for_inserter       --> blue_inserter : 2x
+'iron_plate_for_inserter    --> blue_inserter : 2x
+'yellow_inserter            --> blue_inserter : 1x
+'
+'iron_gear_for_inserter   --> red_inserter : 1x
+'iron_plate_for_inserter  --> red_inserter : 1x
+'yellow_inserter          --> red_inserter : 1x
+
+yellow_belt     ---> green_science : 1x
+yellow_inserter ---> green_science : 1x
+
+'component science_lab
+
+'red_science   --> science_lab
+'green_science --> science_lab
+
+'stone       ...> rail : 1x
+'steel_plate_for_rails ..> rail : 1x
+'iron_stick  ..> rail : 1x
+
+'iron_plate_eng -----> pipe
+'iron_plate --> ground_pipe
+'ground_pipe --> pipe
+
+'wood         ..> small_pole : 1x
+'copper_cable ..> small_pole : 2x
+
+'engine       --> locomotive : 20x
+'circuit_loco --> locomotive : 10x
+'steel_plate  --> locomotive : 30x
+
+'iron_plate_eng -->    iron_gear_eng : 2x
+'iron_gear_eng  -----> cargo_wagon : 10x
+'iron_plate_eng -->    cargo_wagon : 20x
+'steel_plate    ---->  cargo_wagon : 20x
+
+'circuit_asm      ---> assembler : 3x
+'iron_gear_asm    ---> assembler : 5x
+'iron_plate_asm   ---> assembler : 9x
+
+'steel_plate_asm  --> blue_assembler : 2x
+'circuit_asm      --> blue_assembler : 3x
+'iron_gear_asm    --> blue_assembler : 5x
+'assembler        --> blue_assembler : 1x
+
+'steel_plate     --> steel_furnace : 6x
+'stone_brick     --> steel_furnace : 10x
+
+'gray_science         --> science_lab
+
+'blue_science         --> science_lab
+
+@enduml
