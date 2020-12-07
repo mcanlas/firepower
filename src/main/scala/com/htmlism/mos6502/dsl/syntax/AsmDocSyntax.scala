@@ -41,9 +41,8 @@ trait AsmDocSyntax {
       DefinitionGroup(
         ev.definitionGroupComment,
         xs
-          .map {
-            case (s, n) =>
-              Definition(s, n)
+          .map { case (s, n) =>
+            Definition(s, n)
           }
       )
 
