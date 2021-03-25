@@ -2,7 +2,7 @@ lazy val root =
   project
     .in(file("."))
     .settings(
-      initialCommands in console := "import com.htmlism._",
+      console / initialCommands := "import com.htmlism._",
       scalafmtOnCompile := true
     )
     .withCats
