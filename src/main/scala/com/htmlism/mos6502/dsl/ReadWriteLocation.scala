@@ -3,9 +3,11 @@ package com.htmlism.mos6502.dsl
 import com.htmlism.mos6502.model._
 
 /**
-  * @param name A name for this location, used to alias its address
+  * @param name
+  *   A name for this location, used to alias its address
   *
-  * @tparam A The input type of the write and the output type of the read
+  * @tparam A
+  *   The input type of the write and the output type of the read
   */
 case class ReadWriteLocation[A: Operand](name: String, address: ZeroAddress) {
   def read(implicit ctx: AssemblyContext): Unit = {

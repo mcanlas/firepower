@@ -5,9 +5,11 @@ package com.htmlism.mos6502.dsl
 /**
   * For a memory-mapped device that may return different values across multiple reads (e.g. a random number generator)
   *
-  * @param name A name for this device, used to alias its address
+  * @param name
+  *   A name for this device, used to alias its address
   *
-  * @tparam A The return type of the read
+  * @tparam A
+  *   The return type of the read
   */
 case class VolatileDevice[A](name: String, address: ZeroAddress) {
   def read(implicit ctx: AssemblyContext): Unit = {

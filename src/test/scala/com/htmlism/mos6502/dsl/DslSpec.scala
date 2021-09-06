@@ -91,8 +91,8 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
 sealed trait Triforce
 
 case object Courage extends Triforce
-case object Wisdom  extends Triforce
-case object Power   extends Triforce
+case object Wisdom extends Triforce
+case object Power extends Triforce
 
 object Triforce {
   implicit val enumTriforce: EnumAsm[Triforce] =
@@ -113,9 +113,9 @@ object Triforce {
 
 sealed trait TestDirection
 
-case object Up    extends TestDirection
-case object Down  extends TestDirection
-case object Left  extends TestDirection
+case object Up extends TestDirection
+case object Down extends TestDirection
+case object Left extends TestDirection
 case object Right extends TestDirection
 
 object TestDirection {

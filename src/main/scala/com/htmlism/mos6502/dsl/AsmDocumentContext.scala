@@ -84,7 +84,8 @@ class DefinitionGroupContext {
 }
 
 /**
-  * @param comment Typically used by resources to describe their type safety
+  * @param comment
+  *   Typically used by resources to describe their type safety
   */
 case class Definition[A](name: String, x: A, comment: Option[String])(implicit ev: DefinitionValue[A]) {
   lazy val value: String =

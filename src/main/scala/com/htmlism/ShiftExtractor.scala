@@ -45,6 +45,6 @@ abstract class PrimitiveBitExtractor(val length: Int) extends BitExtractor[Int] 
     Some(n & mask)
 }
 
-object OneBit    extends PrimitiveBitExtractor(1)
-object TwoBits   extends PrimitiveBitExtractor(2)
+object OneBit extends PrimitiveBitExtractor(1)
+object TwoBits extends PrimitiveBitExtractor(2)
 object ThreeBits extends PrimitiveBitExtractor(3)

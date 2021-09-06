@@ -224,7 +224,7 @@ object MatchOpcodes {
   def wideColumns: Seq[Int] =
     for {
       cc <- 0 to 3
-      y  <- 0 to 1
+      y <- 0 to 1
       xx <- 0 to 3
     } yield (xx << 3) + (y << 2) + cc
 
