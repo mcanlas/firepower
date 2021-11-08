@@ -5,7 +5,7 @@ object ProjectPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override lazy val projectSettings = Seq(
-    scalaVersion := "2.13.6"
+    scalaVersion := "2.13.7"
   )
 
   object autoImport {
