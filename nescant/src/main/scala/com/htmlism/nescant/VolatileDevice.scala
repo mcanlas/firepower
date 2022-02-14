@@ -14,10 +14,10 @@ package com.htmlism.nescant
 case class VolatileDevice[A](name: String, address: ZeroPageAddress)
 
 object VolatileDevice {
-  implicit def sourceForVolatileDevice[A: Operand]: ByteSource[VolatileDevice[A]] =
+  implicit def sourceForVolatileDevice[A]: ByteSource[VolatileDevice[A]] =
     new ByteSource[VolatileDevice[A]] {}
 
-  implicit def operandForVolatileDevice[A: Operand]: Operand[VolatileDevice[A]] =
+  implicit def operandForVolatileDevice[A]: Operand[VolatileDevice[A]] =
     new Operand[VolatileDevice[A]] {
       def encode(x: VolatileDevice[A]): String = ""
     }

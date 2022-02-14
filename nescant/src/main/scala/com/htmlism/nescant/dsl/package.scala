@@ -10,7 +10,7 @@ package object dsl {
   }
 
   implicit class SinkOps[A: ByteSink](x: A) {
-    def write[B: ByteSource](src: B): Unit = {
+    def write[B](src: B): Unit = {
       val _ = src
     }
   }
