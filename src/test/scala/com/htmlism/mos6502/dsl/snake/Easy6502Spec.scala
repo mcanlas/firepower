@@ -35,7 +35,7 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
   "define style dsl" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        enum[Color]
+        enumAsm[Color]
 
         asm { implicit a =>
           val scr =

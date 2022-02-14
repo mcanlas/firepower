@@ -30,7 +30,7 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
   "enum" should "compile" in {
     val doc =
       asmDoc { implicit ctx =>
-        enum[Triforce]
+        enumAsm[Triforce]
       }
 
     doc shouldEqual AsmDocument(

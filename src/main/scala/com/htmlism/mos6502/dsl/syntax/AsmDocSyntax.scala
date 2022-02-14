@@ -25,7 +25,7 @@ trait AsmDocSyntax {
       .push(g.toGroup(s))
   }
 
-  def `enum`[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit =
+  def enumAsm[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit =
     mapping
 
   def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit =
