@@ -25,11 +25,17 @@ trait AsmDocSyntax {
       .push(g.toGroup(s))
   }
 
-  def enumAsm[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit =
-    mapping
+  def enumAsm[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit = {
+    val _ = implicitly[EnumAsm[A]] // TODO unused
 
-  def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit =
     mapping
+  }
+
+  def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit = {
+    val _ = implicitly[BitField[A]] // TODO unused
+
+    mapping
+  }
 
   def mapping[A](implicit ctx: AsmDocumentContext, ev: Mapping[A]): Unit = {
     val xs =
