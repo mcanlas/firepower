@@ -4,7 +4,7 @@ package dsl
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 
-class ByteSinkSpec extends AnyFlatSpec with should.Matchers {
+class ByteSinkSpec extends AnyFlatSpec with should.Matchers:
   "A zero page address" should "be a byte-wide sync" in {
     123.z.write(456)
   }
@@ -18,4 +18,3 @@ class ByteSinkSpec extends AnyFlatSpec with should.Matchers {
 
     sink.write(456)
   }
-}

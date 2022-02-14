@@ -3,7 +3,7 @@ package snake
 
 import cats.data.NonEmptyList
 
-object Direction {
+object Direction:
   implicit val directionBitField: BitField[Direction] =
     new BitField[Direction] {
       def definitionGroupComment: String =
@@ -15,7 +15,6 @@ object Direction {
       def label(x: Direction): String =
         "moving" + x.toString
     }
-}
 
 sealed trait Direction
 

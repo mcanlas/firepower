@@ -1,8 +1,8 @@
 package com.htmlism.mos6502.dsl
 package syntax
 
-trait AsmDocSyntax {
-  def asm(f: AssemblyContext => Unit)(implicit ctx: AsmDocumentContext): Unit = {
+trait AsmDocSyntax:
+  def asm(f: AssemblyContext => Unit)(implicit ctx: AsmDocumentContext): Unit =
     val asmCtx: AssemblyContext =
       new AssemblyContext
 
@@ -13,9 +13,8 @@ trait AsmDocSyntax {
 
     ctx
       .push(asmCtx.toFragment)
-  }
 
-  def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): Unit = {
+  def group[A](s: String)(f: DefinitionGroupContext => A)(implicit ctx: AsmDocumentContext): Unit =
     val g: DefinitionGroupContext =
       new DefinitionGroupContext
 
@@ -23,21 +22,18 @@ trait AsmDocSyntax {
 
     ctx
       .push(g.toGroup(s))
-  }
 
-  def enumAsm[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit = {
+  def enumAsm[A: EnumAsm: Mapping](implicit ctx: AsmDocumentContext): Unit =
     val _ = implicitly[EnumAsm[A]] // TODO unused
 
     mapping
-  }
 
-  def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit = {
+  def bitField[A: BitField: Mapping](implicit ctx: AsmDocumentContext): Unit =
     val _ = implicitly[BitField[A]] // TODO unused
 
     mapping
-  }
 
-  def mapping[A](implicit ctx: AsmDocumentContext, ev: Mapping[A]): Unit = {
+  def mapping[A](implicit ctx: AsmDocumentContext, ev: Mapping[A]): Unit =
     val xs =
       ev.all
         .map(x => ev.label(x) -> ev.value(x))
@@ -54,5 +50,3 @@ trait AsmDocSyntax {
 
     ctx
       .push(grp)
-  }
-}

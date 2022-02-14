@@ -4,7 +4,7 @@ package dsl
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 
-class ByteSourceSpec extends AnyFlatSpec with should.Matchers {
+class ByteSourceSpec extends AnyFlatSpec with should.Matchers:
   private val sink =
     123.z
 
@@ -31,4 +31,3 @@ class ByteSourceSpec extends AnyFlatSpec with should.Matchers {
 
     sink.write(src)
   }
-}

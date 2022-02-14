@@ -1,10 +1,9 @@
 package com.htmlism.mos6502.dsl
 
-sealed trait Address {
+sealed trait Address:
   def n: Int
-}
 
-object ZeroAddress {
+object ZeroAddress:
   implicit val operandZero: Operand[ZeroAddress] =
     new Operand[ZeroAddress] {
       val operandType: OperandType =
@@ -19,11 +18,10 @@ object ZeroAddress {
 
   implicit val definitionValueForZero: DefinitionValue[ZeroAddress] =
     operandZero.toAddressLiteral(_)
-}
 
 case class ZeroAddress(n: Int) extends Address
 
-object GlobalAddress {
+object GlobalAddress:
   implicit val operandGlobal: Operand[GlobalAddress] =
     new Operand[GlobalAddress] {
       val operandType: OperandType =
@@ -38,6 +36,5 @@ object GlobalAddress {
 
   implicit val definitionValueForGlobal: DefinitionValue[GlobalAddress] =
     operandGlobal.toAddressLiteral(_)
-}
 
 case class GlobalAddress(n: Int) extends Address

@@ -1,6 +1,6 @@
 package com.htmlism.mos6502.dsl
 
-trait Operand[A] {
+trait Operand[A]:
   self =>
 
   def toAddressLiteral(x: A): String
@@ -11,9 +11,8 @@ trait Operand[A] {
   def toShow(x: A): String
 
   def operandType: OperandType
-}
 
-object Operand {
+object Operand:
   implicit val operandInt: Operand[Int] =
     new Operand[Int] {
       val operandType: OperandType =
@@ -37,4 +36,3 @@ object Operand {
       def operandType: OperandType =
         ValueLiteral
     }
-}

@@ -11,14 +11,12 @@ package com.htmlism.mos6502.dsl
   * @tparam A
   *   The return type of the read
   */
-case class VolatileDevice[A](name: String, address: ZeroAddress) {
-  def read(implicit ctx: AssemblyContext): Unit = {
+case class VolatileDevice[A](name: String, address: ZeroAddress):
+  def read(implicit ctx: AssemblyContext): Unit =
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
-  }
-}
 
-object VolatileDevice {
+object VolatileDevice:
   implicit def namedResourceForVolatileDevice[A]: NamedResource[VolatileDevice[A]] =
     new NamedResource[VolatileDevice[A]] {
       def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
@@ -26,4 +24,3 @@ object VolatileDevice {
           Definition(x.name, x.address, "Volatile generator for A values")
         }
     }
-}

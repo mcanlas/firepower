@@ -3,7 +3,7 @@ package snake
 
 import cats.data.NonEmptyList
 
-object AsciiValue {
+object AsciiValue:
   implicit val asciiValueMapping: Mapping[AsciiValue] =
     new Mapping[AsciiValue] {
       def definitionGroupComment: String =
@@ -13,12 +13,11 @@ object AsciiValue {
         NonEmptyList.of(AsciiW, AsciiA, AsciiS, AsciiD)
 
       def value(x: AsciiValue): Int =
-        x match {
+        x match
           case AsciiW => 0x77
           case AsciiA => 0x61
           case AsciiS => 0x73
           case AsciiD => 0x64
-        }
 
       def label(x: AsciiValue): String =
         x.toString.toLowerCase
@@ -26,7 +25,6 @@ object AsciiValue {
       def comment(x: AsciiValue): String =
         x.toString
     }
-}
 
 sealed trait AsciiValue
 

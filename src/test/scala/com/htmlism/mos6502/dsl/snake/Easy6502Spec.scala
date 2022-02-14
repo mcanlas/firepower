@@ -7,7 +7,7 @@ import org.scalatest.matchers._
 
 import com.htmlism.mos6502.model._
 
-class Easy6502Spec extends AnyFlatSpec with should.Matchers {
+class Easy6502Spec extends AnyFlatSpec with should.Matchers:
 
   "the three pixel demo" should "have the right instructions" in {
     val doc =
@@ -163,12 +163,10 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers {
     )
   }
 
-  def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext = {
+  def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext =
     val ctx: AssemblyContext =
       new AssemblyContext
 
     f(ctx)
 
     ctx
-  }
-}

@@ -1,10 +1,8 @@
 package com.htmlism.nescant
 
-trait Operand[A] {
+trait Operand[A]:
   def encode(x: A): String
-}
 
-object Operand {
+object Operand:
   implicit val operandForInt: Operand[Int] =
     _.toString
-}

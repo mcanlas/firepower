@@ -2,7 +2,7 @@ package com.htmlism.mos6502.dsl
 
 import cats.data.NonEmptyList
 
-trait BitField[A] {
+trait BitField[A]:
   def definitionGroupComment: String
 
   /**
@@ -14,4 +14,3 @@ trait BitField[A] {
     * ASM-safe label
     */
   def label(x: A): String
-}

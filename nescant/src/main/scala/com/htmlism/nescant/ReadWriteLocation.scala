@@ -9,7 +9,7 @@ package com.htmlism.nescant
   */
 case class ReadWriteLocation[A](name: String, address: ZeroPageAddress)
 
-object ReadWriteLocation {
+object ReadWriteLocation:
   implicit def sourceForReadWriteLocation[A]: ByteSource[ReadWriteLocation[A]] =
     new ByteSource[ReadWriteLocation[A]] {}
 
@@ -20,4 +20,3 @@ object ReadWriteLocation {
     new Operand[ReadWriteLocation[A]] {
       def encode(x: ReadWriteLocation[A]): String = ""
     }
-}

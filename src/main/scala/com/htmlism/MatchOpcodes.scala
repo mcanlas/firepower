@@ -6,7 +6,7 @@ import cats.implicits._
 
 import com.htmlism.mos6502.model._
 
-object MatchOpcodes {
+object MatchOpcodes:
   def paddedBinary(n: Int, width: Int) =
     String.format(s"%${width}s", Integer.toBinaryString(n)).replace(" ", "0")
 
@@ -76,7 +76,7 @@ object MatchOpcodes {
     ).view.mapValues(x => x -> Implied).toMap
   // format: on
 
-  def doStuff(out: PrintWriter): Unit = {
+  def doStuff(out: PrintWriter): Unit =
     val lookup =
       generatedOpcodes ++
         injectedOpcodesImplied ++
@@ -100,16 +100,16 @@ object MatchOpcodes {
 
     out.print("</tr>")
 
-    for (r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0)) {
+    for (r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0))
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (f <- fancyColumns) {
+      for (f <- fancyColumns)
         val fullInt = r + f
 
-        lookup.get(fullInt) match {
+        lookup.get(fullInt) match
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
@@ -118,11 +118,8 @@ object MatchOpcodes {
 
           case None =>
             out.print(s"<td>UNDEF</td>")
-        }
-      }
 
       out.print("</tr>")
-    }
 
     out.print("</table>")
 
@@ -137,16 +134,16 @@ object MatchOpcodes {
 
     out.print("</tr>")
 
-    for (r <- wideRows) {
+    for (r <- wideRows)
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (c <- wideColumns) {
+      for (c <- wideColumns)
         val fullInt = (r << 5) + c
 
-        lookup.get(fullInt) match {
+        lookup.get(fullInt) match
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
@@ -155,11 +152,8 @@ object MatchOpcodes {
 
           case None =>
             out.print(s"<td>UNDEF</td>")
-        }
-      }
 
       out.print("</tr>")
-    }
 
     out.print("</table>")
 
@@ -167,9 +161,8 @@ object MatchOpcodes {
     quartile(out, 1, lookup)
     quartile(out, 2, lookup)
     quartile(out, 3, lookup)
-  }
 
-  def quartile(out: PrintWriter, n: Int, lookup: Map[Int, (Instruction, AddressingMode)]) = {
+  def quartile(out: PrintWriter, n: Int, lookup: Map[Int, (Instruction, AddressingMode)]) =
     out.print(s"<h2>${paddedBinary(n, 2)}</h2>")
 
     out.print("<table>")
@@ -193,16 +186,16 @@ object MatchOpcodes {
 
     out.print("</tr>")
 
-    for (r <- rows) {
+    for (r <- rows)
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (c <- columns) {
+      for (c <- columns)
         val fullInt = (r << (3 + 2)) + (c << 2) + n
 
-        lookup.get(fullInt) match {
+        lookup.get(fullInt) match
           case Some((ints, mode)) =>
             val hex = f"$fullInt%2X"
             out.print(
@@ -211,15 +204,11 @@ object MatchOpcodes {
 
           case None =>
             out.print(s"<td>UNDEF</td>")
-        }
 
-      }
 
       out.print("</tr>")
-    }
 
     out.print("</table>")
-  }
 
   def wideColumns: Seq[Int] =
     for {
@@ -231,44 +220,38 @@ object MatchOpcodes {
   def wideRows: Seq[Int] =
     0 to 7
 
-  private def write(file: String)(f: PrintWriter => Unit) = {
+  private def write(file: String)(f: PrintWriter => Unit) =
     val out = new PrintWriter(file)
     f(out)
     out.close()
-  }
 
-  def toOpcode(n: Int): Option[(Instruction, AddressingMode)] = {
+  def toOpcode(n: Int): Option[(Instruction, AddressingMode)] =
     val BitPattern = ThreeBits >> ThreeBits >> TwoBits
 
-    n match {
+    n match
       case BitPattern((aaa, bbb), cc) =>
-        cc match {
+        cc match
           case 0 => c00(aaa, bbb)
           case 1 => c01(aaa, bbb)
           case 2 => c10(aaa, bbb)
           case 3 => None
-        }
       case _ => throw new IllegalStateException("an int should always have bits to find")
-    }
-  }
 
-  def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] =
     val instruction =
       Seq(ORA, AND, EOR, ADC, STA, LDA, CMP, SBC)(aaa)
 
     val addressingMode =
       Seq(IndirectX, ZeroPage, Immediate, Absolute, IndirectY, ZeroPageX, AbsoluteY, AbsoluteX)(bbb)
 
-    (instruction, addressingMode) match {
+    (instruction, addressingMode) match
       case (STA, Immediate) =>
         None
 
       case _ =>
         (instruction -> addressingMode).some
-    }
-  }
 
-  def c10(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c10(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] =
     val instruction =
       Seq(ASL, ROL, LSR, ROR, STX, LDX, DEC, INC)(aaa)
 
@@ -278,7 +261,7 @@ object MatchOpcodes {
     val useLookup =
       (instruction -> addressingMode).some
 
-    (instruction, addressingMode) match {
+    (instruction, addressingMode) match
       case (ASL | ROL | LSR | ROR, ZeroPage | Accumulator | Absolute | ZeroPageX | AbsoluteX) =>
         useLookup
 
@@ -293,10 +276,8 @@ object MatchOpcodes {
 
       case _ =>
         None
-    }
-  }
 
-  def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] = {
+  def c00(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] =
     val instruction =
       Seq(NoInstruction, BIT, NoInstruction, NoInstruction, STY, LDY, CPY, CPX)(aaa)
 
@@ -306,7 +287,7 @@ object MatchOpcodes {
     val useLookup =
       (instruction -> addressingMode).some
 
-    (instruction, addressingMode) match {
+    (instruction, addressingMode) match
       case (BIT, ZeroPage | Absolute) =>
         useLookup
 
@@ -321,6 +302,3 @@ object MatchOpcodes {
 
       case _ =>
         None
-    }
-  }
-}

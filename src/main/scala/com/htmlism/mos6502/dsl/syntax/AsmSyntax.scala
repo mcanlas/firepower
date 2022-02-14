@@ -3,12 +3,12 @@ package syntax
 
 import com.htmlism.mos6502.model._
 
-trait AsmSyntax {
+trait AsmSyntax:
   def label(s: String)(implicit ctx: AssemblyContext): Unit =
     ctx
       .label(s)
 
-  def sub(s: String)(f: AssemblyContext => Unit): Subroutine = {
+  def sub(s: String)(f: AssemblyContext => Unit): Subroutine =
     val ctx: AssemblyContext =
       new AssemblyContext
 
@@ -17,13 +17,10 @@ trait AsmSyntax {
     ctx.push(RTS)
 
     Subroutine(s, ctx.toFragment, ctx.getJumps)
-  }
 
-  def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit = {
+  def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit =
     ctx
       .addJump(s)
 
     ctx
       .branch(JSR, s.name)
-  }
-}

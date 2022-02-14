@@ -4,7 +4,7 @@ import cats.data.NonEmptyList
 
 sealed trait Color
 
-object Color {
+object Color:
   implicit val colorOperand: Operand[Color] =
     new Operand[Color] {
       def toAddressLiteral(x: Color): String =
@@ -65,4 +65,3 @@ object Color {
   case object LightGreen extends Color
   case object LightBlue extends Color
   case object LightGrey extends Color
-}

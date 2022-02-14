@@ -7,7 +7,7 @@ import cats.implicits._
 
 import com.htmlism.mos6502.model._
 
-object DslDemo extends App {
+object DslDemo extends App:
   val cpu =
     new CPU
 
@@ -40,7 +40,7 @@ object DslDemo extends App {
     A.add(0xc4)
   }
 
-  def withAssemblyContext(f: AssemblyContext => Unit): Unit = {
+  def withAssemblyContext(f: AssemblyContext => Unit): Unit =
     val ctx: AssemblyContext =
       new AssemblyContext
 
@@ -49,40 +49,35 @@ object DslDemo extends App {
     ctx.printOut()
     println()
     println()
-  }
-}
 
-object registers {
+object registers:
   sealed trait Register
 
   sealed trait DestinationA
 
   sealed trait IndexRegister
 
-  case object A extends Register {
+  case object A extends Register:
     def add[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
-      ev.operandType match {
+      ev.operandType match
         case ValueLiteral =>
           ctx.push(ADC, x, s"add LITERAL to a")
 
         case MemoryLocation =>
           ctx.push(ADC, x, s"add ADDR to a")
-      }
-  }
 
-  case object X extends Register with DestinationA with IndexRegister {
+  case object X extends Register with DestinationA with IndexRegister:
     def incr(implicit ctx: AssemblyContext): Unit =
       ctx.push(INX, "incr x")
 
-    def loop(s: String, spec: RangeSpec)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit = {
+    def loop(s: String, spec: RangeSpec)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit =
       val (start, stop, instruction) =
-        spec match {
+        spec match
           case Incrementing(from, to) =>
             (from, to, INX)
 
           case Decrementing(from, to) =>
             (from, to, DEX)
-        }
 
       ctx.push(LDX, start)
 
@@ -93,13 +88,10 @@ object registers {
       ctx.push(instruction)
       ctx.push(CPX, stop)
       ctx.branch(BNE, s)
-    }
-  }
 
   case object Y extends Register with DestinationA with IndexRegister
-}
 
-class CPU {
+class CPU:
   def A: registers.A.type =
     registers.A
 
@@ -107,12 +99,11 @@ class CPU {
     ctx.push(LDA, x, "set A to " + ev.toShow(x))
 
   def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
-    reg match {
+    reg match
       case registers.X =>
         ctx.push(TXA)
       case registers.Y =>
         ctx.push(TYA)
-    }
 
   def X: registers.X.type =
     registers.X
@@ -125,9 +116,8 @@ class CPU {
 
   def Y_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
     ctx.push(TAY, s"set x to register $reg")
-}
 
-class AssemblyContext {
+class AssemblyContext:
   private val xs: ListBuffer[Statement] =
     ListBuffer()
 
@@ -155,10 +145,9 @@ class AssemblyContext {
   def addJump(subroutine: Subroutine): Unit =
     jumps = jumps + subroutine
 
-  def printOut(): Unit = {
+  def printOut(): Unit =
     xs.map(_.toAsm)
       .foreach(println)
-  }
 
   def triplets: List[(String, Option[String], Option[String])] =
     xs.map(_.toTriplet).toList
@@ -168,4 +157,3 @@ class AssemblyContext {
 
   def getJumps: ListSet[Subroutine] =
     jumps
-}

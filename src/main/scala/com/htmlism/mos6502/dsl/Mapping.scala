@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 /**
   * Like an enum, but values are specified
   */
-trait Mapping[A] {
+trait Mapping[A]:
   def definitionGroupComment: String
 
   /**
@@ -24,9 +24,8 @@ trait Mapping[A] {
     * Comment string
     */
   def comment(x: A): String
-}
 
-object Mapping {
+object Mapping:
   implicit def mappingForBitField[A](implicit ev: BitField[A]): Mapping[A] =
     new Mapping[A] {
       private lazy val valueMap =
@@ -72,4 +71,3 @@ object Mapping {
       def comment(x: A): String =
         ev.comment(x)
     }
-}

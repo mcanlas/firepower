@@ -4,7 +4,7 @@ import cats.data.NonEmptyList
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 
-class DslSpec extends AnyFlatSpec with should.Matchers {
+class DslSpec extends AnyFlatSpec with should.Matchers:
 
   "the dsl" should "compile" in {
     val doc =
@@ -86,7 +86,6 @@ class DslSpec extends AnyFlatSpec with should.Matchers {
       )
     )
   }
-}
 
 sealed trait Triforce
 
@@ -94,7 +93,7 @@ case object Courage extends Triforce
 case object Wisdom extends Triforce
 case object Power extends Triforce
 
-object Triforce {
+object Triforce:
   implicit val enumTriforce: EnumAsm[Triforce] =
     new EnumAsm[Triforce] {
       def comment: String =
@@ -109,7 +108,6 @@ object Triforce {
       def comment(x: Triforce): String =
         x.toString
     }
-}
 
 sealed trait TestDirection
 
@@ -118,7 +116,7 @@ case object Down extends TestDirection
 case object Left extends TestDirection
 case object Right extends TestDirection
 
-object TestDirection {
+object TestDirection:
   implicit val bitFieldDirection: BitField[TestDirection] =
     new BitField[TestDirection] {
       def definitionGroupComment: String =
@@ -130,4 +128,3 @@ object TestDirection {
       def label(x: TestDirection): String =
         x.toString.toLowerCase
     }
-}
