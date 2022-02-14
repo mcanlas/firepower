@@ -247,6 +247,7 @@ object MatchOpcodes {
           case 1 => c01(aaa, bbb)
           case 2 => c10(aaa, bbb)
           case 3 => None
+          case _ => throw new IllegalStateException("two bits did not result in two-bit number")
         }
     }
   }
