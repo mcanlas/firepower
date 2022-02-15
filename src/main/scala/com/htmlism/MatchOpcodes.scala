@@ -205,7 +205,6 @@ object MatchOpcodes:
           case None =>
             out.print(s"<td>UNDEF</td>")
 
-
       out.print("</tr>")
 
     out.print("</table>")
