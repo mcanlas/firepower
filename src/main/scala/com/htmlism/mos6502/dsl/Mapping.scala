@@ -29,7 +29,8 @@ object Mapping:
   implicit def mappingForBitField[A](implicit ev: BitField[A]): Mapping[A] =
     new Mapping[A] {
       private lazy val valueMap =
-        ev.all.toList
+        ev.all
+          .toList
           .zip(List.iterate(1, ev.all.size)(_ << 1))
           .toMap
 
@@ -52,7 +53,8 @@ object Mapping:
   implicit def mappingForEnumAsm[A](implicit ev: EnumAsm[A]): Mapping[A] =
     new Mapping[A] {
       private lazy val valueMap =
-        ev.all.toList
+        ev.all
+          .toList
           .zip(List.iterate(0, ev.all.size)(_ + 1))
           .toMap
 
