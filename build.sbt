@@ -11,3 +11,7 @@ lazy val root =
 
 lazy val nescant =
   project.withCats.withTesting
+
+lazy val scratchpad =
+  project
+    .withCats
