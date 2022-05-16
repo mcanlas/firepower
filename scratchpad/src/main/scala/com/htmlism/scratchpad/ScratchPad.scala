@@ -22,17 +22,6 @@ class Reg[A]
 object ScratchPad:
   trait ReadWrite[A] extends Read[A] with Write[A]
 
-  case class AsmProgram[A : Reg, FA <: MutationStatus, Z : Semigroup](a: StatefulRegister[A, FA], z: Z):
-    def map(f: StatefulRegister[A, FA] => Z): AsmProgram[A, FA, Z] =
-      AsmProgram(a, z |+| f(a))
-
-    def widen[B : Reg]: AsmProgram2[A, FA, B, Unknown, Z] =
-      AsmProgram2(a, ??? : StatefulRegister[B, Unknown], z)
-
-  case class AsmProgram2[A : Reg, FA <: MutationStatus, B: Reg, FB <: MutationStatus, Z : Semigroup](a: StatefulRegister[A, FA], b: StatefulRegister[B, FB], z: Z):
-    def map(f: (StatefulRegister[A, FA], StatefulRegister[B, FB]) => Z): AsmProgram2[A, FA, B, FB, Z] =
-      AsmProgram2(a, b, z |+| f(a, b))
-
   val startA =
     ??? : StatefulRegister[Accumulator, Unknown]
 
