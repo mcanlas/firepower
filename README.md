@@ -28,3 +28,7 @@
   - when writing multiple, 16-bit address literals to memory, they may share the same high byte. if all writes are done by bouncing off the accumulator, you can save instructions by using the accumulator for the high byte once and writing multiple times
 - articulate AST as different from ASM stream
 - register locking (transactions) via phantom types
+
+## Mutation tracking
+
+- If the injected scope is local to the caller (and not reused), then it is also local to the called method, and can be rendered as a local val declaration
