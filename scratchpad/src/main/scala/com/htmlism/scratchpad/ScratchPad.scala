@@ -17,18 +17,28 @@ object Write:
   implicit val writeLease: Lease[Write] =
     new Lease { }
 
-class Reg[A]
-
 object ScratchPad:
+  def reg[A : Reg]: PartialUsing[A] =
+    new PartialUsing[A]
+
+  class PartialUsing[A](using a: Reg[A]):
+    def use[B](f: Reg[A] => B): B =
+      f(a)
+
+  reg[Accumulator].use { a =>
+    AsmProgram(startA, "")
+      .widen[RegisterX]
+  }
+
   trait ReadWrite[A] extends Read[A] with Write[A]
 
-  val startA =
+  lazy val startA =
     ??? : StatefulRegister[Accumulator, Unknown]
 
-  val startX =
+  lazy val startX =
     ??? : StatefulRegister[RegisterX, Unknown]
 
-  val startY =
+  lazy val startY =
     ??? : StatefulRegister[RegisterY, Unknown]
 
   (AsmProgram(startA, "") : AsmProgram[Accumulator, Unknown, String])
@@ -45,19 +55,20 @@ object ScratchPad:
 class Accumulator
 
 object Accumulator extends Accumulator:
-  implicit val registerA: Reg[Accumulator] =
-    new Reg
+  given registerA: Reg[Accumulator] with
+    def hello: Boolean =
+      true
 
 class RegisterX
 
 object RegisterX:
-  implicit val registerX: Reg[RegisterX] =
-    new Reg
+  given registerX: Reg[RegisterX] with
+    def hello: Boolean =
+      true
 
 class RegisterY
 
 object RegisterY:
-  implicit val registerY: Reg[RegisterY] =
-    new Reg
-
-trait StatefulRegister[A : Reg, F <: MutationStatus]
+  given registerY: Reg[RegisterY] with
+    def hello: Boolean =
+      true
