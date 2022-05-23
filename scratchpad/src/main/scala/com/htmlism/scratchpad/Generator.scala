@@ -16,7 +16,7 @@ object Generator extends App:
       letters.flatMap { s =>
         List(s"$s : Reg", s"M$s <: MutationStatus")
       }
-      .appended("Z : Semigroup")
+      .appended("Z : Monoid")
       .mkString(", ")
 
     val typeParametersShort =
@@ -53,20 +53,15 @@ object Generator extends App:
       allLetters(n)
 
     println(s"case class AsmProgram$classNum[$typeParametersLong]($parameters):")
-    println(s"  def map(f: $functionArgs => Z): AsmProgram$classNum[$typeParametersShort, Z] =")
-    println(s"    AsmProgram$classNum($arguments, z |+| f($arguments))")
+    println(s"  def andThen(that: AsmProgram$classNum[$typeParametersShort, Z]): AsmProgram$classNum[$typeParametersShort, Z] =")
+    println(s"    AsmProgram$classNum($arguments, z |+| that.z)")
     println()
     println(s"  def widen[$newLetter : Reg]: AsmProgram$nPlus[$typeParametersShort, $newLetter, Unknown, Z] =")
     println(s"    AsmProgram$nPlus($arguments, ??? : StatefulRegister[$newLetter, Unknown], z)")
     println()
+    println(s"  def name(s: String): SubRoutine$classNum[$typeParametersShort, Z] =")
+    println(s"    SubRoutine$classNum(s, this)")
+    println()
 
-//case class AsmProgram[A : Reg, FA <: MutationStatus, Z : Semigroup](a: StatefulRegister[A, FA], z: Z):
-//  def map(f: StatefulRegister[A, FA] => Z): AsmProgram[A, FA, Z] =
-//    AsmProgram(a, z |+| f(a))
-//
-//  def widen[B : Reg]: AsmProgram2[A, FA, B, Unknown, Z] =
-//    AsmProgram2(a, ??? : StatefulRegister[B, Unknown], z)
-//
-//case class AsmProgram2[A : Reg, FA <: MutationStatus, B: Reg, FB <: MutationStatus, Z : Semigroup](a: StatefulRegister[A, FA], b: StatefulRegister[B, FB], z: Z):
-//  def map(f: (StatefulRegister[A, FA], StatefulRegister[B, FB]) => Z): AsmProgram2[A, FA, B, FB, Z] =
-//    AsmProgram2(a, b, z |+| f(a, b))
+    println(s"case class SubRoutine$classNum[$typeParametersLong](name: String, program: AsmProgram$classNum[$typeParametersShort, Z])")
+    println()
