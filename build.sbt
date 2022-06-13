@@ -15,3 +15,4 @@ lazy val nescant =
 lazy val scratchpad =
   project
     .withCats
+    .withTesting
