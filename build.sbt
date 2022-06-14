@@ -7,7 +7,7 @@ lazy val root =
     )
     .withCats
     .withTesting
-    .aggregate(nescant)
+    .aggregate(nescant, scratchpad)
 
 lazy val nescant =
   project.withCats.withTesting
