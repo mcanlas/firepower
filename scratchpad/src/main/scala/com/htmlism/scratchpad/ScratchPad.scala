@@ -9,16 +9,16 @@ trait Read[A]
 
 object Read:
   implicit val readLease: Lease[Read] =
-    new Lease { }
+    new Lease {}
 
 trait Write[A]
 
 object Write:
   implicit val writeLease: Lease[Write] =
-    new Lease { }
+    new Lease {}
 
 object ScratchPad:
-  def reg[A : Reg]: PartialUsing[A] =
+  def reg[A: Reg]: PartialUsing[A] =
     new PartialUsing[A]
 
   class PartialUsing[A](using a: Reg[A]):
@@ -41,10 +41,10 @@ object ScratchPad:
   lazy val startY =
     ??? : StatefulRegister[RegisterY, Unknown]
 
-  (AsmProgram(startA, "") : AsmProgram[Accumulator, Unknown, String])
+  (AsmProgram(startA, ""): AsmProgram[Accumulator, Unknown, String])
 
   (AsmProgram(startA, "")
-    .widen[RegisterX] : AsmProgram2[Accumulator, Unknown, RegisterX, Unknown, String])
+    .widen[RegisterX]: AsmProgram2[Accumulator, Unknown, RegisterX, Unknown, String])
 
 //
 //  case class Subroutine2[A, B](name: String, f: (Lease[A], Lease[B]) => State2[A, B]) {

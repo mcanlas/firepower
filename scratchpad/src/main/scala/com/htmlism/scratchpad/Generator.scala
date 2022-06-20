@@ -13,22 +13,25 @@ object Generator extends App:
       allLetters.take(n)
 
     val typeParametersLong =
-      letters.flatMap { s =>
-        List(s"$s : Reg", s"M$s <: MutationStatus")
-      }
-      .appended("Z : Monoid")
-      .mkString(", ")
+      letters
+        .flatMap { s =>
+          List(s"$s : Reg", s"M$s <: MutationStatus")
+        }
+        .appended("Z : Monoid")
+        .mkString(", ")
 
     val typeParametersShort =
-      letters.flatMap { s =>
-        List(s"$s", s"M$s")
-      }
+      letters
+        .flatMap { s =>
+          List(s"$s", s"M$s")
+        }
         .mkString(", ")
 
     val parameters =
-      letters.map { s =>
-        s"${s.toLowerCase}: StatefulRegister[$s, M$s]"
-      }
+      letters
+        .map { s =>
+          s"${s.toLowerCase}: StatefulRegister[$s, M$s]"
+        }
         .appended("z: Z")
         .mkString(", ")
 
@@ -37,10 +40,11 @@ object Generator extends App:
 
     val functionArgs =
       val base =
-        letters.map { s =>
-          s"StatefulRegister[$s, M$s]"
-        }
-        .mkString(", ")
+        letters
+          .map { s =>
+            s"StatefulRegister[$s, M$s]"
+          }
+          .mkString(", ")
 
       if (n == 1) base else s"($base)"
 
@@ -53,7 +57,9 @@ object Generator extends App:
       allLetters(n)
 
     println(s"case class AsmProgram$classNum[$typeParametersLong]($parameters):")
-    println(s"  def andThen(that: AsmProgram$classNum[$typeParametersShort, Z]): AsmProgram$classNum[$typeParametersShort, Z] =")
+    println(
+      s"  def andThen(that: AsmProgram$classNum[$typeParametersShort, Z]): AsmProgram$classNum[$typeParametersShort, Z] ="
+    )
     println(s"    AsmProgram$classNum($arguments, z |+| that.z)")
     println()
     println(s"  def widen[$newLetter : Reg]: AsmProgram$nPlus[$typeParametersShort, $newLetter, Unknown, Z] =")
@@ -63,5 +69,7 @@ object Generator extends App:
     println(s"    SubRoutine$classNum(s, this)")
     println()
 
-    println(s"case class SubRoutine$classNum[$typeParametersLong](name: String, program: AsmProgram$classNum[$typeParametersShort, Z])")
+    println(
+      s"case class SubRoutine$classNum[$typeParametersLong](name: String, program: AsmProgram$classNum[$typeParametersShort, Z])"
+    )
     println()
