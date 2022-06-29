@@ -1,7 +1,7 @@
 package com.htmlism.mos6502.dsl
 package snake
 
-import cats.implicits._
+import cats.syntax.all._
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 
