@@ -33,18 +33,18 @@ object ScratchPad:
   trait ReadWrite[A] extends Read[A] with Write[A]
 
   lazy val startA =
-    ??? : StatefulRegister[Accumulator, Unknown]
+    ??? : StatefulRegister[Accumulator, Ignores]
 
   lazy val startX =
-    ??? : StatefulRegister[RegisterX, Unknown]
+    ??? : StatefulRegister[RegisterX, Ignores]
 
   lazy val startY =
-    ??? : StatefulRegister[RegisterY, Unknown]
+    ??? : StatefulRegister[RegisterY, Ignores]
 
-  (AsmProgram(startA, ""): AsmProgram[Accumulator, Unknown, String])
+  (AsmProgram(startA, ""): AsmProgram[Accumulator, Ignores, String])
 
   (AsmProgram(startA, "")
-    .widen[RegisterX]: AsmProgram2[Accumulator, Unknown, RegisterX, Unknown, String])
+    .widen[RegisterX]: AsmProgram2[Accumulator, Ignores, RegisterX, Ignores, String])
 
 //
 //  case class Subroutine2[A, B](name: String, f: (Lease[A], Lease[B]) => State2[A, B]) {

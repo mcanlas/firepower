@@ -2,5 +2,6 @@ package com.htmlism.scratchpad
 
 sealed trait MutationStatus
 
-trait Unknown extends MutationStatus
-trait Known extends MutationStatus
+class Modifies() extends MutationStatus
+
+case class Ignores() extends Modifies
