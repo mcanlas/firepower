@@ -16,7 +16,7 @@ class FeatureSpec extends AnyFunSuite with Matchers:
       .write(2)[A] shouldBe "LDA 2 STA 1"
   }
 
-  test("writing to an address can use A, X, and Y registers for bouncing ") {
+  test("writing to an address can use A, X, and Y registers for bouncing") {
     ReadWriteAddress(Address.zero(0x01))
       .write(2)[A] shouldBe "LDA 2 STA 1"
 
