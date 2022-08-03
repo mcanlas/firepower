@@ -29,4 +29,7 @@ class FeatureSpec extends AnyFunSuite with Matchers:
 
   ignore("the write payload is a typesafe enum") {}
 
+  // intializations must be constant
+  // cannot involve reading from a register, that is a side-effect
+  // can also support 16-bit initializations
   ignore("initializations of the same value and register are aggregated") {}
