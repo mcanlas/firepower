@@ -32,3 +32,8 @@
 ## Mutation tracking
 
 - If the injected scope is local to the caller (and not reused), then it is also local to the called method, and can be rendered as a local val declaration
+
+## Elsewhere
+
+- [Easy 6502](https://skilldrick.github.io/easy6502/)
+- [Annotated Snake6502](https://gist.github.com/wkjagt/9043907)
