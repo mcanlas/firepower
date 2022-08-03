@@ -1,15 +1,8 @@
 package com.htmlism.scratchpad
 
-object Address:
-  def zero(n: Int): ZeroPageAddress =
-    ZeroPageAddress(n % 256)
+case class ZeroPageAddress(n: Int, alias: String)
 
-  def absolute(n: Int): GlobalAddress =
-    GlobalAddress(n % (256 * 256))
-
-case class ZeroPageAddress(n: Int)
-
-case class GlobalAddress(n: Int)
+case class GlobalAddress(n: Int, alias: String)
 
 sealed trait ReadAddress:
   def addr: ZeroPageAddress

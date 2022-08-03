@@ -7,10 +7,19 @@ package object syntax:
 
   class PartiallyAppliedWrite[A: Loadable](reg: WriteAddress, x: A):
     def apply[B: Register]: String =
+      val literal =
+        summon[Loadable[A]].show(x)
+
+      val register =
+        summon[Register[B]].self
+
       val first =
-        "LD" + summon[Register[B]].self + " " + summon[Loadable[A]].show(x)
+        s"LD$register $literal"
 
       val second =
-        "ST" + summon[Register[B]].self + " " + reg.addr.n.toString
+        s"ST$register ${reg.addr.n.toString}"
 
-      first + " " + second
+      val desc =
+        s"${reg.addr.alias} = $literal, via $register"
+
+      s"$first $second ; $desc"
