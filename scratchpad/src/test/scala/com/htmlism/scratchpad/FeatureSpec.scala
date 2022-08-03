@@ -26,3 +26,7 @@ class FeatureSpec extends AnyFunSuite with Matchers:
     ReadWriteAddress(Address.zero(0x01))
       .write(2)[Y] shouldBe "LDY 2 STY 1"
   }
+
+  ignore("the write payload is a typesafe enum") {}
+
+  ignore("initializations of the same value and register are aggregated") {}
