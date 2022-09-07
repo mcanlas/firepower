@@ -6,3 +6,7 @@ trait Load[A]:
 
   // from register
   def from: String
+
+object Load:
+  def apply[A : Load]: Load[A] =
+    summon[Load[A]]
