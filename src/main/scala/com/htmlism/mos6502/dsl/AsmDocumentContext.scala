@@ -84,10 +84,9 @@ case class Definition[A](name: String, x: A, comment: Option[String])(implicit e
 
 object Definition:
   implicit def namedResourceForDefinition[A]: NamedResource[Definition[A]] =
-    new NamedResource[Definition[A]] {
+    new NamedResource[Definition[A]]:
       def toDefinitions(x: Definition[A]): List[Definition[_]] =
         List(x)
-    }
 
   def apply[A: DefinitionValue](name: String, x: A): Definition[A] =
     Definition(name, x, None)

@@ -18,9 +18,8 @@ case class VolatileDevice[A](name: String, address: ZeroAddress):
 
 object VolatileDevice:
   implicit def namedResourceForVolatileDevice[A]: NamedResource[VolatileDevice[A]] =
-    new NamedResource[VolatileDevice[A]] {
+    new NamedResource[VolatileDevice[A]]:
       def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
         List {
           Definition(x.name, x.address, "Volatile generator for A values")
         }
-    }

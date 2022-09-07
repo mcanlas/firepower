@@ -18,6 +18,5 @@ object VolatileDevice:
     new ByteSource[VolatileDevice[A]] {}
 
   implicit def operandForVolatileDevice[A]: Operand[VolatileDevice[A]] =
-    new Operand[VolatileDevice[A]] {
+    new Operand[VolatileDevice[A]]:
       def encode(x: VolatileDevice[A]): String = ""
-    }

@@ -95,7 +95,7 @@ case object Power extends Triforce
 
 object Triforce:
   implicit val enumTriforce: EnumAsm[Triforce] =
-    new EnumAsm[Triforce] {
+    new EnumAsm[Triforce]:
       def comment: String =
         "foo as enum"
 
@@ -107,7 +107,6 @@ object Triforce:
 
       def comment(x: Triforce): String =
         x.toString
-    }
 
 sealed trait TestDirection
 
@@ -118,7 +117,7 @@ case object Right extends TestDirection
 
 object TestDirection:
   implicit val bitFieldDirection: BitField[TestDirection] =
-    new BitField[TestDirection] {
+    new BitField[TestDirection]:
       def definitionGroupComment: String =
         "foo as bit field"
 
@@ -127,4 +126,3 @@ object TestDirection:
 
       def label(x: TestDirection): String =
         x.toString.toLowerCase
-    }

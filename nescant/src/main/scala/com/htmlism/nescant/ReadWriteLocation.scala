@@ -17,6 +17,5 @@ object ReadWriteLocation:
     new ByteSink[ReadWriteLocation[A]] {}
 
   implicit def operandForReadWriteLocation[A]: Operand[ReadWriteLocation[A]] =
-    new Operand[ReadWriteLocation[A]] {
+    new Operand[ReadWriteLocation[A]]:
       def encode(x: ReadWriteLocation[A]): String = ""
-    }

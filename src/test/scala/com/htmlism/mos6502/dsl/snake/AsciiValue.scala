@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 
 object AsciiValue:
   implicit val asciiValueMapping: Mapping[AsciiValue] =
-    new Mapping[AsciiValue] {
+    new Mapping[AsciiValue]:
       def definitionGroupComment: String =
         "ASCII values of keys controlling the snake"
 
@@ -24,7 +24,6 @@ object AsciiValue:
 
       def comment(x: AsciiValue): String =
         x.toString
-    }
 
 sealed trait AsciiValue
 

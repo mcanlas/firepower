@@ -16,7 +16,7 @@ trait BitExtractor[A]:
     * A combinator for appending one extractor to another
     */
   def >>[B](that: BitExtractor[B]): BitExtractor[(A, B)] =
-    new BitExtractor[(A, B)] {
+    new BitExtractor[(A, B)]:
       def length: Int = self.length + that.length
 
       def unapply(n: Int): Option[(A, B)] =
@@ -25,7 +25,6 @@ trait BitExtractor[A]:
           shifted = n >> that.length
           a <- self.unapply(shifted)
         } yield (a, b)
-    }
 
 object AtomExtractor:
   @tailrec

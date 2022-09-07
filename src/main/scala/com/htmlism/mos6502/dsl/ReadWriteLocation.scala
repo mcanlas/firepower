@@ -20,7 +20,7 @@ case class ReadWriteLocation[A: Operand](name: String, address: ZeroAddress):
 
 object ReadWriteLocation:
   implicit def operandForReadWriteLocation[A]: Operand[ReadWriteLocation[A]] =
-    new Operand[ReadWriteLocation[A]] {
+    new Operand[ReadWriteLocation[A]]:
       def toAddressLiteral(x: ReadWriteLocation[A]): String =
         x.name
 
@@ -29,12 +29,10 @@ object ReadWriteLocation:
 
       def operandType: OperandType =
         MemoryLocation
-    }
 
   implicit def namedResourceForReadWriteLocation[A]: NamedResource[ReadWriteLocation[A]] =
-    new NamedResource[ReadWriteLocation[A]] {
+    new NamedResource[ReadWriteLocation[A]]:
       def toDefinitions(x: ReadWriteLocation[A]): List[Definition[ZeroAddress]] =
         List {
           Definition(x.name, x.address, "Read/write location for A values")
         }
-    }

@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 
 object Direction:
   implicit val directionBitField: BitField[Direction] =
-    new BitField[Direction] {
+    new BitField[Direction]:
       def definitionGroupComment: String =
         "Directions"
 
@@ -14,7 +14,6 @@ object Direction:
 
       def label(x: Direction): String =
         "moving" + x.toString
-    }
 
 sealed trait Direction
 
