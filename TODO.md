@@ -1,0 +1,3 @@
+- create classes for read/write, read-only (volatile), and write-only memory locations
+  - zero page and absolute
+  - but how do we encode it? subclassing?
