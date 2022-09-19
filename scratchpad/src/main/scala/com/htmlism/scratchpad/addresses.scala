@@ -1,17 +1,22 @@
 package com.htmlism.scratchpad
 
-case class ZeroPageAddress(n: Int, alias: String)
+sealed trait Address:
+  def n: Int
 
-case class GlobalAddress(n: Int, alias: String)
+  def alias: String
 
-sealed trait ReadAddress:
-  def addr: ZeroPageAddress
+case class ZeroPageAddress(n: Int, alias: String) extends Address
 
-sealed trait WriteAddress:
-  def addr: ZeroPageAddress
+case class AbsoluteAddress(n: Int, alias: String) extends Address
 
-case class Volatile(addr: ZeroPageAddress) extends ReadAddress
+sealed trait ReadAddress[A <: Address]:
+  def addr: A
 
-case class ReadWriteAddress(addr: ZeroPageAddress) extends ReadAddress with WriteAddress
+sealed trait WriteAddress[A <: Address]:
+  def addr: A
 
-case class WriteOnlyAddress(addr: ZeroPageAddress) extends WriteAddress
+case class Volatile[A <: Address](addr: A) extends ReadAddress[A]
+
+case class ReadWriteAddress[A <: Address](addr: A) extends ReadAddress[A] with WriteAddress[A]
+
+case class WriteOnlyAddress[A <: Address](addr: A) extends WriteAddress[A]

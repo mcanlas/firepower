@@ -1,11 +1,11 @@
 package com.htmlism.scratchpad
 
 package object syntax:
-  implicit class WriteRegisterOps(reg: WriteAddress):
-    def write[A: Loadable](x: A): PartiallyAppliedWrite[A] =
+  implicit class WriteRegisterOps[B <: Address](reg: WriteAddress[B]):
+    def write[A: Loadable](x: A): PartiallyAppliedWrite[A, B] =
       new PartiallyAppliedWrite(reg, x)
 
-  class PartiallyAppliedWrite[A: Loadable](reg: WriteAddress, x: A):
+  class PartiallyAppliedWrite[A: Loadable, B <: Address](reg: WriteAddress[B], x: A):
     def apply[B: Register]: String =
       val literal =
         summon[Loadable[A]].show(x)
