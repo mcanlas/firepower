@@ -8,5 +8,5 @@ trait Load[A]:
   def from: String
 
 object Load:
-  def apply[A : Load]: Load[A] =
+  def apply[A: Load]: Load[A] =
     summon[Load[A]]
