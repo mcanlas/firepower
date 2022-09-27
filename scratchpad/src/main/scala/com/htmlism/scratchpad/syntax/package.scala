@@ -6,12 +6,12 @@ package object syntax:
       new PartiallyAppliedWrite(reg, x)
 
   class PartiallyAppliedWrite[A: Loadable, B <: Address](reg: WriteAddress[B], x: A):
-    def apply[B: Register]: String =
+    def apply[C: Register]: String =
       val literal =
         summon[Loadable[A]].show(x)
 
       val register =
-        summon[Register[B]].self
+        summon[Register[C]].self
 
       val first =
         s"LD$register $literal"
