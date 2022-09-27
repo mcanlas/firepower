@@ -15,7 +15,7 @@ object Register:
 
   object A:
     given loadA: Load[A] with
-      def init: String =
+      def loadInt: String =
         "LDA"
 
       def from: String =
@@ -29,7 +29,7 @@ object Register:
 
   object X:
     given loadX: Load[X] with
-      def init: String =
+      def loadInt: String =
         "LDX"
 
       def from: String =
@@ -43,7 +43,7 @@ object Register:
 
   object Y:
     given loadY: Load[Y] with
-      def init: String =
+      def loadInt: String =
         "LDY"
 
       def from: String =

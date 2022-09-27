@@ -1,8 +1,9 @@
 package com.htmlism.scratchpad
 
 trait Load[A]:
+  // TODO genericize to take in encoder
   // from constant
-  def init: String
+  def loadInt: String
 
   // from register
   def from: String
