@@ -1,6 +1,10 @@
 package com.htmlism.scratchpad
 
 package object syntax:
+  implicit class WriteRegisterOps[A](reg: WriteAddress[A]):
+    def write[B: Loadable](x: B): syntax.PartiallyAppliedWrite[B, A] =
+      new syntax.PartiallyAppliedWrite(reg, x)
+
   class PartiallyAppliedWrite[A: Loadable, B](reg: WriteAddress[B], x: A):
     def apply[C: Load: Store: Register]: String =
       val literal =

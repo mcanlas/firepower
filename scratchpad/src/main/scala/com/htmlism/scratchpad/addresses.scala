@@ -11,9 +11,7 @@ class AbsoluteAddress(val n: Int, val alias: String) extends Address
 
 sealed trait ReadAddress[A] extends Address
 
-sealed trait WriteAddress[A] extends Address:
-  def write[B: Loadable](x: B): syntax.PartiallyAppliedWrite[B, A] =
-    new syntax.PartiallyAppliedWrite(this, x)
+sealed trait WriteAddress[A] extends Address
 
 trait Volatile[A] extends ReadAddress[A]
 
