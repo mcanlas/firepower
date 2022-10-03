@@ -15,10 +15,7 @@ object Register:
 
   object A:
     given loadA: Load[A] with
-      def loadInt: String =
-        "LDA"
-
-      def from: String =
+      def instruction: String =
         "LDA"
 
     given storeA: Store[A] with
@@ -29,10 +26,7 @@ object Register:
 
   object X:
     given loadX: Load[X] with
-      def loadInt: String =
-        "LDX"
-
-      def from: String =
+      def instruction: String =
         "LDX"
 
     given storeX: Store[X] with
@@ -43,10 +37,7 @@ object Register:
 
   object Y:
     given loadY: Load[Y] with
-      def loadInt: String =
-        "LDY"
-
-      def from: String =
+      def instruction: String =
         "LDY"
 
     given storeY: Store[Y] with

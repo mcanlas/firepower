@@ -14,7 +14,7 @@ package object syntax:
         summon[Register[C]].self
 
       val loadInstruction =
-        Load[C].loadInt // TODO load action needs to interact with encoder
+        Load[C].instruction // TODO load action needs to interact with encoder
 
       val storeInstruction =
         Store[C].to // TODO store action needs to interact with encoder
