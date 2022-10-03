@@ -5,25 +5,29 @@ import org.scalatest.matchers.should._
 
 import com.htmlism.scratchpad.syntax._
 
+object ExampleRegister extends ZeroPageAddress(0x01, "example") with WriteOnlyAddress[ExampleRegister]
+
+class ExampleRegister
+
 class FeatureSpec extends AnyFunSuite with Matchers:
   test("zero page address as write only supports writing") {
-    WriteOnlyAddress(ZeroPageAddress(0x01, "example"))
+    ExampleRegister
       .write(2)[A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
   }
 
   test("zero page address as read/write supports writing") {
-    ReadWriteAddress(ZeroPageAddress(0x01, "example"))
+    ExampleRegister
       .write(2)[A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
   }
 
   test("writing to an address can use A, X, and Y registers for bouncing") {
-    ReadWriteAddress(ZeroPageAddress(0x01, "example"))
+    ExampleRegister
       .write(2)[A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
 
-    ReadWriteAddress(ZeroPageAddress(0x01, "example"))
+    ExampleRegister
       .write(2)[X] shouldBe "LDX 2 STX 1 ; example = 2, via X"
 
-    ReadWriteAddress(ZeroPageAddress(0x01, "example"))
+    ExampleRegister
       .write(2)[Y] shouldBe "LDY 2 STY 1 ; example = 2, via Y"
   }
 

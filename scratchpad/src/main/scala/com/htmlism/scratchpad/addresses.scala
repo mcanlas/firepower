@@ -5,18 +5,18 @@ sealed trait Address:
 
   def alias: String
 
-case class ZeroPageAddress(n: Int, alias: String) extends Address
+class ZeroPageAddress(val n: Int, val alias: String) extends Address
 
-case class AbsoluteAddress(n: Int, alias: String) extends Address
+class AbsoluteAddress(val n: Int, val alias: String) extends Address
 
-sealed trait ReadAddress[A <: Address]:
-  def addr: A
+sealed trait ReadAddress[A] extends Address
 
-sealed trait WriteAddress[A <: Address]:
-  def addr: A
+sealed trait WriteAddress[A] extends Address:
+  def write[B: Loadable](x: B): syntax.PartiallyAppliedWrite[B, A] =
+    new syntax.PartiallyAppliedWrite(this, x)
 
-case class Volatile[A <: Address](addr: A) extends ReadAddress[A]
+trait Volatile[A] extends ReadAddress[A]
 
-case class ReadWriteAddress[A <: Address](addr: A) extends ReadAddress[A] with WriteAddress[A]
+trait ReadWriteAddress[A] extends ReadAddress[A] with WriteAddress[A]
 
-case class WriteOnlyAddress[A <: Address](addr: A) extends WriteAddress[A]
+trait WriteOnlyAddress[A] extends WriteAddress[A]

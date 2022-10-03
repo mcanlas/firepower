@@ -1,11 +1,7 @@
 package com.htmlism.scratchpad
 
 package object syntax:
-  implicit class WriteRegisterOps[B <: Address](reg: WriteAddress[B]):
-    def write[A: Loadable](x: A): PartiallyAppliedWrite[A, B] =
-      new PartiallyAppliedWrite(reg, x)
-
-  class PartiallyAppliedWrite[A: Loadable, B <: Address](reg: WriteAddress[B], x: A):
+  class PartiallyAppliedWrite[A: Loadable, B](reg: WriteAddress[B], x: A):
     def apply[C: Load: Store: Register]: String =
       val literal =
         summon[Loadable[A]].show(x)
@@ -23,9 +19,9 @@ package object syntax:
         s"$loadInstruction $literal"
 
       val second =
-        s"$storeInstruction ${reg.addr.n.toString}"
+        s"$storeInstruction ${reg.n.toString}"
 
       val desc =
-        s"${reg.addr.alias} = $literal, via $register"
+        s"${reg.alias} = $literal, via $register"
 
       s"$first $second ; $desc"
