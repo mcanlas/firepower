@@ -1,13 +1,13 @@
 package com.htmlism.scratchpad
 
-object Generator extends App:
+object CodeGenerator extends App:
   val allLetters =
     ('A' to 'Z')
       .map(_.toString)
 
   for (n <- 1 to 22)
     val classNum =
-      if (n == 1) "" else n
+      n
 
     val letters =
       allLetters.take(n)
