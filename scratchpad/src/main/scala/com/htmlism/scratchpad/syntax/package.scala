@@ -2,8 +2,18 @@ package com.htmlism.scratchpad
 
 package object syntax:
   implicit class WriteRegisterOps[Addr](reg: WriteAddress[Addr]):
-    def write[A: Loadable](x: A): syntax.PartiallyAppliedWrite[A, Addr] =
+    def writeConst[A: Loadable](x: A): syntax.PartiallyAppliedWrite[A, Addr] =
       new syntax.PartiallyAppliedWrite(reg, x)
+
+    def writeFrom[R: Store]: Asm2[R, Addr] =
+      val storeInstruction =
+        Store[R].to
+
+      val storeStr =
+        s"$storeInstruction ${reg.n.toString}"
+
+      // TODO encoding now already makes the structures lose semantic meaning
+      Asm2(List(s"$storeInstruction ${reg.n.toString}"))
 
   class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteAddress[A], x: Addr):
     def apply[R: Load: Store: Register]: String =
