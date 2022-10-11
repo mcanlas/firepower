@@ -13,6 +13,7 @@ package object syntax:
         s"$storeInstruction ${reg.n.toString}"
 
       // TODO encoding now already makes the structures lose semantic meaning
+      // TODO maybe AsmN's should be traits such that semantic structures can just obey the contracts and be AND'ed
       Asm2(List(s"$storeInstruction ${reg.n.toString}"))
 
   class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteAddress[A], x: Addr):
