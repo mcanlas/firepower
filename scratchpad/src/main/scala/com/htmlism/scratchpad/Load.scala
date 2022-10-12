@@ -5,32 +5,38 @@ trait Load[A]:
   // from constant
   def instruction: String
 
-  def const: Asm1[A] =
-    Asm1(List(instruction))
+  def const: Asm1Instructions[A] =
+    Asm1Instructions(List(instruction))
 
   // from register
-  def from[B <: Address: ReadAddress]: Asm2[A, B] =
-    Asm2(List(instruction))
+  def from[B <: Address: ReadAddress]: Asm2Instructions[A, B] =
+    Asm2Instructions(List(instruction))
 
 object Load:
   def apply[A: Load]: Load[A] =
     summon[Load[A]]
 
-case class Asm1[A](xs: List[String]):
-  def and[B]: Asm2[A, B] =
-    Asm2(xs)
+trait Asm1[A]:
+  def xs: List[String]
 
-case class Asm2[A, B](xs: List[String]):
-  def andThen(that: Asm2[A, B]): Asm2[2, B] =
-    Asm2(xs ++ that.xs)
+case class Asm1Instructions[A](xs: List[String]) extends Asm1[A]:
+  def and[B]: Asm2Instructions[A, B] =
+    Asm2Instructions(xs)
+
+trait Asm2[A, B]:
+  def xs: List[String]
+
+case class Asm2Instructions[A, B](xs: List[String]) extends Asm2[A, B]:
+  def andThen(that: Asm2Instructions[A, B]): Asm2Instructions[2, B] =
+    Asm2Instructions(xs ++ that.xs)
 
   // TODO not tested
   // B type needs to be a class type, with evidence, not a case class
-  def swap[AA, BB](f: (R[A], R[B]) => (R[AA], R[BB])): Asm2[AA, BB] =
-    Asm2.from(f(R[A](), R[B]()), xs)
+  def swap[AA, BB](f: (R[A], R[B]) => (R[AA], R[BB])): Asm2Instructions[AA, BB] =
+    Asm2Instructions.from(f(R[A](), R[B]()), xs)
 
-object Asm2:
+object Asm2Instructions:
   def from[A, B](t2: (R[A], R[B]), xs: List[String]) =
-    Asm2[A, B](xs)
+    Asm2Instructions[A, B](xs)
 
 case class R[A]()
