@@ -27,8 +27,8 @@ trait Asm2[A, B]:
   def xs: List[String]
 
 case class Asm2Instructions[A, B](xs: List[String]) extends Asm2[A, B]:
-  def andThen(that: Asm2Instructions[A, B]): Asm2Instructions[2, B] =
-    Asm2Instructions(xs ++ that.xs)
+  def andThen(that: Asm2Instructions[A, B]): Asm2[A, B] =
+    AndThen2(this, that)
 
   // TODO not tested
   // B type needs to be a class type, with evidence, not a case class
@@ -38,5 +38,9 @@ case class Asm2Instructions[A, B](xs: List[String]) extends Asm2[A, B]:
 object Asm2Instructions:
   def from[A, B](t2: (R[A], R[B]), xs: List[String]) =
     Asm2Instructions[A, B](xs)
+
+case class AndThen2[A, B](x: Asm2[A, B], y: Asm2[A, B]) extends Asm2[A, B]:
+  def xs: List[String] =
+    x.xs ++ y.xs
 
 case class R[A]()
