@@ -47,5 +47,14 @@ case class R[A]()
 
 // TODO needs evidence that it is a storable target of one thing
 case class StoreTo[A: Store, B]() extends Asm2[A, B]:
+  // TODO
   def xs: List[String] =
     Nil
+
+case class LoadImmediate[R: Load, A: ImmediateValue]() extends Asm1[R]:
+  // TODO
+  def xs: List[String] =
+    Nil
+
+trait ImmediateValue[A]:
+  def toByte(x: A): Int

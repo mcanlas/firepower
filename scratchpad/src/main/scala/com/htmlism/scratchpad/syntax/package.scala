@@ -20,7 +20,7 @@ package object syntax:
         Load[R].instruction // TODO load action needs to interact with encoder
 
       val storeInstruction =
-        Store[R].to // TODO store action needs to interact with encoder
+        Store[R].instruction // TODO store action needs to interact with encoder
 
       val first =
         s"$loadInstruction $literal"

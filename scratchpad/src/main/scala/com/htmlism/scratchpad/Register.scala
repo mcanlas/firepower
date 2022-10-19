@@ -19,7 +19,7 @@ object Register:
         "LDA"
 
     given storeA: Store[A] with
-      def to: String =
+      def instruction: String =
         "STA"
 
   class A
@@ -30,7 +30,7 @@ object Register:
         "LDX"
 
     given storeX: Store[X] with
-      def to: String =
+      def instruction: String =
         "STX"
 
   class X
@@ -41,7 +41,7 @@ object Register:
         "LDY"
 
     given storeY: Store[Y] with
-      def to: String =
+      def instruction: String =
         "STY"
 
   class Y

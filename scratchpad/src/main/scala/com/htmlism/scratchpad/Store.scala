@@ -1,7 +1,7 @@
 package com.htmlism.scratchpad
 
 trait Store[A]:
-  def to: String
+  def instruction: String
 
 object Store:
   def apply[A: Store]: Store[A] =
