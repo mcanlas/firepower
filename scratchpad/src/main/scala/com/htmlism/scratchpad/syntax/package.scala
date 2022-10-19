@@ -5,16 +5,8 @@ package object syntax:
     def writeConst[A: Loadable](x: A): syntax.PartiallyAppliedWrite[A, Addr] =
       new syntax.PartiallyAppliedWrite(reg, x)
 
-    def writeFrom[R: Store]: Asm2Instructions[R, Addr] =
-      val storeInstruction =
-        Store[R].to
-
-      val storeStr =
-        s"$storeInstruction ${reg.n.toString}"
-
-      // TODO encoding now already makes the structures lose semantic meaning
-      // TODO maybe AsmN's should be traits such that semantic structures can just obey the contracts and be AND'ed
-      Asm2Instructions(List(s"$storeInstruction ${reg.n.toString}"))
+    def writeFrom[R: Store]: Asm2[R, Addr] =
+      StoreTo[R, Addr]()
 
   class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteAddress[A], x: Addr):
     def apply[R: Load: Store: Register]: String =
