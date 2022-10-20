@@ -5,7 +5,7 @@ import org.scalatest.matchers.should._
 
 import com.htmlism.scratchpad.syntax._
 
-object ExampleRegister extends ZeroPageAddress(0x01, "example") with WriteOnlyAddress[ExampleRegister]
+object ExampleRegister extends ZeroPageAddress(0x01, "example") with WriteOnlyByteAddress[ExampleRegister]
 
 class ExampleRegister
 

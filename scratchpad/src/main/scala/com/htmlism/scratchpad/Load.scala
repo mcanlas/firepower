@@ -9,7 +9,7 @@ trait Load[A]:
     Asm1Instructions(List(instruction))
 
   // from register
-  def from[B <: Address: ReadAddress]: Asm2Instructions[A, B] =
+  def from[B <: Address: ReadByteAddress]: Asm2Instructions[A, B] =
     Asm2Instructions(List(instruction))
 
 object Load:

@@ -1,14 +1,14 @@
 package com.htmlism.scratchpad
 
 package object syntax:
-  implicit class WriteRegisterOps[Addr](reg: WriteAddress[Addr]):
+  implicit class WriteRegisterOps[Addr](reg: WriteByteAddress[Addr]):
     def writeConst[A: Loadable](x: A): syntax.PartiallyAppliedWrite[A, Addr] =
       new syntax.PartiallyAppliedWrite(reg, x)
 
     def writeFrom[R: Store]: Asm2[R, Addr] =
       StoreTo[R, Addr]()
 
-  class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteAddress[A], x: Addr):
+  class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteByteAddress[A], x: Addr):
     def apply[R: Load: Store: Register]: String =
       val literal =
         summon[Loadable[Addr]].show(x)

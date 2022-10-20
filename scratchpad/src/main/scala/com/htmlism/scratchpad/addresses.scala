@@ -9,12 +9,21 @@ class ZeroPageAddress(val n: Int, val alias: String) extends Address
 
 class AbsoluteAddress(val n: Int, val alias: String) extends Address
 
-sealed trait ReadAddress[A] extends Address
+sealed trait ReadByteAddress[A] extends Address
 
-sealed trait WriteAddress[A] extends Address
+sealed trait WriteByteAddress[A] extends Address
 
-trait Volatile[A] extends ReadAddress[A]
+/**
+  * To be extended by the address companion object, to signify that this is a volatile resource of length byte
+  */
+trait VolatileByte[A] extends ReadByteAddress[A]
 
-trait ReadWriteAddress[A] extends ReadAddress[A] with WriteAddress[A]
+/**
+  * To be extended by the address companion object, to signify that this is a read/write resource of length byte
+  */
+trait ReadWriteByteAddress[A] extends ReadByteAddress[A] with WriteByteAddress[A]
 
-trait WriteOnlyAddress[A] extends WriteAddress[A]
+/**
+  * To be extended by the address companion object, to signify that this is a write-only resource of length byte
+  */
+trait WriteOnlyByteAddress[A] extends WriteByteAddress[A]
