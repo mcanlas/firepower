@@ -1,6 +1,6 @@
 package com.htmlism.scratchpad
 
-trait Asm1[A]:
+sealed trait Asm1[A]:
   def xs: List[String]
 
   def widenWith[B]: Asm2[A, B] =
@@ -8,7 +8,7 @@ trait Asm1[A]:
 
 case class Asm1Instructions[A](xs: List[String]) extends Asm1[A]
 
-trait Asm2[A, B]:
+sealed trait Asm2[A, B]:
   def xs: List[String]
 
   def andThen(that: Asm2[A, B]): Asm2[A, B] =
