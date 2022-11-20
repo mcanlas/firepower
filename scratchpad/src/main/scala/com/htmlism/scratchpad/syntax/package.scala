@@ -14,7 +14,7 @@ package object syntax:
         summon[Loadable[Addr]].show(x)
 
       val register =
-        summon[Register[R]].self
+        summon[Register[R]].name
 
       val loadInstruction =
         Load[R].instruction // TODO load action needs to interact with encoder

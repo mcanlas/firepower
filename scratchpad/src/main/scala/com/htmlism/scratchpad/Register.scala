@@ -1,17 +1,17 @@
 package com.htmlism.scratchpad
 
 sealed trait Register[A]:
-  def self: String
+  def name: String
 
 object Register:
   given registerA: Register[A] with
-    def self: String = "A"
+    def name: String = "A"
 
   given registerX: Register[X] with
-    def self: String = "X"
+    def name: String = "X"
 
   given registerY: Register[Y] with
-    def self: String = "Y"
+    def name: String = "Y"
 
   object A:
     given loadA: Load[A] with
