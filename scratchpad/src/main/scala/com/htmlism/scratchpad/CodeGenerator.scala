@@ -5,7 +5,34 @@ object CodeGenerator extends App:
     ('A' to 'Z')
       .map(_.toString)
 
-  for (n <- 1 to 22)
+  for (n <- 1 to 3)
+    val letters =
+      allLetters.take(n)
+
+    val nextLetter =
+      allLetters(n)
+
+    val typeParameterList =
+      letters.mkString(", ")
+
+    println(s"trait Asm$n[$typeParameterList]:")
+    println("  def xs: List[String]")
+    println
+    println("  def oComment: Option[String]")
+    println
+    println(s"  def comment(s: String): Asm$n[$typeParameterList]")
+    println
+    println(s"  def widenWith[$nextLetter]: Asm${n + 1}[$typeParameterList, $nextLetter] =")
+    println(s"    Asm${n + 1}Instructions(xs, oComment)")
+    println
+    println(
+      s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String]) extends Asm${n}[$typeParameterList]:"
+    )
+    println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
+    println("    copy(oComment = Some(s))")
+    println
+
+  for (n <- 1 to 3)
     val classNum =
       n
 
