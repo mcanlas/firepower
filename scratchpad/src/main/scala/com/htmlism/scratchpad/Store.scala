@@ -1,14 +1,14 @@
 package com.htmlism.scratchpad
 
 object Store:
-  def fromA[B](dest: WriteLease.ByteAddress[B]): Asm2[Reg.A, B] =
-    Byte[Reg.A, B](dest)
+  def fromA[A](dest: WriteLease.ByteAddress[A]): Asm2[Reg.A, A] =
+    Byte[Reg.A, A](dest)
 
-  def fromX[B](dest: WriteLease.ByteAddress[B]): Asm2[Reg.X, B] =
-    Byte[Reg.X, B](dest)
+  def fromX[A](dest: WriteLease.ByteAddress[A]): Asm2[Reg.X, A] =
+    Byte[Reg.X, A](dest)
 
-  def fromY[B](dest: WriteLease.ByteAddress[B]): Asm2[Reg.Y, B] =
-    Byte[Reg.Y, B](dest)
+  def fromY[A](dest: WriteLease.ByteAddress[A]): Asm2[Reg.Y, A] =
+    Byte[Reg.Y, A](dest)
 
   case class Byte[R, A](dest: WriteLease.ByteAddress[A])(using R: Register[R]) extends Asm2[R, A]:
     def xs: List[String] =
