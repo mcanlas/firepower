@@ -5,21 +5,46 @@ package com.htmlism.scratchpad
 sealed trait Register[A]:
   def name: String
 
+  def load: String
+
+  def store: String
+
 object Register:
   object A:
-    given registerA: Register[A] with
-      def name: String = "A"
+    given Register[A] with
+      def name: String =
+        "A"
+
+      def load: String =
+        "LDA"
+
+      def store: String =
+        "STA"
 
   class A
 
   object X:
-    given registerX: Register[X] with
-      def name: String = "X"
+    given Register[X] with
+      def name: String =
+        "X"
+
+      def load: String =
+        "LDX"
+
+      def store: String =
+        "STX"
 
   class X
 
   object Y:
-    given registerY: Register[Y] with
-      def name: String = "Y"
+    given Register[Y] with
+      def name: String =
+        "Y"
+
+      def load: String =
+        "LDY"
+
+      def store: String =
+        "STY"
 
   class Y

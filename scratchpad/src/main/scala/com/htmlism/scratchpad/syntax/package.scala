@@ -14,13 +14,13 @@ package object syntax:
         summon[Loadable[Addr]].show(x)
 
       val register =
-        summon[Register[R]].name
+        summon[Register[R]]
 
       val loadInstruction =
-        "LD" + register // TODO load action needs to interact with encoder
+        register.load // TODO load action needs to interact with encoder
 
       val storeInstruction =
-        "ST" + register // TODO store action needs to interact with encoder
+        register.store // TODO store action needs to interact with encoder
 
       val first =
         s"$loadInstruction $literal"
@@ -29,6 +29,6 @@ package object syntax:
         s"$storeInstruction ${reg.n.toString}"
 
       val desc =
-        s"${reg.alias} = $literal, via $register"
+        s"${reg.alias} = $literal, via ${register.name}"
 
       s"$first $second ; $desc"

@@ -4,6 +4,6 @@ trait Loadable[A]:
   def show(x: A): String
 
 object Loadable:
-  given intLoadable: Loadable[Int] with
+  given Loadable[Int] with
     def show(x: Int): String =
       x.toString

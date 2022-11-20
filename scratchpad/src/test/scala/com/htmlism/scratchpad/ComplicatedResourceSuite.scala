@@ -15,17 +15,18 @@ object ComplicatedResourceSuite extends FunSuite:
   class PlayerOne extends Player[PlayerOne](40)
 
   object PlayerOne extends PlayerOne:
-    given write: WriteLease[PlayerOne] with
+    given WriteLease[PlayerOne] with
       def canon: PlayerOne =
         PlayerOne
 
   class PlayerTwo extends Player[PlayerTwo](80)
 
   object PlayerTwo extends PlayerTwo:
-    given write: WriteLease[PlayerTwo] with
+    given WriteLease[PlayerTwo] with
       def canon: PlayerTwo =
         PlayerTwo
 
   test("use write lease") {
-    expect.eql(List("LDA", "STA"), PlayerOne.setHead(0)(using PlayerOne.write).xs)
+    // TODO actually this doesn't make sense. the lease shouldn't be canonical/globally available. only when lease is given...
+    expect.eql(List("LDA", "STA"), PlayerOne.setHead(0).xs)
   }

@@ -4,6 +4,6 @@ object Encoded:
   trait Byte[A]
 
   object Byte:
-    given intByte: Encoded.Byte[Int] with {}
+    given Encoded.Byte[Int] with {}
 
   trait Word[A]

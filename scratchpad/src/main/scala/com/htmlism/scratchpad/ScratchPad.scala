@@ -39,20 +39,20 @@ object ScratchPad:
 class Accumulator
 
 object Accumulator extends Accumulator:
-  given registerA: Reg[Accumulator] with
+  given Reg[Accumulator] with
     def hello: Boolean =
       true
 
 class RegisterX
 
 object RegisterX:
-  given registerX: Reg[RegisterX] with
+  given Reg[RegisterX] with
     def hello: Boolean =
       true
 
 class RegisterY
 
 object RegisterY:
-  given registerY: Reg[RegisterY] with
+  given Reg[RegisterY] with
     def hello: Boolean =
       true
