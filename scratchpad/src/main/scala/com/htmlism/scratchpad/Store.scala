@@ -12,4 +12,4 @@ object Store:
 
   case class Byte[R, A](dest: WriteLease.ByteAddress[A])(using R: Register[R]) extends Asm2[R, A]:
     def xs: List[String] =
-      List(R.store)
+      List(R.store + " " + dest.address)

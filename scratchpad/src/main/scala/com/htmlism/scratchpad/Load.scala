@@ -10,6 +10,6 @@ object Load:
   def constY[B: Encoded.Byte](x: B): Asm1[Reg.Y] =
     Const(x)
 
-  case class Const[R, A: Encoded.Byte](x: A)(using R: Register[R]) extends Asm1[R]:
+  case class Const[R, A](x: A)(using R: Register[R], A: Encoded.Byte[A]) extends Asm1[R]:
     def xs: List[String] =
-      List(R.load)
+      List(s"${R.load} ${A.int(x)}")

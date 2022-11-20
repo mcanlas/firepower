@@ -18,16 +18,24 @@ object ComplicatedResourceSuite extends FunSuite:
 
   class PlayerOne extends Player[PlayerOne](40)
 
-  object PlayerOne extends PlayerOne:
-    val lease: WriteLease[PlayerOne] =
-      FastLease(PlayerOne)
+  object PlayerOne extends PlayerOne with GrantsWriteLeases[PlayerOne]:
+    given Companion[PlayerOne] with
+      def canon: PlayerOne =
+        PlayerOne
 
   class PlayerTwo extends Player[PlayerTwo](80)
 
-  object PlayerTwo extends PlayerTwo:
-    val lease: WriteLease[PlayerTwo] =
-      FastLease(PlayerTwo)
+  object PlayerTwo extends PlayerTwo with GrantsWriteLeases[PlayerTwo]:
+    given Companion[PlayerTwo] with
+      def canon: PlayerTwo =
+        PlayerTwo
 
   test("use write lease") {
-    expect.eql(List("LDA", "STA"), PlayerOne.setHead(0)(using PlayerOne.lease).xs)
+    val asm =
+      PlayerOne
+        .withWriteLease { implicit w =>
+          PlayerOne.setHead(23).xs
+        }
+
+    expect.eql(List("LDA 23", "STA 40"), asm)
   }
