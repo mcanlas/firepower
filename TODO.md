@@ -10,3 +10,4 @@
 - every register must offer up read or write leases that other instructions can use and emit AsmN programs of
   - a method that offers up a lease maybe has a return type completely inherited from its body (doesn't know N shape, other than that the register should participate somewhere)
 - maybe the AXY registers don't offer up leases and are always consumed in predictable, prepackaged ways
+- there needs to be another abstraction. just because reads and writes are tracked, doesn't mean they tie to exactly single addresses (think of a mechanism with many independent switches, all producing separate write actions)
