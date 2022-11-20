@@ -43,6 +43,11 @@ case class AndThen2[A, B](x: Asm2[A, B], y: Asm2[A, B]) extends Asm2[A, B]:
   def xs: List[String] =
     x.xs ++ y.xs
 
+trait Asm3[A, B, C]:
+  def xs: List[String]
+
+case class Asm3Instructions[A, B, C](xs: List[String]) extends Asm3[A, B, C]
+
 case class R[A]()
 
 // TODO needs evidence that it is a storable target of one thing

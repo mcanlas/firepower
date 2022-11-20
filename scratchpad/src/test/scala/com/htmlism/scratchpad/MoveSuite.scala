@@ -3,14 +3,18 @@ package com.htmlism.scratchpad
 import weaver._
 
 object MoveSuite extends FunSuite:
-  test("move constant") {
+  test("TODO move constant") {
     success
   }
 
-  test("move register") {
+  test("TODO move register") {
     success
   }
 
-  test("move register, indexed") {
+  test("TODO move register, indexed") {
+    success
+  }
+
+  test("TODO move wide") {
     success
   }
