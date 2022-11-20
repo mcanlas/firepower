@@ -7,13 +7,13 @@ object RegisterSuite extends FunSuite:
     ev
 
   test("the accumulator is a register") {
-    expect.eql("A", reg[A].name)
+    expect.eql("A", reg[Reg.A].name)
   }
 
   test("X is a register") {
-    expect.eql("X", reg[X].name)
+    expect.eql("X", reg[Reg.X].name)
   }
 
   test("Y is a register") {
-    expect.eql("Y", reg[Y].name)
+    expect.eql("Y", reg[Reg.Y].name)
   }

@@ -1,11 +1,12 @@
 package com.htmlism
 
 package object scratchpad:
-  type A =
-    Register.A
+  object Reg:
+    type A =
+      Register.A
 
-  type X =
-    Register.X
+    type X =
+      Register.X
 
-  type Y =
-    Register.Y
+    type Y =
+      Register.Y

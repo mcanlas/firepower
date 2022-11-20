@@ -2,14 +2,14 @@ package com.htmlism.scratchpad
 
 // https://mads.atari8.info/mads_eng.html#_mv
 object Move:
-  def const[R: Register, A: WriteLease.ByteAddress, X: Encoded.Byte](x: X): Asm2[R, A] =
+  def constA[A, X: Encoded.Byte](x: X, dest: WriteLease.ByteAddress[A]): Asm2[Reg.A, A] =
     Load
-      .const[R, X](x)
-      .widenWith[A] andThen Store.from[R, A]
+      .constA(x)
+      .widenWith[A] andThen Store.fromA(dest)
 
   def from[R: Register, A: ReadLease.ByteAddress, B: WriteLease.ByteAddress]: Asm3[R, A, B] =
     Asm3Instructions(List(""))
 
   object Word:
-    def const[R: Register, A: WriteLease.WordAddress, X: Encoded.Word](x: X): Asm2[R, A] =
+    def const[R: Register, A, X: Encoded.Word](x: X, dest: WriteLease.ByteAddress[A]): Asm2[R, A] =
       Asm2Instructions(List(""))

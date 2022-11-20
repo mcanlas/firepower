@@ -1,8 +1,12 @@
 package com.htmlism.scratchpad
 
-trait WriteLease[A]
+trait WriteLease[A]:
+  def canon: A
+
+  def to(f: A => Int): WriteLease.ByteAddress[A] =
+    WriteLease.ByteAddress(f(canon))
 
 object WriteLease:
-  trait ByteAddress[A]
+  case class ByteAddress[A](address: Int)
 
-  trait WordAddress[A]
+  case class WordAddress[A](address: Int)
