@@ -1,6 +1,8 @@
 package com.htmlism.scratchpad
 
-object WriteLease:
-  trait Byte[A]
+trait WriteLease[A]
 
-  trait Word[A]
+object WriteLease:
+  trait ByteAddress[A]
+
+  trait WordAddress[A]
