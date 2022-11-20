@@ -1,21 +1,5 @@
 package com.htmlism.scratchpad
 
-trait Load[A]:
-  // TODO genericize to take in encoder
-  // from constant
-  def instruction: String
-
-  def const: Asm1Instructions[A] =
-    Asm1Instructions(List(instruction))
-
-  // from register
-  def from[B <: Address: ReadByteAddress]: Asm2Instructions[A, B] =
-    Asm2Instructions(List(instruction))
-
-object Load:
-  def apply[A: Load]: Load[A] =
-    summon[Load[A]]
-
 trait Asm1[A]:
   def xs: List[String]
 
@@ -51,12 +35,12 @@ case class Asm3Instructions[A, B, C](xs: List[String]) extends Asm3[A, B, C]
 case class R[A]()
 
 // TODO needs evidence that it is a storable target of one thing
-case class StoreTo[A: Store, B]() extends Asm2[A, B]:
+case class StoreTo[A: Register, B]() extends Asm2[A, B]:
   // TODO
   def xs: List[String] =
     Nil
 
-case class LoadImmediate[R: Load, A: ImmediateValue]() extends Asm1[R]:
+case class LoadImmediate[R: Register, A: ImmediateValue]() extends Asm1[R]:
   // TODO
   def xs: List[String] =
     Nil
