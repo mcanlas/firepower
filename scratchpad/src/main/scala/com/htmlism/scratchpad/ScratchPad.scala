@@ -3,20 +3,6 @@ package com.htmlism.scratchpad
 import cats._
 import cats.syntax.all._
 
-sealed trait Lease[F[_]]
-
-trait Read[A]
-
-object Read:
-  implicit val readLease: Lease[Read] =
-    new Lease {}
-
-trait Write[A]
-
-object Write:
-  implicit val writeLease: Lease[Write] =
-    new Lease {}
-
 object ScratchPad:
   def reg[A: Reg]: PartialUsing[A] =
     new PartialUsing[A]
@@ -29,8 +15,6 @@ object ScratchPad:
     AsmProgram(startA, "")
       .widen[RegisterX]
   }
-
-  trait ReadWrite[A] extends Read[A] with Write[A]
 
   lazy val startA =
     ??? : StatefulRegister[Accumulator, Ignores]
