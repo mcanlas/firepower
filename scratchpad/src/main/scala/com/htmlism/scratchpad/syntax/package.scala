@@ -5,9 +5,6 @@ package object syntax:
     def writeConst[A: Loadable](x: A): syntax.PartiallyAppliedWrite[A, Addr] =
       new syntax.PartiallyAppliedWrite(reg, x)
 
-    def writeFrom[R: Register]: Asm2[R, Addr] =
-      StoreTo[R, Addr]()
-
   class PartiallyAppliedWrite[Addr: Loadable, A](reg: WriteByteAddress[A], x: Addr):
     def apply[R: Register]: String =
       val literal =

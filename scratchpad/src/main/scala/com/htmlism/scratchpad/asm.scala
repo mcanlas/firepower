@@ -34,17 +34,3 @@ trait Asm3[A, B, C]:
 case class Asm3Instructions[A, B, C](xs: List[String]) extends Asm3[A, B, C]
 
 case class R[A]()
-
-// TODO needs evidence that it is a storable target of one thing
-case class StoreTo[A: Register, B]() extends Asm2[A, B]:
-  // TODO
-  def xs: List[String] =
-    Nil
-
-case class LoadImmediate[R: Register, A: ImmediateValue]() extends Asm1[R]:
-  // TODO
-  def xs: List[String] =
-    Nil
-
-trait ImmediateValue[A]:
-  def toByte(x: A): Int
