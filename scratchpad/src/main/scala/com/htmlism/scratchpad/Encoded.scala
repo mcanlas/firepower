@@ -1,6 +1,6 @@
 package com.htmlism.scratchpad
 
-object WriteLease:
+object Encoded:
   trait Byte[A]
 
   trait Word[A]

@@ -1,3 +1,6 @@
 package com.htmlism.scratchpad
 
-trait ReadLease[A] {}
+object ReadLease:
+  trait Byte[A]
+
+  trait Word[A]
