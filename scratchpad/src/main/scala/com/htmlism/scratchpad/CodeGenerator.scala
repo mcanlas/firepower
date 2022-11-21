@@ -15,7 +15,7 @@ object CodeGenerator extends App:
     val typeParameterList =
       letters.mkString(", ")
 
-    println(s"trait Asm$n[$typeParameterList]:")
+    println(s"sealed trait Asm$n[$typeParameterList]:")
     println("  def xs: List[String]")
     println
     println("  def oComment: Option[String]")
@@ -38,7 +38,7 @@ object CodeGenerator extends App:
     println("    copy(oComment = Some(s))")
     println
     println(
-      s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String]) extends Asm${n}[$typeParameterList]:"
+      s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String] = None) extends Asm${n}[$typeParameterList]:"
     )
     println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
     println("    copy(oComment = Some(s))")
