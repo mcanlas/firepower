@@ -1,3 +1,9 @@
+- it would be cool for the generated code writer to go to files
+  - and make the +1 methods optional (for when it is at max)
+- the payload/`xs` of a program should be an ADT of either chunks or one instruction
+  - where a chunk is just many instructions
+  - and an instruction already has the value X with its encoder, but chooses an eternal mode
+    - depending on the asm language or config
 - create classes for read/write, read-only (volatile), and write-only memory locations
   - zero page and absolute
   - but how do we encode it? subclassing?
