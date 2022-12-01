@@ -6,7 +6,7 @@ lazy val firepower =
     )
     .withCats
     .withTesting
-    .aggregate(nescant, scratchpad)
+    .aggregate(nescant, scratchpad, demo)
 
 lazy val nescant =
   project.withCats.withTesting
@@ -15,3 +15,7 @@ lazy val scratchpad =
   project
     .withCats
     .withTesting
+
+lazy val demo =
+  module("demo")
+    .withEfectMonad

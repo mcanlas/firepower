@@ -7,9 +7,19 @@ object ProjectPlugin extends AutoPlugin {
   val autoImport = ThingsToImport
 
   object ThingsToImport {
+    private def jarName(s: String) =
+      "firepower-" + s
+
+    def module(s: String): Project =
+      Project(s, file(jarName(s)))
+        .settings(name := jarName(s))
+
     implicit class ProjectOps(p: Project) {
       def withCats: Project =
         p.settings(libraryDependencies += "org.typelevel" %% "cats-core" % "2.9.0")
+
+      def withEfectMonad: Project =
+        p.settings(libraryDependencies += "dev.zio" %% "zio" % "2.0.4")
 
       def withTesting: Project = {
         val weaverVersion =
