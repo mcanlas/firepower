@@ -1,4 +1,4 @@
-lazy val root =
+lazy val firepower =
   project
     .in(file("."))
     .settings(

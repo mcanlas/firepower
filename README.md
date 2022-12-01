@@ -1,4 +1,4 @@
-# 6502-opcodes
+# firepower
 
 ## Addressing modes
 
