@@ -13,6 +13,9 @@ on:
   push:
     branches: ['**']
 
+env:
+  GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
 jobs:
   build:
     name: Build and Test
