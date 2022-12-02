@@ -21,9 +21,9 @@ trait BitExtractor[A]:
 
       def unapply(n: Int): Option[(A, B)] =
         for {
-          b <- that.unapply(n)
+          b      <- that.unapply(n)
           shifted = n >> that.length
-          a <- self.unapply(shifted)
+          a      <- self.unapply(shifted)
         } yield (a, b)
 
 object AtomExtractor:
@@ -41,6 +41,6 @@ abstract class PrimitiveBitExtractor(val length: Int) extends BitExtractor[Int]:
   def unapply(n: Int): Option[Int] =
     Some(n & mask)
 
-object OneBit extends PrimitiveBitExtractor(1)
-object TwoBits extends PrimitiveBitExtractor(2)
+object OneBit    extends PrimitiveBitExtractor(1)
+object TwoBits   extends PrimitiveBitExtractor(2)
 object ThreeBits extends PrimitiveBitExtractor(3)

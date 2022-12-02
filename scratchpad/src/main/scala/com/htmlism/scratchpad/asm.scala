@@ -42,7 +42,7 @@ case class AndThen2[A, B](left: Asm2[A, B], right: Asm2[A, B], oComment: Option[
     copy(oComment = Some(s))
 
 case class Asm2Instructions[A, B](xs: List[String], oComment: Option[String] = None) extends Asm2[A, B]:
-  def comment(s: String): Asm2[A, B] =
+  def comment(s: String): Asm2[A, B]                                            =
     copy(oComment = Some(s))
   // TODO not tested
   // B type needs to be a class type, with evidence, not a case class

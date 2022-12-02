@@ -212,7 +212,7 @@ object MatchOpcodes:
   def wideColumns: Seq[Int] =
     for {
       cc <- 0 to 3
-      y <- 0 to 1
+      y  <- 0 to 1
       xx <- 0 to 3
     } yield (xx << 3) + (y << 2) + cc
 
@@ -234,7 +234,7 @@ object MatchOpcodes:
           case 1 => c01(aaa, bbb)
           case 2 => c10(aaa, bbb)
           case 3 => None
-      case _ => throw new IllegalStateException("an int should always have bits to find")
+      case _                          => throw new IllegalStateException("an int should always have bits to find")
 
   def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] =
     val instruction =

@@ -21,7 +21,7 @@ case class UnaryInstruction(instruction: Instruction, comment: Option[String]) e
     comment match
       case Some(c) =>
         Statement.indent + f"$left%-16s ; " + c
-      case None =>
+      case None    =>
         Statement.indent + left
 
   def toTriplet: (String, Option[String], Option[String]) =
@@ -40,7 +40,7 @@ case class InstructionWithOperand[A](instruction: Instruction, operand: A, comme
     comment match
       case Some(c) =>
         Statement.indent + f"$left%-5s $operandStr%-11s; " + c
-      case None =>
+      case None    =>
         Statement.indent + f"$left%-5s $operandStr"
 
   def toTriplet: (String, Option[String], Option[String]) =

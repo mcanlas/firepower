@@ -47,19 +47,19 @@ object Color:
       def comment(x: Color): String =
         x.toString
 
-  case object Black extends Color
-  case object White extends Color
-  case object Red extends Color
-  case object Cyan extends Color
-  case object Purple extends Color
-  case object Green extends Color
-  case object Blue extends Color
-  case object Yellow extends Color
-  case object Orange extends Color
-  case object Brown extends Color
-  case object LightRed extends Color
-  case object DarkGrey extends Color
-  case object Grey extends Color
+  case object Black      extends Color
+  case object White      extends Color
+  case object Red        extends Color
+  case object Cyan       extends Color
+  case object Purple     extends Color
+  case object Green      extends Color
+  case object Blue       extends Color
+  case object Yellow     extends Color
+  case object Orange     extends Color
+  case object Brown      extends Color
+  case object LightRed   extends Color
+  case object DarkGrey   extends Color
+  case object Grey       extends Color
   case object LightGreen extends Color
-  case object LightBlue extends Color
-  case object LightGrey extends Color
+  case object LightBlue  extends Color
+  case object LightGrey  extends Color
