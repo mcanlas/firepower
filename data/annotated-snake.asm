@@ -17,6 +17,7 @@
 
 labeled:
   ; This is a subroutine description
+
   lda $00 
   lda $01 ; instruction comment
 

@@ -33,9 +33,9 @@ object AsmBlock:
           List(label + ":") ++ oComment.map(toComment).map(withIndent).toList
 
         val intentParagraphs =
-          interFlatMap(intents)(List(""), Intent.toLines)
+          intents.map(Intent.toLines)
 
-        headerParagraph ::: intentParagraphs
+        interFlatMap(headerParagraph :: intentParagraphs)(List(""), identity)
 
       case AnonymousCodeBlock(intents) =>
         interFlatMap(intents)(List(""), Intent.toLines)
