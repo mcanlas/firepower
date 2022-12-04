@@ -6,13 +6,9 @@ sealed trait AsmBlock
 
 case class CommentBlock(xs: List[String]) extends AsmBlock
 
-case class CodeBlock(name: Option[String], chunks: List[CodeBlock.Chunk]) extends AsmBlock
+case class NamedCodeBlock(name: String, intents: List[AsmBlock.Intent]) extends AsmBlock
 
-object CodeBlock:
-  case class Chunk(label: Option[String], instructions: List[Chunk.Instruction])
-
-  object Chunk:
-    case class Instruction(code: String, comment: Option[String])
+case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
 
 object AsmBlock:
   def toParagraph(xs: AsmBlock): Paragraph =
@@ -20,12 +16,18 @@ object AsmBlock:
       case CommentBlock(ys) =>
         Paragraph(ys.map("; " + _))
 
-      case CodeBlock(oLabel, _) =>
+      case NamedCodeBlock(label, _) =>
         Paragraph(
-          oLabel
-            .map(_ + ":")
-            .toList
+          List(label + ":")
         )
+
+      case AnonymousCodeBlock(_) =>
+        Paragraph("")
+
+  case class Intent(label: Option[String], instructions: List[Intent.Instruction])
+
+  object Intent:
+    case class Instruction(code: String, comment: Option[String])
 
 object CommentBlock:
   def fromMultiline(s: String): CommentBlock =

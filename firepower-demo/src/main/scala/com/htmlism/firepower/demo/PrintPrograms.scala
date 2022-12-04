@@ -1,5 +1,7 @@
 package com.htmlism.firepower.demo
 
+import cats.syntax.all._
+
 import com.htmlism.firepower.demo.asm._
 import com.htmlism.firepower.demo.str._
 import zio.*
@@ -32,8 +34,43 @@ object PrintPrograms extends ZIOAppDefault:
           List(
             CommentBlock.fromMultiline(asciiArt),
             CommentBlock(List("Change direction: W A S D")),
-            CodeBlock(None, Nil),
-            CodeBlock(Some("labeled"), Nil)
+            AnonymousCodeBlock(
+              List(
+                AsmBlock.Intent(
+                  None,
+                  List(
+                    AsmBlock.Intent.Instruction("hello", None),
+                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                  )
+                ),
+                AsmBlock.Intent(
+                  "this block has some preamble".some,
+                  List(
+                    AsmBlock.Intent.Instruction("hello", None),
+                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                  )
+                )
+              )
+            ),
+            NamedCodeBlock(
+              "labeled",
+              List(
+                AsmBlock.Intent(
+                  None,
+                  List(
+                    AsmBlock.Intent.Instruction("hello", None),
+                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                  )
+                ),
+                AsmBlock.Intent(
+                  "this block has some preamble".some,
+                  List(
+                    AsmBlock.Intent.Instruction("hello", None),
+                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                  )
+                )
+              )
+            )
           )
         )
     )

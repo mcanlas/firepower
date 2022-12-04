@@ -18,6 +18,7 @@ lazy val scratchpad =
 
 lazy val demo =
   module("demo")
+    .withCats
     .withEfectMonad
     .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "74-5cd25e9b")
 
