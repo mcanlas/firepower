@@ -18,10 +18,21 @@ object PrintPrograms extends ZIOAppDefault:
         .apply(List("foo", "bar")),
       "two-paragraphs.txt"  -> (Line.mkString _)
         .compose(Paragraph.mkLines)
-        .apply(List(Paragraph("foo", "bar"), Paragraph("alpha", "bravo"))),
+        .apply(
+          List(
+            Paragraph(List("foo", "bar")),
+            Paragraph(List("alpha", "bravo"))
+          )
+        ),
       "annotated-snake.asm" -> (Line.mkString _)
         .compose(Paragraph.mkLines)
-        .apply(List(Paragraph(asciiArt), Paragraph("Change direction: W A S D")))
+        .compose((xs: List[CommentBlock]) => xs.map(CommentBlock.toParagraph))
+        .apply(
+          List(
+            CommentBlock.fromMultiline(asciiArt),
+            CommentBlock(List("Change direction: W A S D"))
+          )
+        )
     )
 
   lazy val asciiArt =
