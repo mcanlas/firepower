@@ -39,15 +39,15 @@ object PrintPrograms extends ZIOAppDefault:
                 AsmBlock.Intent(
                   None,
                   List(
-                    AsmBlock.Intent.Instruction("hello", None),
-                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                    AsmBlock.Intent.Instruction("lda $00", None),
+                    AsmBlock.Intent.Instruction("lda $01", "instruction comment".some)
                   )
                 ),
                 AsmBlock.Intent(
                   "this block has some preamble".some,
                   List(
-                    AsmBlock.Intent.Instruction("hello", None),
-                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                    AsmBlock.Intent.Instruction("lda $00", None),
+                    AsmBlock.Intent.Instruction("lda $01", "instruction comment".some)
                   )
                 )
               )
@@ -59,15 +59,15 @@ object PrintPrograms extends ZIOAppDefault:
                 AsmBlock.Intent(
                   None,
                   List(
-                    AsmBlock.Intent.Instruction("hello", None),
-                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                    AsmBlock.Intent.Instruction("lda $00", None),
+                    AsmBlock.Intent.Instruction("lda $01", "instruction comment".some)
                   )
                 ),
                 AsmBlock.Intent(
                   "this block has some preamble".some,
                   List(
-                    AsmBlock.Intent.Instruction("hello", None),
-                    AsmBlock.Intent.Instruction("world", "instruction comment".some)
+                    AsmBlock.Intent.Instruction("lda $00", None),
+                    AsmBlock.Intent.Instruction("lda $01", "instruction comment".some)
                   )
                 )
               )

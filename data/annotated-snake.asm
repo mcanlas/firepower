@@ -5,5 +5,19 @@
 
 ; Change direction: W A S D
 
+  lda $00 
+  lda $01 ; instruction comment
+
+  ; this block has some preamble
+  lda $00 
+  lda $01 ; instruction comment
+
 labeled:
   ; This is a subroutine description
+
+  lda $00 
+  lda $01 ; instruction comment
+
+  ; this block has some preamble
+  lda $00 
+  lda $01 ; instruction comment
