@@ -8,6 +8,11 @@ import com.htmlism.rufio.withzio._
 
 object PrintPrograms extends ZIOAppDefault:
   def run: ZIO[Any, Throwable, Unit] =
-    File("data/example.txt")
-      .contents
-      .map(println)
+    for {
+      _ <- File("data/out.txt")
+        .writeLine("out")
+
+      _ <- File("data/example.txt")
+        .contents
+        .map(Console.printLine(_))
+    } yield ()

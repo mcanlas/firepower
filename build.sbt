@@ -19,7 +19,7 @@ lazy val scratchpad =
 lazy val demo =
   module("demo")
     .withEfectMonad
-    .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "71-5394aaef")
+    .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "74-5cd25e9b")
 
 ThisBuild / resolvers += "mcanlas/rufio" at "https://maven.pkg.github.com/mcanlas/rufio/"
 
