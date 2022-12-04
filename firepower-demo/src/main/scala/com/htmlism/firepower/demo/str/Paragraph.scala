@@ -11,12 +11,12 @@ object Paragraph:
     Paragraph(xs.toList)
 
   def mkLines(ps: List[Paragraph]): List[String] =
-    interFlatMap(ps)("", _.xs)
+    interFlatMap(ps)(List(""), _.xs)
 
-  def interFlatMap[A, B](xs: List[A])(x: B, f: A => List[B]): List[B] =
+  def interFlatMap[A, B](xs: List[A])(x: List[B], f: A => List[B]): List[B] =
     xs match
       case head :: tail =>
-        f(head) ::: tail.flatMap(a => x :: f(a))
+        f(head) ::: tail.flatMap(a => x ::: f(a))
 
       case Nil =>
         Nil
