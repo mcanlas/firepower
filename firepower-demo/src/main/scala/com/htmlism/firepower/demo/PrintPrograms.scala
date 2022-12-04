@@ -27,11 +27,13 @@ object PrintPrograms extends ZIOAppDefault:
         ),
       "annotated-snake.asm" -> (Line.mkString _)
         .compose(Paragraph.mkLines)
-        .compose((xs: List[CommentBlock]) => xs.map(CommentBlock.toParagraph))
+        .compose((xs: List[AsmBlock]) => xs.map(AsmBlock.toParagraph))
         .apply(
           List(
             CommentBlock.fromMultiline(asciiArt),
-            CommentBlock(List("Change direction: W A S D"))
+            CommentBlock(List("Change direction: W A S D")),
+            CodeBlock(None, Nil),
+            CodeBlock(Some("labeled"), Nil)
           )
         )
     )
