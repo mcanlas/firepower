@@ -29,7 +29,7 @@ object PrintPrograms extends ZIOAppDefault:
         ),
       "annotated-snake.asm" -> (Line.mkString _)
         .compose(Paragraph.mkLines)
-        .compose((xs: List[AsmBlock]) => xs.map(AsmBlock.toParagraph))
+        .compose((xs: List[AsmBlock]) => xs.flatMap(AsmBlock.toParagraphs))
         .apply(
           List(
             CommentBlock.fromMultiline(asciiArt),

@@ -11,18 +11,22 @@ case class NamedCodeBlock(name: String, intents: List[AsmBlock.Intent]) extends 
 case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
 
 object AsmBlock:
-  def toParagraph(xs: AsmBlock): Paragraph =
+  def toParagraphs(xs: AsmBlock): List[Paragraph] =
     xs match
       case CommentBlock(ys) =>
-        Paragraph(ys.map("; " + _))
+        List(
+          Paragraph(ys.map("; " + _))
+        )
 
       case NamedCodeBlock(label, _) =>
-        Paragraph(
-          List(label + ":")
+        List(
+          Paragraph(
+            List(label + ":")
+          )
         )
 
       case AnonymousCodeBlock(_) =>
-        Paragraph("")
+        Nil
 
   case class Intent(label: Option[String], instructions: List[Intent.Instruction])
 
