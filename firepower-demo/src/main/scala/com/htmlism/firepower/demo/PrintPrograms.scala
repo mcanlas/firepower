@@ -1,10 +1,11 @@
 package com.htmlism.firepower.demo
 
+import com.htmlism.firepower.demo.asm._
+import com.htmlism.firepower.demo.str._
 import zio.*
 
 import java.io.IOException
-
-import com.htmlism.rufio.withzio._
+import com.htmlism.rufio.withzio.*
 
 object PrintPrograms extends ZIOAppDefault:
   private def writeLine(file: String)(s: String) =

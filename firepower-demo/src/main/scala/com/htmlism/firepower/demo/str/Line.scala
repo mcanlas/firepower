@@ -1,4 +1,4 @@
-package com.htmlism.firepower.demo
+package com.htmlism.firepower.demo.str
 
 object Line:
   def mkString(xs: List[String]): String =

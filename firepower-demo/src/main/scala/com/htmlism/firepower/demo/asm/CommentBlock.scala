@@ -1,4 +1,6 @@
-package com.htmlism.firepower.demo
+package com.htmlism.firepower.demo.asm
+
+import com.htmlism.firepower.demo.str.Paragraph
 
 case class CommentBlock(xs: List[String])
 

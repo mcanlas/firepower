@@ -1,4 +1,4 @@
-package com.htmlism.firepower.demo
+package com.htmlism.firepower.demo.str
 
 /**
   * An abstraction for groups of lines that are eventually separated by newlines, but between paragraphs there's an
