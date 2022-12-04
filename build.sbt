@@ -3,13 +3,13 @@ lazy val firepower =
     .in(file("."))
     .withCats
     .withTesting
-    .aggregate(nescant, scratchpad, demo)
+    .aggregate(nescant, core, demo)
 
 lazy val nescant =
   project.withCats.withTesting
 
-lazy val scratchpad =
-  project
+lazy val core =
+  module("core")
     .withCats
     .withTesting
 
