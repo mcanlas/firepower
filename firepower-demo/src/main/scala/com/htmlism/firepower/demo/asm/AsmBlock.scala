@@ -1,7 +1,5 @@
 package com.htmlism.firepower.demo.asm
 
-import com.htmlism.firepower.demo.str.Paragraph
-
 sealed trait AsmBlock
 
 case class CommentBlock(xs: List[String]) extends AsmBlock
@@ -11,47 +9,47 @@ case class NamedCodeBlock(name: String, comment: Option[String], intents: List[A
 case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
 
 object AsmBlock:
+  def interFlatMap[A, B](xs: List[A])(x: List[B], f: A => List[B]): List[B] =
+    xs match
+      case head :: tail =>
+        f(head) ::: tail.flatMap(a => x ::: f(a))
+
+      case Nil =>
+        Nil
+
   def toComment(s: String): String =
     "; " + s
 
   def withIndent(s: String): String =
     "  " + s
 
-  def toParagraphs(xs: AsmBlock): List[Paragraph] =
+  def toLines(xs: AsmBlock): List[String] =
     xs match
       case CommentBlock(ys) =>
-        List(
-          Paragraph(ys.map(toComment))
-        )
+        ys.map(toComment)
 
       case NamedCodeBlock(label, oComment, intents) =>
         val headerParagraph =
-          Paragraph(
-            List(label + ":") ++ oComment.map(toComment).map(withIndent).toList
-          )
+          List(label + ":") ++ oComment.map(toComment).map(withIndent).toList
 
         val intentParagraphs =
-          intents
-            .map(Intent.toParagraph)
+          interFlatMap(intents)(List(""), Intent.toLines)
 
-        headerParagraph :: intentParagraphs
+        headerParagraph ::: intentParagraphs
 
       case AnonymousCodeBlock(intents) =>
-        intents
-          .map(Intent.toParagraph)
+        interFlatMap(intents)(List(""), Intent.toLines)
 
   case class Intent(label: Option[String], instructions: List[Intent.Instruction])
 
   object Intent:
     case class Instruction(code: String, comment: Option[String])
 
-    def toParagraph(x: Intent): Paragraph =
-      Paragraph(
-        x.label.map(toComment).map(withIndent).toList ++ x
-          .instructions
-          .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(" "))
-          .map(withIndent)
-      )
+    def toLines(x: Intent): List[String] =
+      x.label.map(toComment).map(withIndent).toList ++ x
+        .instructions
+        .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(" "))
+        .map(withIndent)
 
 object CommentBlock:
   def fromMultiline(s: String): CommentBlock =

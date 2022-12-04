@@ -3,7 +3,9 @@
 ; \__ \ ' \/ _` | / / -_) _ \__ \ () / /
 ; |___/_||_\__,_|_\_\___\___/___/\__/___|
 
+
 ; Change direction: W A S D
+
 
   lda $00 
   lda $01 ; instruction comment
@@ -12,9 +14,9 @@
   lda $00 
   lda $01 ; instruction comment
 
+
 labeled:
   ; This is a subroutine description
-
   lda $00 
   lda $01 ; instruction comment
 
