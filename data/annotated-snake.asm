@@ -6,3 +6,4 @@
 ; Change direction: W A S D
 
 labeled:
+  ; This is a subroutine description

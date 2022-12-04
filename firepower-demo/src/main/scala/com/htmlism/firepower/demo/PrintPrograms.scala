@@ -54,6 +54,7 @@ object PrintPrograms extends ZIOAppDefault:
             ),
             NamedCodeBlock(
               "labeled",
+              "This is a subroutine description".some,
               List(
                 AsmBlock.Intent(
                   None,
