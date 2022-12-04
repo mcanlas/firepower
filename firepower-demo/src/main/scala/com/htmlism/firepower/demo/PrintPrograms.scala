@@ -13,9 +13,12 @@ object PrintPrograms extends ZIOAppDefault:
 
   private val programs =
     List[(String, String)](
-      "one-line.txt"  -> "one line",
-      "two-lines.txt" -> (Line.mkString _)
-        .apply(List("foo", "bar").map(Line(_)))
+      "one-line.txt"       -> "one line",
+      "two-lines.txt"      -> (Line.mkString _)
+        .apply(List("foo", "bar")),
+      "two-paragraphs.txt" -> (Line.mkString _)
+        .compose(Paragraph.mkLines)
+        .apply(List(Paragraph("foo", "bar"), Paragraph("alpha", "bravo")))
     )
 
   def run: Task[Unit] =
