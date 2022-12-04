@@ -7,20 +7,16 @@ package com.htmlism.firepower.demo.str
 case class Paragraph(xs: List[String])
 
 object Paragraph:
-  val blankLine: Paragraph =
-    Paragraph(List(""))
-
   def apply(xs: String*): Paragraph =
     Paragraph(xs.toList)
 
   def mkLines(ps: List[Paragraph]): List[String] =
-    interlace(blankLine)(ps)
-      .flatMap(_.xs)
+    interFlatMap(ps)("", _.xs)
 
-  private def interlace[A](x: A)(xs: List[A]): List[A] =
+  def interFlatMap[A, B](xs: List[A])(x: B, f: A => List[B]): List[B] =
     xs match
       case head :: tail =>
-        head :: tail.flatMap(a => List(x, a))
+        f(head) ::: tail.flatMap(a => x :: f(a))
 
       case Nil =>
         Nil
