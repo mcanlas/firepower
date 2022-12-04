@@ -13,13 +13,22 @@ object PrintPrograms extends ZIOAppDefault:
 
   private val programs =
     List[(String, String)](
-      "one-line.txt"       -> "one line",
-      "two-lines.txt"      -> (Line.mkString _)
+      "one-line.txt"        -> "one line",
+      "two-lines.txt"       -> (Line.mkString _)
         .apply(List("foo", "bar")),
-      "two-paragraphs.txt" -> (Line.mkString _)
+      "two-paragraphs.txt"  -> (Line.mkString _)
         .compose(Paragraph.mkLines)
-        .apply(List(Paragraph("foo", "bar"), Paragraph("alpha", "bravo")))
+        .apply(List(Paragraph("foo", "bar"), Paragraph("alpha", "bravo"))),
+      "annotated-snake.asm" -> (Line.mkString _)
+        .compose(Paragraph.mkLines)
+        .apply(List(Paragraph(asciiArt), Paragraph("Change direction: W A S D")))
     )
+
+  lazy val asciiArt =
+    """ ___           _        __ ___  __ ___
+      |/ __|_ _  __ _| |_____ / /| __|/  \_  )
+      |\__ \ ' \/ _` | / / -_) _ \__ \ () / /
+      ||___/_||_\__,_|_\_\___\___/___/\__/___|""".stripMargin
 
   def run: Task[Unit] =
     for {
