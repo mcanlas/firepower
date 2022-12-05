@@ -1,14 +1,14 @@
 package com.htmlism.firepower.demo
 
+import java.io.IOException
+
 import scala.util.chaining._
 
 import cats.syntax.all._
+import zio.*
 
 import com.htmlism.firepower.demo.asm._
 import com.htmlism.firepower.demo.str._
-import zio.*
-
-import java.io.IOException
 import com.htmlism.rufio.withzio.*
 
 object PrintPrograms extends ZIOAppDefault:
