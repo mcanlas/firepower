@@ -1,14 +1,18 @@
-package com.htmlism.firepower.demo.asm
+package com.htmlism.firepower.core
 
 sealed trait AsmBlock
 
-case class CommentBlock(xs: List[String]) extends AsmBlock
-
-case class NamedCodeBlock(name: String, comment: Option[String], intents: List[AsmBlock.Intent]) extends AsmBlock
-
-case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
-
 object AsmBlock:
+  case class CommentBlock(xs: List[String]) extends AsmBlock
+
+  object CommentBlock:
+    def fromMultiline(s: String): CommentBlock =
+      CommentBlock(s.split("\\n").toList)
+
+  case class NamedCodeBlock(name: String, comment: Option[String], intents: List[AsmBlock.Intent]) extends AsmBlock
+
+  case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
+
   def interFlatMap[A, B](xs: List[A])(x: List[B], f: A => List[B]): List[B] =
     xs match
       case head :: tail =>
@@ -50,7 +54,3 @@ object AsmBlock:
         .instructions
         .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(" "))
         .map(withIndent)
-
-object CommentBlock:
-  def fromMultiline(s: String): CommentBlock =
-    CommentBlock(s.split("\\n").toList)

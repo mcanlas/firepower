@@ -15,7 +15,7 @@ lazy val core =
 
 lazy val demo =
   module("demo")
-    .withCats
+    .dependsOn(core)
     .withEfectMonad
     .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "74-5cd25e9b")
 

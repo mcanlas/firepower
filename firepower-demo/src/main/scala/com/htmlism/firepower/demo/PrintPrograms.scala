@@ -7,7 +7,8 @@ import scala.util.chaining._
 import cats.syntax.all._
 import zio.*
 
-import com.htmlism.firepower.demo.asm._
+import com.htmlism.firepower.core.AsmBlock._
+import com.htmlism.firepower.core._
 import com.htmlism.firepower.demo.str._
 import com.htmlism.rufio.withzio.*
 
