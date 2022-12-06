@@ -75,10 +75,15 @@ object PrintThree:
         AsmBlock.Intent(
           s"${mv.dest.toComment} = ${mv.src.toComment}".some,
           List(
-            AsmBlock.Intent.Instruction(instruction("LDA", opts.instructionCase) + " " + argument, None),
             AsmBlock
               .Intent
-              .Instruction(instruction("STA", opts.instructionCase) + " " + argumentTwo, None)
+              .Instruction(instruction("LDA", opts.instructionCase) + " " + argument, s"a = ${mv.src.toComment}".some),
+            AsmBlock
+              .Intent
+              .Instruction(
+                instruction("STA", opts.instructionCase) + " " + argumentTwo,
+                s"${mv.dest.toComment} = a".some
+              )
           )
         )
       }

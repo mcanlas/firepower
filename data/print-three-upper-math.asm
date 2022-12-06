@@ -20,13 +20,13 @@ define SCREEN $200
 
 
   ; Screen(0) = White
-  LDA #COLOR_White
-  STA SCREEN+0
+  LDA #COLOR_White ; a = White
+  STA SCREEN+0     ; Screen(0) = a
 
   ; Screen(1) = Green
-  LDA #COLOR_Green
-  STA SCREEN+1
+  LDA #COLOR_Green ; a = Green
+  STA SCREEN+1     ; Screen(1) = a
 
   ; Screen(2) = Orange
-  LDA #COLOR_Orange
-  STA SCREEN+2
+  LDA #COLOR_Orange ; a = Orange
+  STA SCREEN+2      ; Screen(2) = a

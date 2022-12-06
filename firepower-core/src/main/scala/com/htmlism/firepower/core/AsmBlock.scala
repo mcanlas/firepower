@@ -74,7 +74,26 @@ object AsmBlock:
     case class Instruction(code: String, comment: Option[String])
 
     def toLines(x: Intent): List[String] =
-      x.label.map(toComment).map(withIndent).toList ++ x
-        .instructions
-        .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(""))
-        .map(withIndent)
+      val comment =
+        x.label.map(toComment).map(withIndent).toList
+
+      val maximumLength =
+        x
+          .instructions
+          .map(_.code.length)
+          .max
+
+      val instructions =
+        x
+          .instructions
+          .map { i =>
+            i.comment match
+              case Some(c) =>
+                String.format(s"%-${maximumLength}s", i.code) + " " + toComment(c)
+
+              case None =>
+                i.code
+          }
+          .map(withIndent)
+
+      comment ++ instructions
