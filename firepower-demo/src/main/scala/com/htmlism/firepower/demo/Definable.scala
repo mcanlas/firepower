@@ -11,6 +11,8 @@ trait Definable[A]:
 
   extension (x: A) def toDefine: String
 
+  extension (x: A) def toDefineWithMath: String
+
 object Definable:
   def apply[A](using ev: Definable[A]): Definable[A] =
     ev

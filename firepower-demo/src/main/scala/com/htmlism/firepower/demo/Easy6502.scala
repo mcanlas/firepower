@@ -31,6 +31,10 @@ object Easy6502:
         def toDefine: String =
           "COLOR_" + x.toString
 
+      extension (x: Color)
+        def toDefineWithMath: String =
+          "COLOR_" + x.toString
+
   class Screen(baseAddr: Int):
     def apply(offset: Int): Screen.Pixel =
       Screen.Pixel(baseAddr, offset)
@@ -53,4 +57,11 @@ object Easy6502:
 
         extension (x: Pixel)
           def toDefine: String =
-            "TODO"
+            if (x.offset == 0)
+              "SCREEN"
+            else
+              "TODO"
+
+        extension (x: Pixel)
+          def toDefineWithMath: String =
+            "SCREEN+" + x.offset

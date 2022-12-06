@@ -61,13 +61,24 @@ object PrintThree:
                 AssemblerOptions.DefinitionsMode.UseDefinitionsWithMath =>
               "#" + mv.src.toDefine
 
+        val argumentTwo =
+          opts.definitionsMode match
+            case AssemblerOptions.DefinitionsMode.UseLiterals =>
+              AsmBlock.toHex(mv.dest.toValue)
+
+            case AssemblerOptions.DefinitionsMode.UseDefinitions =>
+              mv.dest.toDefine
+
+            case AssemblerOptions.DefinitionsMode.UseDefinitionsWithMath =>
+              mv.dest.toDefineWithMath
+
         AsmBlock.Intent(
           s"${mv.dest.toComment} = ${mv.src.toComment}".some,
           List(
             AsmBlock.Intent.Instruction(instruction("LDA", opts.instructionCase) + " " + argument, None),
             AsmBlock
               .Intent
-              .Instruction(instruction("STA", opts.instructionCase) + " " + AsmBlock.toHex(mv.dest.toValue), None)
+              .Instruction(instruction("STA", opts.instructionCase) + " " + argumentTwo, None)
           )
         )
       }

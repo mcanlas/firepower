@@ -21,12 +21,12 @@ define SCREEN $200
 
   ; Screen(0) = White
   LDA #COLOR_White
-  STA $200
+  STA SCREEN+0
 
   ; Screen(1) = Green
   LDA #COLOR_Green
-  STA $201
+  STA SCREEN+1
 
   ; Screen(2) = Orange
   LDA #COLOR_Orange
-  STA $202
+  STA SCREEN+2
