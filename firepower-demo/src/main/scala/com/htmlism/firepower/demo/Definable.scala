@@ -10,3 +10,7 @@ trait Definable[A]:
   extension (x: A) def toValue: Int
 
   extension (x: A) def toDefine: String
+
+object Definable:
+  def apply[A](using ev: Definable[A]): Definable[A] =
+    ev
