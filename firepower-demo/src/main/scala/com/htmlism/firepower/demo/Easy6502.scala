@@ -30,3 +30,27 @@ object Easy6502:
       extension (x: Color)
         def toDefine: String =
           "COLOR_" + x.toString
+
+  class Screen(baseAddr: Int):
+    def apply(offset: Int): Screen.Pixel =
+      Screen.Pixel(baseAddr, offset)
+
+  object Screen:
+    case class Pixel(baseAddr: Int, offset: Int)
+
+    object Pixel:
+      given Definable[Pixel] with
+        def table: ListMap[String, String] =
+          ListMap("SCREEN" -> "TODO") // define table needs to be a function of an instance
+
+        extension (x: Pixel)
+          def toComment: String =
+            s"Screen(${x.offset})"
+
+        extension (x: Pixel)
+          def toValue: Int =
+            x.baseAddr + x.offset
+
+        extension (x: Pixel)
+          def toDefine: String =
+            "TODO"

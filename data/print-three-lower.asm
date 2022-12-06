@@ -1,11 +1,11 @@
-  ; $0200 = White
+  ; Screen(0) = White
   lda #$01
-  sta $0200
+  sta $200
 
-  ; $0201 = Green
+  ; Screen(1) = Green
   lda #$05
-  sta $0201
+  sta $201
 
-  ; $0202 = Orange
+  ; Screen(2) = Orange
   lda #$08
-  sta $0202
+  sta $202

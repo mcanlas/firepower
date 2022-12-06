@@ -20,20 +20,23 @@ object PrintPrograms extends ZIOAppDefault:
 
   private val programs =
     List[(String, String)](
-      "one-line.txt"          -> "one line",
-      "two-lines.txt"         -> List("foo", "bar")
+      "one-line.txt"               -> "one line",
+      "two-lines.txt"              -> List("foo", "bar")
         .pipe(Line.mkString),
-      "two-paragraphs.txt"    -> List(
+      "two-paragraphs.txt"         -> List(
         List("foo", "bar"),
         List("alpha", "bravo")
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity))
         .pipe(Line.mkString),
-      "annotated-snake.asm"   -> AnnotatedSnake.program,
-      "print-three-upper.asm" -> PrintThree.assemble(
+      "annotated-snake.asm"        -> AnnotatedSnake.program,
+      "print-three-upper-math.asm" -> PrintThree.assemble(
+        AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitionsWithMath)
+      ),
+      "print-three-upper.asm"      -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitions)
       ),
-      "print-three-lower.asm" -> PrintThree.assemble(
+      "print-three-lower.asm"      -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.UseLiterals)
       )
     )

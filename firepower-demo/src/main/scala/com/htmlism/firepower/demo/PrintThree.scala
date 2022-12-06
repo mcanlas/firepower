@@ -9,18 +9,19 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object PrintThree:
-  case class Move[A: Definable](src: A, dest: String):
-    def defines: Option[ListMap[String, String]] =
-      implicitly[Definable[A]]
-        .table
-        .some
+  case class Move[A: Definable, B: Definable](src: A, dest: B):
+    def defines: List[ListMap[String, String]] =
+      List(implicitly[Definable[A]].table, implicitly[Definable[B]].table)
 
-  val program: List[Move[Easy6502.Color]] =
+  def build(screen: Easy6502.Screen): List[Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
     List(
-      Move(Easy6502.Color.White, "$0200"),
-      Move(Easy6502.Color.Green, "$0201"),
-      Move(Easy6502.Color.Orange, "$0202")
+      Move(Easy6502.Color.White, screen(0)),
+      Move(Easy6502.Color.Green, screen(1)),
+      Move(Easy6502.Color.Orange, screen(2))
     )
+
+  val program: List[Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
+    build(Easy6502.Screen(200))
 
   def assemble(opts: AssemblerOptions): String =
     (defines(opts) ++ codes(opts))
@@ -35,7 +36,7 @@ object PrintThree:
 
       case AssemblerOptions.DefinitionsMode.UseDefinitions =>
         program
-          .flatMap(_.defines.toList)
+          .flatMap(_.defines)
           .distinct
           .map { xs =>
             xs
@@ -69,13 +70,13 @@ object PrintThree:
 
             case AssemblerOptions.DefinitionsMode.UseDefinitions |
                 AssemblerOptions.DefinitionsMode.UseDefinitionsWithMath =>
-              mv.src.toDefine
+              "#" + mv.src.toDefine
 
         AsmBlock.Intent(
-          s"${mv.dest} = ${mv.src.toComment}".some,
+          s"${mv.dest.toComment} = ${mv.src.toComment}".some,
           List(
             AsmBlock.Intent.Instruction(instruction("LDA", opts.instructionCase) + " " + argument, None),
-            AsmBlock.Intent.Instruction(instruction("STA", opts.instructionCase) + " " + mv.dest, None)
+            AsmBlock.Intent.Instruction(instruction("STA", opts.instructionCase) + " $" + mv.dest.toValue, None)
           )
         )
       }
