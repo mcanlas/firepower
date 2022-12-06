@@ -8,22 +8,25 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object PrintThree:
-  case class Move(src: String, dest: String)
+  case class Move[A: Definable](src: A, dest: String)
 
-  val program: List[Move] =
+  val program: List[Move[Easy6502.Color]] =
     List(
-      Move("#$01", "$0200"),
-      Move("#$03", "$0201"),
-      Move("#$05", "$0202")
+      Move(Easy6502.Color.White, "$0200"),
+      Move(Easy6502.Color.Green, "$0201"),
+      Move(Easy6502.Color.Orange, "$0202")
     )
 
   def assemble(opt: AssemblerOptions): String =
     program
       .map { mv =>
+        val hex =
+          f"#$$${mv.src.toValue}%02X"
+
         AsmBlock.Intent(
-          s"${mv.dest} = ${mv.src}".some,
+          s"${mv.dest} = ${mv.src.toComment}".some,
           List(
-            AsmBlock.Intent.Instruction(instruction("LDA", opt.instructionCase) + " " + mv.src, None),
+            AsmBlock.Intent.Instruction(instruction("LDA", opt.instructionCase) + " " + hex, None),
             AsmBlock.Intent.Instruction(instruction("STA", opt.instructionCase) + " " + mv.dest, None)
           )
         )

@@ -7,7 +7,7 @@ case class AssemblerOptions(
 
 object AssemblerOptions:
   enum DefinitionsMode:
-    case InlineDefinitions, UseDefinitions, UseDefinitionsWithMath
+    case UseLiterals, UseDefinitions, UseDefinitionsWithMath
 
   enum InstructionCase:
     case Uppercase, Lowercase

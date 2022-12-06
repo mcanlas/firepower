@@ -31,10 +31,10 @@ object PrintPrograms extends ZIOAppDefault:
         .pipe(Line.mkString),
       "annotated-snake.asm"   -> AnnotatedSnake.program,
       "print-three-upper.asm" -> PrintThree.assemble(
-        AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.InlineDefinitions)
+        AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseLiterals)
       ),
       "print-three-lower.asm" -> PrintThree.assemble(
-        AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.InlineDefinitions)
+        AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.UseLiterals)
       )
     )
 
