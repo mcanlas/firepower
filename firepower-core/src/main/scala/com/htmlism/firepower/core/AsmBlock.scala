@@ -52,5 +52,5 @@ object AsmBlock:
     def toLines(x: Intent): List[String] =
       x.label.map(toComment).map(withIndent).toList ++ x
         .instructions
-        .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(" "))
+        .map(i => i.code + i.comment.map(toComment).map(" " + _).getOrElse(""))
         .map(withIndent)

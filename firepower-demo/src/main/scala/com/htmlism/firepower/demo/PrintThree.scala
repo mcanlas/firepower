@@ -21,7 +21,7 @@ object PrintThree:
     program
       .map { mv =>
         AsmBlock.Intent(
-          None,
+          s"${mv.dest} = ${mv.src}".some,
           List(
             AsmBlock.Intent.Instruction(instruction("LDA", opt.instructionCase) + " " + mv.src, None),
             AsmBlock.Intent.Instruction(instruction("STA", opt.instructionCase) + " " + mv.dest, None)
