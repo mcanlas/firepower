@@ -71,7 +71,16 @@ object AsmBlock:
   case class Intent(label: Option[String], instructions: List[Intent.Instruction])
 
   object Intent:
-    case class Instruction(code: String, comment: Option[String])
+    sealed trait Instruction:
+      def length: Int
+
+    object Instruction:
+      case class One(code: String, operand: String, comment: Option[String]) extends Instruction:
+        def length: Int =
+          operand.length + 4
+      case class Zero(code: String, comment: Option[String])                 extends Instruction:
+        def length: Int =
+          0
 
     def toLines(x: Intent): List[String] =
       val comment =
@@ -80,19 +89,31 @@ object AsmBlock:
       val maximumLength =
         x
           .instructions
-          .map(_.code.length)
+          .map(_.length)
           .max
 
       val instructions =
         x
           .instructions
-          .map { i =>
-            i.comment match
-              case Some(c) =>
-                String.format(s"%-${maximumLength}s", i.code) + " " + toComment(c)
+          .map {
+            case Instruction.Zero(code, oComment) =>
+              oComment match
+                case Some(c) =>
+                  String.format(s"%-${maximumLength}s", code) + " " + toComment(c)
 
-              case None =>
-                i.code
+                case None =>
+                  code
+
+            case Instruction.One(code, operand, oComment) =>
+              val leftSlug =
+                code + " " + operand
+
+              oComment match
+                case Some(c) =>
+                  String.format(s"%-${maximumLength}s", leftSlug) + " " + toComment(c)
+
+                case None =>
+                  leftSlug
           }
           .map(withIndent)
 

@@ -77,11 +77,14 @@ object PrintThree:
           List(
             AsmBlock
               .Intent
-              .Instruction(instruction("LDA", opts.instructionCase) + " " + argument, s"a = ${mv.src.toComment}".some),
+              .Instruction
+              .One(instruction("LDA", opts.instructionCase), argument, s"a = ${mv.src.toComment}".some),
             AsmBlock
               .Intent
-              .Instruction(
-                instruction("STA", opts.instructionCase) + " " + argumentTwo,
+              .Instruction
+              .One(
+                instruction("STA", opts.instructionCase),
+                argumentTwo,
                 s"${mv.dest.toComment} = a".some
               )
           )
