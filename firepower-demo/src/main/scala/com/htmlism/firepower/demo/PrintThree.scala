@@ -39,30 +39,14 @@ object PrintThree:
       case AssemblerOptions.DefinitionsMode.UseLiterals =>
         Nil
 
-      case AssemblerOptions.DefinitionsMode.UseDefinitions =>
+      case AssemblerOptions.DefinitionsMode.UseDefinitions | AssemblerOptions.DefinitionsMode.UseDefinitionsWithMath =>
         program
           .flatMap(_.defines)
           .distinct
           .map { xs =>
             xs
               .toList
-              .map { case (k, v) =>
-                s"define $k $v"
-              }
-              .pipe(AsmBlock.CommentBlock(_))
-          }
-
-      case AssemblerOptions.DefinitionsMode.UseDefinitionsWithMath =>
-        program
-          .flatMap(_.defines.toList)
-          .distinct
-          .map { xs =>
-            xs
-              .toList
-              .map { case (k, v) =>
-                s"define $k $v"
-              }
-              .pipe(AsmBlock.CommentBlock(_))
+              .pipe(AsmBlock.DefinesBlock(_))
           }
 
   private def codes(opts: AssemblerOptions) =

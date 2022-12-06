@@ -9,6 +9,8 @@ object AsmBlock:
     def fromMultiline(s: String): CommentBlock =
       CommentBlock(s.split("\\n").toList)
 
+  case class DefinesBlock(xs: List[(String, String)]) extends AsmBlock
+
   case class NamedCodeBlock(name: String, comment: Option[String], intents: List[AsmBlock.Intent]) extends AsmBlock
 
   case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
@@ -31,6 +33,12 @@ object AsmBlock:
     xs match
       case CommentBlock(ys) =>
         ys.map(toComment)
+
+      case DefinesBlock(kvs) =>
+        kvs
+          .map { case (k, v) =>
+            s"define $k $v"
+          }
 
       case NamedCodeBlock(label, oComment, intents) =>
         val headerParagraph =
