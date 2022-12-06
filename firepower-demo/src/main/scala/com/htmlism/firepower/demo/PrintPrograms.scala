@@ -28,7 +28,8 @@ object PrintPrograms extends ZIOAppDefault:
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity))
         .pipe(Line.mkString),
-      "annotated-snake.asm" -> AnnotatedSnake.program
+      "annotated-snake.asm" -> AnnotatedSnake.program,
+      "print-three.asm"     -> PrintThree.program
     )
 
   def run: Task[Unit] =
