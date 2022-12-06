@@ -8,6 +8,7 @@ import cats.syntax.all._
 import zio.*
 
 import com.htmlism.firepower.core.AsmBlock._
+import com.htmlism.firepower.core.AssemblerOptions._
 import com.htmlism.firepower.core._
 import com.htmlism.firepower.demo.str._
 import com.htmlism.rufio.withzio.*
@@ -19,17 +20,22 @@ object PrintPrograms extends ZIOAppDefault:
 
   private val programs =
     List[(String, String)](
-      "one-line.txt"        -> "one line",
-      "two-lines.txt"       -> List("foo", "bar")
+      "one-line.txt"          -> "one line",
+      "two-lines.txt"         -> List("foo", "bar")
         .pipe(Line.mkString),
-      "two-paragraphs.txt"  -> List(
+      "two-paragraphs.txt"    -> List(
         List("foo", "bar"),
         List("alpha", "bravo")
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity))
         .pipe(Line.mkString),
-      "annotated-snake.asm" -> AnnotatedSnake.program,
-      "print-three.asm"     -> PrintThree.program
+      "annotated-snake.asm"   -> AnnotatedSnake.program,
+      "print-three-upper.asm" -> PrintThree.assemble(
+        AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.InlineDefinitions)
+      ),
+      "print-three-lower.asm" -> PrintThree.assemble(
+        AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.InlineDefinitions)
+      )
     )
 
   def run: Task[Unit] =

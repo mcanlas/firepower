@@ -8,34 +8,36 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object PrintThree:
-  val program: String =
+  case class Move(src: String, dest: String)
+
+  val program: List[Move] =
     List(
-      AnonymousCodeBlock(
-        List(
-          AsmBlock.Intent(
-            None,
-            List(
-              AsmBlock.Intent.Instruction("LDA #$01", None),
-              AsmBlock.Intent.Instruction("STA $0200", None)
-            )
-          ),
-          AsmBlock.Intent(
-            None,
-            List(
-              AsmBlock.Intent.Instruction("LDA #$05", None),
-              AsmBlock.Intent.Instruction("STA $0201", None)
-            )
-          ),
-          AsmBlock.Intent(
-            None,
-            List(
-              AsmBlock.Intent.Instruction("LDA #$08", None),
-              AsmBlock.Intent.Instruction("STA $0202", None)
-            )
+      Move("#$01", "$0200"),
+      Move("#$03", "$0201"),
+      Move("#$05", "$0202")
+    )
+
+  def assemble(opt: AssemblerOptions): String =
+    program
+      .map { mv =>
+        AsmBlock.Intent(
+          None,
+          List(
+            AsmBlock.Intent.Instruction(instruction("LDA", opt.instructionCase) + " " + mv.src, None),
+            AsmBlock.Intent.Instruction(instruction("STA", opt.instructionCase) + " " + mv.dest, None)
           )
         )
-      )
-    )
+      }
+      .pipe(AnonymousCodeBlock(_))
+      .pipe(List(_))
       .map(AsmBlock.toLines)
       .pipe(xs => AsmBlock.interFlatMap(xs)(List("", ""), identity))
       .pipe(str.Line.mkString)
+
+  def instruction(s: String, instructionCase: AssemblerOptions.InstructionCase): String =
+    instructionCase match
+      case AssemblerOptions.InstructionCase.Uppercase =>
+        s.toUpperCase
+
+      case AssemblerOptions.InstructionCase.Lowercase =>
+        s.toLowerCase
