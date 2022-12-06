@@ -26,7 +26,7 @@ object PrintThree:
     )
 
   val program: List[Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
-    build(Easy6502.Screen(200))
+    build(Easy6502.Screen(0x200))
 
   def assemble(opts: AssemblerOptions): String =
     (defines(opts) ++ codes(opts))
@@ -65,7 +65,9 @@ object PrintThree:
           s"${mv.dest.toComment} = ${mv.src.toComment}".some,
           List(
             AsmBlock.Intent.Instruction(instruction("LDA", opts.instructionCase) + " " + argument, None),
-            AsmBlock.Intent.Instruction(instruction("STA", opts.instructionCase) + " $" + mv.dest.toValue, None)
+            AsmBlock
+              .Intent
+              .Instruction(instruction("STA", opts.instructionCase) + " " + AsmBlock.toHex(mv.dest.toValue), None)
           )
         )
       }

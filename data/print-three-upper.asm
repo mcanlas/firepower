@@ -1,22 +1,22 @@
-define COLOR_Black      0
-define COLOR_White      1
-define COLOR_Red        2
-define COLOR_Cyan       3
-define COLOR_Purple     4
-define COLOR_Green      5
-define COLOR_Blue       6
-define COLOR_Yellow     7
-define COLOR_Orange     8
-define COLOR_Brown      9
-define COLOR_LightRed   10
-define COLOR_DarkGrey   11
-define COLOR_Grey       12
-define COLOR_LightGreen 13
-define COLOR_LightBlue  14
-define COLOR_LightGrey  15
+define COLOR_Black      $00
+define COLOR_White      $01
+define COLOR_Red        $02
+define COLOR_Cyan       $03
+define COLOR_Purple     $04
+define COLOR_Green      $05
+define COLOR_Blue       $06
+define COLOR_Yellow     $07
+define COLOR_Orange     $08
+define COLOR_Brown      $09
+define COLOR_LightRed   $0A
+define COLOR_DarkGrey   $0B
+define COLOR_Grey       $0C
+define COLOR_LightGreen $0D
+define COLOR_LightBlue  $0E
+define COLOR_LightGrey  $0F
 
 
-define SCREEN 200
+define SCREEN $200
 
 
   ; Screen(0) = White

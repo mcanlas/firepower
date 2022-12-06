@@ -29,6 +29,17 @@ object AsmBlock:
   def withIndent(s: String): String =
     "  " + s
 
+  def toHex(n: Int): String =
+    val hex =
+      if (n < 16 * 16)
+        String.format("%1$02x", n)
+      else if (n < 16 * 16 * 16)
+        String.format("%1$03x", n)
+      else
+        String.format("%1$04x", n)
+
+    "$" + hex.toUpperCase
+
   def toLines(xs: AsmBlock): List[String] =
     xs match
       case CommentBlock(ys) =>
@@ -42,7 +53,7 @@ object AsmBlock:
 
         kvs
           .map { case (k, v) =>
-            String.format(s"define %-${maximumLength}s $v", k)
+            String.format(s"define %-${maximumLength}s ${toHex(v)}", k)
           }
 
       case NamedCodeBlock(label, oComment, intents) =>
