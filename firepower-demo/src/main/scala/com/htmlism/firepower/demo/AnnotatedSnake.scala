@@ -51,7 +51,7 @@ object AnnotatedSnake:
         )
       )
     )
-      .map(AsmBlock.toLines)
+      .map(AsmBlock.toLines(AssemblerOptions.InstructionCase.Lowercase))
       .pipe(xs => AsmBlock.interFlatMap(xs)(List("", ""), identity))
       .pipe(str.Line.mkString)
 

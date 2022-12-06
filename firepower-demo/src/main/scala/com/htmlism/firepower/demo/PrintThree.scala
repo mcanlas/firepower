@@ -29,13 +29,13 @@ object PrintThree:
     build(Easy6502.Screen(0x200))
 
   def assemble(opts: AssemblerOptions): String =
-    (defines(opts) ++ codes(opts))
-      .map(AsmBlock.toLines)
+    (defines(opts.definitionsMode) ++ codes(opts.definitionsMode))
+      .map(AsmBlock.toLines(opts.instructionCase))
       .pipe(xs => AsmBlock.interFlatMap(xs)(List("", ""), identity))
       .pipe(str.Line.mkString)
 
-  private def defines(opts: AssemblerOptions) =
-    opts.definitionsMode match
+  private def defines(opts: AssemblerOptions.DefinitionsMode) =
+    opts match
       case AssemblerOptions.DefinitionsMode.UseLiterals =>
         Nil
 
@@ -49,11 +49,11 @@ object PrintThree:
               .pipe(AsmBlock.DefinesBlock(_))
           }
 
-  private def codes(opts: AssemblerOptions) =
+  private def codes(opts: AssemblerOptions.DefinitionsMode) =
     program
       .map { mv =>
         val argument =
-          opts.definitionsMode match
+          opts match
             case AssemblerOptions.DefinitionsMode.UseLiterals =>
               f"#$$${mv.src.toValue}%02X"
 
@@ -62,7 +62,7 @@ object PrintThree:
               "#" + mv.src.toDefine
 
         val argumentTwo =
-          opts.definitionsMode match
+          opts match
             case AssemblerOptions.DefinitionsMode.UseLiterals =>
               AsmBlock.toHex(mv.dest.toValue)
 
@@ -78,12 +78,12 @@ object PrintThree:
             AsmBlock
               .Intent
               .Instruction
-              .One(instruction("LDA", opts.instructionCase), argument, s"a = ${mv.src.toComment}".some),
+              .One("LDA", argument, s"a = ${mv.src.toComment}".some),
             AsmBlock
               .Intent
               .Instruction
               .One(
-                instruction("STA", opts.instructionCase),
+                "STA",
                 argumentTwo,
                 s"${mv.dest.toComment} = a".some
               )
@@ -92,11 +92,3 @@ object PrintThree:
       }
       .pipe(AnonymousCodeBlock(_))
       .pipe(List(_))
-
-  def instruction(s: String, instructionCase: AssemblerOptions.InstructionCase): String =
-    instructionCase match
-      case AssemblerOptions.InstructionCase.Uppercase =>
-        s.toUpperCase
-
-      case AssemblerOptions.InstructionCase.Lowercase =>
-        s.toLowerCase

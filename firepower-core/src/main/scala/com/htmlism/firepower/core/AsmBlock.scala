@@ -40,7 +40,7 @@ object AsmBlock:
 
     "$" + hex.toUpperCase
 
-  def toLines(xs: AsmBlock): List[String] =
+  def toLines(opts: AssemblerOptions.InstructionCase)(xs: AsmBlock): List[String] =
     xs match
       case CommentBlock(ys) =>
         ys.map(toComment)
@@ -61,12 +61,12 @@ object AsmBlock:
           List(label + ":") ++ oComment.map(toComment).map(withIndent).toList
 
         val intentParagraphs =
-          intents.map(Intent.toLines)
+          intents.map(Intent.toLines(opts))
 
         interFlatMap(headerParagraph :: intentParagraphs)(List(""), identity)
 
       case AnonymousCodeBlock(intents) =>
-        interFlatMap(intents)(List(""), Intent.toLines)
+        interFlatMap(intents)(List(""), Intent.toLines(opts))
 
   case class Intent(label: Option[String], instructions: List[Intent.Instruction])
 
@@ -82,7 +82,7 @@ object AsmBlock:
         def length: Int =
           0
 
-    def toLines(x: Intent): List[String] =
+    def toLines(opts: AssemblerOptions.InstructionCase)(x: Intent): List[String] =
       val comment =
         x.label.map(toComment).map(withIndent).toList
 
@@ -97,16 +97,19 @@ object AsmBlock:
           .instructions
           .map {
             case Instruction.Zero(code, oComment) =>
+              val codeUpperLower =
+                instruction(code, opts)
+
               oComment match
                 case Some(c) =>
-                  String.format(s"%-${maximumLength}s", code) + " " + toComment(c)
+                  String.format(s"%-${maximumLength}s", codeUpperLower) + " " + toComment(c)
 
                 case None =>
-                  code
+                  codeUpperLower
 
             case Instruction.One(code, operand, oComment) =>
               val leftSlug =
-                code + " " + operand
+                instruction(code, opts) + " " + operand
 
               oComment match
                 case Some(c) =>
@@ -118,3 +121,11 @@ object AsmBlock:
           .map(withIndent)
 
       comment ++ instructions
+
+  def instruction(s: String, instructionCase: AssemblerOptions.InstructionCase): String =
+    instructionCase match
+      case AssemblerOptions.InstructionCase.Uppercase =>
+        s.toUpperCase
+
+      case AssemblerOptions.InstructionCase.Lowercase =>
+        s.toLowerCase
