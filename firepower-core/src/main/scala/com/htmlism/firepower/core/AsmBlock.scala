@@ -35,9 +35,14 @@ object AsmBlock:
         ys.map(toComment)
 
       case DefinesBlock(kvs) =>
+        val maximumLength =
+          kvs
+            .map(_._1.length)
+            .max
+
         kvs
           .map { case (k, v) =>
-            s"define $k $v"
+            String.format(s"define %-${maximumLength}s $v", k)
           }
 
       case NamedCodeBlock(label, oComment, intents) =>
