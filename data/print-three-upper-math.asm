@@ -16,7 +16,7 @@ define COLOR_LightBlue  14
 define COLOR_LightGrey  15
 
 
-define SCREEN TODO
+define SCREEN 200
 
 
   ; Screen(0) = White

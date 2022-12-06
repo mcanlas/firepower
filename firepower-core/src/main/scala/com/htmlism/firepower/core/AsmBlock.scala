@@ -9,7 +9,7 @@ object AsmBlock:
     def fromMultiline(s: String): CommentBlock =
       CommentBlock(s.split("\\n").toList)
 
-  case class DefinesBlock(xs: List[(String, String)]) extends AsmBlock
+  case class DefinesBlock(xs: List[(String, Int)]) extends AsmBlock
 
   case class NamedCodeBlock(name: String, comment: Option[String], intents: List[AsmBlock.Intent]) extends AsmBlock
 

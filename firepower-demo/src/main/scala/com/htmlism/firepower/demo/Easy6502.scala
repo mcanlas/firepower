@@ -10,12 +10,12 @@ object Easy6502:
 
   object Color:
     given Definable[Color] with
-      def table: ListMap[String, String] =
+      def table(x: Color): ListMap[String, Int] =
         Color
           .values
           .iterator
           .map { c =>
-            "COLOR_" + c.toString -> c.ordinal.toString
+            "COLOR_" + c.toString -> c.ordinal
           }
           .pipe(ListMap.from)
 
@@ -40,8 +40,8 @@ object Easy6502:
 
     object Pixel:
       given Definable[Pixel] with
-        def table: ListMap[String, String] =
-          ListMap("SCREEN" -> "TODO") // define table needs to be a function of an instance
+        def table(x: Pixel): ListMap[String, Int] =
+          ListMap("SCREEN" -> x.baseAddr) // define table needs to be a function of an instance
 
         extension (x: Pixel)
           def toComment: String =

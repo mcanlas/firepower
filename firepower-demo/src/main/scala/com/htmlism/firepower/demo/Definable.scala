@@ -3,7 +3,7 @@ package com.htmlism.firepower.demo
 import scala.collection.immutable._
 
 trait Definable[A]:
-  def table: ListMap[String, String]
+  def table(x: A): ListMap[String, Int]
 
   extension (x: A) def toComment: String
 

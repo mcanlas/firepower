@@ -9,14 +9,14 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object PrintThree:
-  trait DefinesHelper(xs: Definable[_]*):
-    def defines: Seq[ListMap[String, String]] =
-      xs
-        .iterator
-        .map(_.table)
-        .toList
-
-  case class Move[A: Definable, B: Definable](src: A, dest: B) extends DefinesHelper(Definable[A], Definable[B])
+  case class Move[A: Definable, B: Definable](src: A, dest: B):
+    def defines: List[ListMap[String, Int]] =
+      List(
+        Definable[A]
+          .table(src),
+        Definable[B]
+          .table(dest)
+      )
 
   def build(screen: Easy6502.Screen): List[Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
     List(
