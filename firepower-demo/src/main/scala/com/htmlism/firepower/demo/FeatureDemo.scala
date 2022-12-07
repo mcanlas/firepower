@@ -7,7 +7,7 @@ import cats.syntax.all._
 import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
-object AnnotatedSnake:
+object FeatureDemo:
   val program: String =
     List(
       CommentBlock.fromMultiline(asciiArt),

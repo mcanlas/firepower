@@ -34,7 +34,7 @@ object PrintPrograms extends ZIOAppDefault:
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity))
         .pipe(Line.mkString),
-      "annotated-snake.asm"        -> AnnotatedSnake.program,
+      "feature-demo.asm"           -> FeatureDemo.program,
       "print-three-upper-math.asm" -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitionsWithMath)
       ),
