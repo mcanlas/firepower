@@ -1,6 +1,5 @@
 package com.htmlism.firepower.demo
 
-import scala.collection.immutable._
 import scala.util.chaining._
 
 object Easy6502:
@@ -10,14 +9,15 @@ object Easy6502:
 
   object Color:
     given Definable[Color] with
-      def table(x: Color): ListMap[String, Int] =
+      def table(x: Color): Definable.Table =
         Color
           .values
           .iterator
           .map { c =>
             "COLOR_" + c.toString -> c.ordinal
           }
-          .pipe(ListMap.from)
+          .toList
+          .pipe(Definable.Table("Colors that each screen pixel can be set to", _))
 
       extension (x: Color)
         def toComment: String =
@@ -44,8 +44,9 @@ object Easy6502:
 
     object Pixel:
       given Definable[Pixel] with
-        def table(x: Pixel): ListMap[String, Int] =
-          ListMap("SCREEN" -> x.baseAddr) // define table needs to be a function of an instance
+        def table(x: Pixel): Definable.Table =
+          // define table needs to be a function of an instance
+          Definable.Table("The screen as a collection of pixels", List("SCREEN" -> x.baseAddr))
 
         extension (x: Pixel)
           def toComment: String =

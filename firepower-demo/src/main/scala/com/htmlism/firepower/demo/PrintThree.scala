@@ -1,6 +1,5 @@
 package com.htmlism.firepower.demo
 
-import scala.collection.immutable._
 import scala.util.chaining._
 
 import cats.syntax.all._
@@ -10,7 +9,7 @@ import com.htmlism.firepower.core._
 
 object PrintThree:
   case class Move[A: Definable, B: Definable](src: A, dest: B):
-    def defines: List[ListMap[String, Int]] =
+    def defines: List[Definable.Table] =
       List(
         Definable[A]
           .table(src),
@@ -42,10 +41,8 @@ object PrintThree:
         program
           .flatMap(_.defines)
           .distinct
-          .map { xs =>
-            xs
-              .toList
-              .pipe(AsmBlock.DefinesBlock(_))
+          .map { dt =>
+            AsmBlock.DefinesBlock(dt.description.some, dt.xs)
           }
 
   private def codes(opts: AssemblerOptions.DefinitionsMode) =

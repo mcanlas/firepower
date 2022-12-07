@@ -21,8 +21,7 @@ object AsmBlock:
   /**
     * Renders as a table of aliases
     */
-  // TODO needs descriptive field
-  case class DefinesBlock(xs: List[(String, Int)]) extends AsmBlock
+  case class DefinesBlock(comment: Option[String], xs: List[(String, Int)]) extends AsmBlock
 
   /**
     * Renders as a labeled subroutine
@@ -70,16 +69,19 @@ object AsmBlock:
       case CommentBlock(ys) =>
         ys.map(toComment)
 
-      case DefinesBlock(kvs) =>
+      case DefinesBlock(oComment, kvs) =>
         val maximumLength =
           kvs
             .map(_._1.length)
             .max
 
-        kvs
-          .map { case (k, v) =>
-            String.format(s"define %-${maximumLength}s ${toHex(v)}", k)
-          }
+        val defines =
+          kvs
+            .map { case (k, v) =>
+              String.format(s"define %-${maximumLength}s ${toHex(v)}", k)
+            }
+
+        oComment.map(toComment).toList ::: defines
 
       case NamedCodeBlock(label, oComment, intents) =>
         val headerParagraph =

@@ -1,9 +1,7 @@
 package com.htmlism.firepower.demo
 
-import scala.collection.immutable._
-
 trait Definable[A]:
-  def table(x: A): ListMap[String, Int]
+  def table(x: A): Definable.Table
 
   extension (x: A) def toComment: String
 
@@ -14,5 +12,7 @@ trait Definable[A]:
   extension (x: A) def toDefineWithMath: String
 
 object Definable:
+  case class Table(description: String, xs: List[(String, Int)])
+
   def apply[A](using ev: Definable[A]): Definable[A] =
     ev

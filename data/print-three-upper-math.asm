@@ -1,3 +1,4 @@
+; Colors that each screen pixel can be set to
 define COLOR_Black      $00
 define COLOR_White      $01
 define COLOR_Red        $02
@@ -16,6 +17,7 @@ define COLOR_LightBlue  $0E
 define COLOR_LightGrey  $0F
 
 
+; The screen as a collection of pixels
 define SCREEN $200
 
 
