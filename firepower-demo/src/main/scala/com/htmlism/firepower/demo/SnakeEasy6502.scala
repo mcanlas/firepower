@@ -6,7 +6,7 @@ import com.htmlism.firepower.core.AsmBlock.Intent
 import com.htmlism.firepower.core.*
 
 object SnakeEasy6502:
-  val program: List[Intent.Instruction] =
+  val program: List[MetaIntent.Jump] =
     List(
       init.call,
       loop.call
@@ -21,11 +21,11 @@ object SnakeEasy6502:
   lazy val initSnake =
     Subroutine("initSnake")
 
-  def firstCodeBlock(xs: List[Intent.Instruction]): AsmBlock.AnonymousCodeBlock =
+  def firstCodeBlock(xs: List[MetaIntent.Jump]): AsmBlock.AnonymousCodeBlock =
     AsmBlock
-      .AnonymousCodeBlock(List(Intent(None, xs)))
+      .AnonymousCodeBlock(xs.map(MetaIntent.Jump.toIntent))
 
-  def callGraph(xs: List[Intent.Instruction]): List[AsmBlock.NamedCodeBlock] =
+  def callGraph(xs: List[MetaIntent.Jump]): List[AsmBlock.NamedCodeBlock] =
     Nil
 
   def assemble(opts: AssemblerOptions): List[String] =

@@ -103,8 +103,11 @@ object AsmBlock:
         (code + " " + operand.getOrElse("")).length
 
     object Instruction:
-      def one(code: String, operand: String, comment: Option[String]): Instruction =
+      def one(code: String, operand: String, comment: Option[String] = None): Instruction =
         Instruction(code, operand.some, comment)
+
+      def zero(code: String, comment: Option[String] = None): Instruction =
+        Instruction(code, None, comment)
 
     def toLines(opts: AssemblerOptions.InstructionCase)(x: Intent): List[String] =
       val comment =

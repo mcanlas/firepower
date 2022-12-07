@@ -7,6 +7,12 @@ import com.htmlism.firepower.core.*
 sealed trait MetaIntent
 
 object MetaIntent:
+  case class Jump(target: String)
+
+  object Jump:
+    def toIntent(j: Jump): AsmBlock.Intent =
+      AsmBlock.Intent(None, List(AsmBlock.Intent.Instruction.one("jsr", j.target)))
+
   case class Move[A: Definable, B: Definable](src: A, dest: B):
     def defines: List[Definable.Table] =
       List(
