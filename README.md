@@ -37,3 +37,7 @@
 
 - [Easy 6502](https://skilldrick.github.io/easy6502/)
 - [Annotated Snake6502](https://gist.github.com/wkjagt/9043907)
+
+## Colophon
+
+`firepower` can be abbreviated as `fp`, just like `functional programming`. And it is a reference to one of Mario's abilities in Super Mario Bros, an NES classic.
