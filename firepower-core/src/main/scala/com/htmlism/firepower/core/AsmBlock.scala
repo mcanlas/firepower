@@ -1,5 +1,7 @@
 package com.htmlism.firepower.core
 
+import cats.syntax.all._
+
 sealed trait AsmBlock
 
 object AsmBlock:
@@ -94,16 +96,13 @@ object AsmBlock:
   case class Intent(label: Option[String], instructions: List[Intent.Instruction])
 
   object Intent:
-    sealed trait Instruction:
-      def length: Int
+    case class Instruction(code: String, operand: Option[String], comment: Option[String]):
+      def length: Int =
+        (code + " " + operand.getOrElse("")).length
 
     object Instruction:
-      case class One(code: String, operand: String, comment: Option[String]) extends Instruction:
-        def length: Int =
-          operand.length + 4
-      case class Zero(code: String, comment: Option[String])                 extends Instruction:
-        def length: Int =
-          0
+      def one(code: String, operand: String, comment: Option[String]): Instruction =
+        Instruction(code, operand.some, comment)
 
     def toLines(opts: AssemblerOptions.InstructionCase)(x: Intent): List[String] =
       val comment =
@@ -118,28 +117,16 @@ object AsmBlock:
       val instructions =
         x
           .instructions
-          .map {
-            case Instruction.Zero(code, oComment) =>
-              val codeUpperLower =
-                instruction(code, opts)
+          .map { i =>
+            val leftSlug =
+              instruction(i.code, opts) + i.operand.map(" " + _).getOrElse("")
 
-              oComment match
-                case Some(c) =>
-                  String.format(s"%-${maximumLength}s", codeUpperLower) + " " + toComment(c)
+            i.comment match
+              case Some(c) =>
+                String.format(s"%-${maximumLength}s", leftSlug) + " " + toComment(c)
 
-                case None =>
-                  codeUpperLower
-
-            case Instruction.One(code, operand, oComment) =>
-              val leftSlug =
-                instruction(code, opts) + " " + operand
-
-              oComment match
-                case Some(c) =>
-                  String.format(s"%-${maximumLength}s", leftSlug) + " " + toComment(c)
-
-                case None =>
-                  leftSlug
+              case None =>
+                leftSlug
           }
           .map(withIndent)
 

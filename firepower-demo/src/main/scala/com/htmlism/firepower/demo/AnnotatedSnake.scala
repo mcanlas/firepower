@@ -17,15 +17,15 @@ object AnnotatedSnake:
           AsmBlock.Intent(
             None,
             List(
-              AsmBlock.Intent.Instruction.One("lda", "$00", None),
-              AsmBlock.Intent.Instruction.One("lda", "$01", "instruction comment".some)
+              AsmBlock.Intent.Instruction.one("lda", "$00", None),
+              AsmBlock.Intent.Instruction.one("lda", "$01", "instruction comment".some)
             )
           ),
           AsmBlock.Intent(
             "this block has some preamble".some,
             List(
-              AsmBlock.Intent.Instruction.One("lda", "$00", None),
-              AsmBlock.Intent.Instruction.One("lda", "$01", "instruction comment".some)
+              AsmBlock.Intent.Instruction.one("lda", "$00", None),
+              AsmBlock.Intent.Instruction.one("lda", "$01", "instruction comment".some)
             )
           )
         )
@@ -37,15 +37,15 @@ object AnnotatedSnake:
           AsmBlock.Intent(
             None,
             List(
-              AsmBlock.Intent.Instruction.One("lda", "$00", None),
-              AsmBlock.Intent.Instruction.One("lda", "$01", "instruction comment".some)
+              AsmBlock.Intent.Instruction.one("lda", "$00", None),
+              AsmBlock.Intent.Instruction.one("lda", "$01", "instruction comment".some)
             )
           ),
           AsmBlock.Intent(
             "this block has some preamble".some,
             List(
-              AsmBlock.Intent.Instruction.One("lda", "$00", None),
-              AsmBlock.Intent.Instruction.One("lda", "$01", "instruction comment".some)
+              AsmBlock.Intent.Instruction.one("lda", "$00", None),
+              AsmBlock.Intent.Instruction.one("lda", "$01", "instruction comment".some)
             )
           )
         )

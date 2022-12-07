@@ -78,11 +78,11 @@ object PrintThree:
             AsmBlock
               .Intent
               .Instruction
-              .One("LDA", argument, s"a = ${mv.src.toComment}".some),
+              .one("LDA", argument, s"a = ${mv.src.toComment}".some),
             AsmBlock
               .Intent
               .Instruction
-              .One(
+              .one(
                 "STA",
                 argumentTwo,
                 s"${mv.dest.toComment} = a".some
