@@ -10,7 +10,7 @@ import com.htmlism.firepower.core.*
 sealed trait MetaIntent
 
 object MetaIntent:
-  case class Jump(target: String, description: String, xs: () => List[MetaIntent.Jump]) extends MetaIntent
+  case class Jump(target: String, description: String, xs: List[MetaIntent.Jump]) extends MetaIntent
 
   object Jump:
     def toIntent(j: Jump): AsmBlock.Intent =

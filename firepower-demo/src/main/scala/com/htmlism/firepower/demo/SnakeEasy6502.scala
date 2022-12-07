@@ -19,9 +19,10 @@ object SnakeEasy6502:
   lazy val init =
     Subroutine("init", "initializes values")
       .copy(intents =
-        List(
-          initSnake.call
-        )
+        () =>
+          List(
+            initSnake.call
+          )
       )
 
   lazy val loop =
@@ -62,7 +63,7 @@ object SnakeEasy6502:
               )
             )
 
-          callGraphRecur(callGraph.updated(head.target, sub), todo ::: head.xs())
+          callGraphRecur(callGraph.updated(head.target, sub), todo ::: head.xs)
 
       case Nil =>
         callGraph
