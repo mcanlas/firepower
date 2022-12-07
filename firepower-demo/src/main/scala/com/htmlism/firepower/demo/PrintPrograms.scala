@@ -43,6 +43,9 @@ object PrintPrograms extends ZIOAppDefault:
       ),
       "print-three-lower.asm"      -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.UseLiterals)
+      ),
+      "snake-easy-6502.asm"        -> SnakeEasy6502.assemble(
+        AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitions)
       )
     )
 
