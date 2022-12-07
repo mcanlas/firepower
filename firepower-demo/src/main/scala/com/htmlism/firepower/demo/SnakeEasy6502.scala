@@ -1,5 +1,7 @@
 package com.htmlism.firepower.demo
 
+import scala.annotation.tailrec
+import scala.collection.immutable.ListMap
 import scala.util.chaining.*
 
 import com.htmlism.firepower.core.AsmBlock.Intent
@@ -14,6 +16,11 @@ object SnakeEasy6502:
 
   lazy val init =
     Subroutine("init")
+      .copy(intents =
+        List(
+          initSnake.call
+        )
+      )
 
   lazy val loop =
     Subroutine("loop")
@@ -26,7 +33,37 @@ object SnakeEasy6502:
       .AnonymousCodeBlock(xs.map(MetaIntent.Jump.toIntent))
 
   def callGraph(xs: List[MetaIntent.Jump]): List[AsmBlock.NamedCodeBlock] =
-    Nil
+    callGraphRecur(ListMap.empty, xs)
+      .values
+      .toList
+
+  @tailrec
+  private def callGraphRecur(
+      callGraph: ListMap[String, AsmBlock.NamedCodeBlock],
+      todo: List[MetaIntent.Jump]
+  ): ListMap[String, AsmBlock.NamedCodeBlock] =
+    todo match
+      case head :: tail =>
+        if (callGraph.contains(head.target)) callGraphRecur(callGraph, tail)
+        else
+          val sub =
+            AsmBlock.NamedCodeBlock(
+              head.target,
+              None,
+              List(
+                AsmBlock.Intent(
+                  None,
+                  List(
+                    AsmBlock.Intent.Instruction.zero("rts")
+                  )
+                )
+              )
+            )
+
+          callGraphRecur(callGraph.updated(head.target, sub), todo ::: head.xs())
+
+      case Nil =>
+        callGraph
 
   def assemble(opts: AssemblerOptions): List[String] =
     (firstCodeBlock(program) :: callGraph(program))

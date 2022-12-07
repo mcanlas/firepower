@@ -4,10 +4,13 @@ import cats.syntax.all.*
 
 import com.htmlism.firepower.core.*
 
+/**
+  * Anything that can be compiled into an `Intent`
+  */
 sealed trait MetaIntent
 
 object MetaIntent:
-  case class Jump(target: String)
+  case class Jump(target: String, xs: () => List[MetaIntent.Jump]) extends MetaIntent
 
   object Jump:
     def toIntent(j: Jump): AsmBlock.Intent =

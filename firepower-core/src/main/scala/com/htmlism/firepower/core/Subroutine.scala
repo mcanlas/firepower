@@ -4,9 +4,9 @@ import cats.syntax.all.*
 
 import com.htmlism.firepower.core.AsmBlock._
 
-case class Subroutine(name: String, intents: List[MetaIntent]):
+case class Subroutine(name: String, intents: List[MetaIntent.Jump]):
   def call: MetaIntent.Jump =
-    MetaIntent.Jump(name)
+    MetaIntent.Jump(name, () => intents)
 
   def attach: NamedCodeBlock =
     NamedCodeBlock(name, "this is a named block".some, intents.map(_ => Intent("TODO".some, Nil)))
