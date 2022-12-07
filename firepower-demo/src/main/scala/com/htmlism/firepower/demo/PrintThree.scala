@@ -8,14 +8,14 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object PrintThree:
-  def build(screen: Easy6502.Screen): List[UnknownAdt.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
+  def build(screen: Easy6502.Screen): List[MetaIntent.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
     List(
-      UnknownAdt.Move(Easy6502.Color.White, screen(0)),
-      UnknownAdt.Move(Easy6502.Color.Green, screen(1)),
-      UnknownAdt.Move(Easy6502.Color.Orange, screen(2))
+      MetaIntent.Move(Easy6502.Color.White, screen(0)),
+      MetaIntent.Move(Easy6502.Color.Green, screen(1)),
+      MetaIntent.Move(Easy6502.Color.Orange, screen(2))
     )
 
-  val program: List[UnknownAdt.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
+  val program: List[MetaIntent.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
     build(Easy6502.Screen(0x200))
 
   def assemble(opts: AssemblerOptions): List[String] =
@@ -38,6 +38,6 @@ object PrintThree:
 
   private def codes(opts: AssemblerOptions.DefinitionsMode) =
     program
-      .map(UnknownAdt.Move.toIntent(_, opts))
+      .map(MetaIntent.Move.toIntent(_, opts))
       .pipe(AnonymousCodeBlock(_))
       .pipe(List(_))

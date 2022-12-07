@@ -1,12 +1,12 @@
-package com.htmlism.firepower.demo
+package com.htmlism.firepower.core
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
-import com.htmlism.firepower.core._
+import com.htmlism.firepower.core.*
 
-sealed trait UnknownAdt
+sealed trait MetaIntent
 
-object UnknownAdt:
+object MetaIntent:
   case class Move[A: Definable, B: Definable](src: A, dest: B):
     def defines: List[Definable.Table] =
       List(

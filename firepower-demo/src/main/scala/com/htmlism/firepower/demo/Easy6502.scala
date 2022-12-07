@@ -1,6 +1,8 @@
 package com.htmlism.firepower.demo
 
-import scala.util.chaining._
+import scala.util.chaining.*
+
+import com.htmlism.firepower.core.Definable
 
 object Easy6502:
   enum Color:

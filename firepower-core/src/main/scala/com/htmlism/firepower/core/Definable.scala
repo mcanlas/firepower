@@ -1,4 +1,4 @@
-package com.htmlism.firepower.demo
+package com.htmlism.firepower.core
 
 trait Definable[A]:
   def table(x: A): Definable.Table
