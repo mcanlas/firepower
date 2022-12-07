@@ -3,18 +3,41 @@ package com.htmlism.firepower.core
 sealed trait AsmBlock
 
 object AsmBlock:
+  /**
+    * Lines of text to render as a comment block
+    */
   case class CommentBlock(xs: List[String]) extends AsmBlock
 
+  // TODO factory method for automatic line wrapping given some width
   object CommentBlock:
+    /**
+      * Factory method for multi-line ASCII art
+      */
     def fromMultiline(s: String): CommentBlock =
       CommentBlock(s.split("\\n").toList)
 
+  /**
+    * Renders as a table of aliases
+    */
+  // TODO needs descriptive field
   case class DefinesBlock(xs: List[(String, Int)]) extends AsmBlock
 
+  /**
+    * Renders as a labeled subroutine
+    */
   case class NamedCodeBlock(name: String, comment: Option[String], intents: List[AsmBlock.Intent]) extends AsmBlock
 
+  /**
+    * Renders as an unlabeled block of code
+    */
   case class AnonymousCodeBlock(intents: List[AsmBlock.Intent]) extends AsmBlock
 
+  /**
+    * Like a fancy `mkString` at the `F` level. Defers the projection of `A => F[B]` so that a container type isn't
+    * needed (in the cases where `A` may yield a different length of `F[_]` than the interlaced payload)
+    *
+    * Not known to exist in `cats` given that it needs both `Semigroup` and an awareness of head/tail/emptiness
+    */
   def interFlatMap[A, B](xs: List[A])(x: List[B], f: A => List[B]): List[B] =
     xs match
       case head :: tail =>

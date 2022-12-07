@@ -20,9 +20,14 @@ object PrintPrograms extends ZIOAppDefault:
 
   private val programs =
     List[(String, String)](
-      "one-line.txt"               -> "one line",
-      "two-lines.txt"              -> List("foo", "bar")
+      // FEATURE: writing a string to a file is easy (thanks, rufio)
+      "one-line.txt" -> "one line",
+
+      // FEATURE: writing lines to a file is easy
+      "two-lines.txt" -> List("foo", "bar")
         .pipe(Line.mkString),
+
+      // FEATURE: writing paragraphs separated by newlines is easy
       "two-paragraphs.txt"         -> List(
         List("foo", "bar"),
         List("alpha", "bravo")
