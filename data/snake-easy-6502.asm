@@ -6,6 +6,10 @@
 init:
   ; initializes values
 
+  JSR initSnake
+
+  JSR generateApplePosition
+
   RTS
 
 
@@ -17,5 +21,11 @@ loop:
 
 initSnake:
   ; initializes the snake
+
+  RTS
+
+
+generateApplePosition:
+  ; generates the position of the apple
 
   RTS

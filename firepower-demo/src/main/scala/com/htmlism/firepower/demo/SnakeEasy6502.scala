@@ -21,7 +21,8 @@ object SnakeEasy6502:
       .copy(intents =
         () =>
           List(
-            initSnake.call
+            initSnake.call,
+            generateApplePosition.call
           )
       )
 
@@ -30,6 +31,9 @@ object SnakeEasy6502:
 
   lazy val initSnake =
     Subroutine("initSnake", "initializes the snake")
+
+  lazy val generateApplePosition =
+    Subroutine("generateApplePosition", "generates the position of the apple")
 
   def firstCodeBlock(xs: List[MetaIntent]): AsmBlock.AnonymousCodeBlock =
     AsmBlock
@@ -49,20 +53,22 @@ object SnakeEasy6502:
       case head :: tail =>
         if (callGraph.contains(head.target)) callGraphRecur(callGraph, tail)
         else
+          val rts =
+            AsmBlock.Intent(
+              None,
+              List(
+                AsmBlock.Intent.Instruction.zero("rts")
+              )
+            )
+
           val sub =
             AsmBlock.NamedCodeBlock(
               head.target,
               head.description.some,
-              List(
-                AsmBlock.Intent(
-                  None,
-                  List(
-                    AsmBlock.Intent.Instruction.zero("rts")
-                  )
-                )
-              )
+              head.xs.map(_.toIntent) :+ rts
             )
 
+          // breadth-first expansion
           callGraphRecur(callGraph.updated(head.target, sub), todo ::: head.xs)
 
       case Nil =>
