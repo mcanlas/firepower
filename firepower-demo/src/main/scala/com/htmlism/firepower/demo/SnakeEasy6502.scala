@@ -4,6 +4,8 @@ import scala.annotation.tailrec
 import scala.collection.immutable.ListMap
 import scala.util.chaining.*
 
+import cats.syntax.all._
+
 import com.htmlism.firepower.core.AsmBlock.Intent
 import com.htmlism.firepower.core.*
 
@@ -15,7 +17,7 @@ object SnakeEasy6502:
     )
 
   lazy val init =
-    Subroutine("init")
+    Subroutine("init", "initializes values")
       .copy(intents =
         List(
           initSnake.call
@@ -23,10 +25,10 @@ object SnakeEasy6502:
       )
 
   lazy val loop =
-    Subroutine("loop")
+    Subroutine("loop", "primary game loop")
 
   lazy val initSnake =
-    Subroutine("initSnake")
+    Subroutine("initSnake", "initializes the snake")
 
   def firstCodeBlock(xs: List[MetaIntent.Jump]): AsmBlock.AnonymousCodeBlock =
     AsmBlock
@@ -49,7 +51,7 @@ object SnakeEasy6502:
           val sub =
             AsmBlock.NamedCodeBlock(
               head.target,
-              None,
+              head.description.some,
               List(
                 AsmBlock.Intent(
                   None,
