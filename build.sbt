@@ -17,7 +17,7 @@ lazy val demo =
   module("demo")
     .dependsOn(core)
     .withEfectMonad
-    .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "74-5cd25e9b")
+    .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "76-c565ab28")
 
 ThisBuild / resolvers += "mcanlas/rufio" at "https://maven.pkg.github.com/mcanlas/rufio/"
 

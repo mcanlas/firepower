@@ -28,11 +28,10 @@ object PrintThree:
   val program: List[Move[Easy6502.Color, Easy6502.Screen.Pixel]] =
     build(Easy6502.Screen(0x200))
 
-  def assemble(opts: AssemblerOptions): String =
+  def assemble(opts: AssemblerOptions): List[String] =
     (defines(opts.definitionsMode) ++ codes(opts.definitionsMode))
       .map(AsmBlock.toLines(opts.instructionCase))
       .pipe(xs => AsmBlock.interFlatMap(xs)(List("", ""), identity))
-      .pipe(str.Line.mkString)
 
   private def defines(opts: AssemblerOptions.DefinitionsMode) =
     opts match

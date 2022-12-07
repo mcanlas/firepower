@@ -8,7 +8,7 @@ import com.htmlism.firepower.core.AsmBlock._
 import com.htmlism.firepower.core._
 
 object FeatureDemo:
-  val program: String =
+  val program: List[String] =
     List(
       CommentBlock.fromMultiline(asciiArt),
       CommentBlock(List("Change direction: W A S D")),
@@ -53,7 +53,6 @@ object FeatureDemo:
     )
       .map(AsmBlock.toLines(AssemblerOptions.InstructionCase.Lowercase))
       .pipe(xs => AsmBlock.interFlatMap(xs)(List("", ""), identity))
-      .pipe(str.Line.mkString)
 
   private lazy val asciiArt =
     """ ___           _        __ ___  __ ___
