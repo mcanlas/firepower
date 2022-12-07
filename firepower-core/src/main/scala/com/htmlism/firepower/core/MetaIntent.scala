@@ -7,14 +7,13 @@ import com.htmlism.firepower.core.*
 /**
   * Anything that can be compiled into an `Intent`
   */
-sealed trait MetaIntent
+sealed trait MetaIntent:
+  def toIntent: AsmBlock.Intent
 
 object MetaIntent:
-  case class Jump(target: String, description: String, xs: List[MetaIntent.Jump]) extends MetaIntent
-
-  object Jump:
-    def toIntent(j: Jump): AsmBlock.Intent =
-      AsmBlock.Intent(None, List(AsmBlock.Intent.Instruction.one("jsr", j.target)))
+  case class Jump(target: String, description: String, xs: List[MetaIntent]) extends MetaIntent:
+    def toIntent: AsmBlock.Intent =
+      AsmBlock.Intent(None, List(AsmBlock.Intent.Instruction.one("jsr", target)))
 
   case class Move[A: Definable, B: Definable](src: A, dest: B):
     def defines: List[Definable.Table] =

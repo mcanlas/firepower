@@ -10,7 +10,7 @@ import com.htmlism.firepower.core.AsmBlock.Intent
 import com.htmlism.firepower.core.*
 
 object SnakeEasy6502:
-  val program: List[MetaIntent.Jump] =
+  val program: List[MetaIntent] =
     List(
       init.call,
       loop.call
@@ -31,11 +31,11 @@ object SnakeEasy6502:
   lazy val initSnake =
     Subroutine("initSnake", "initializes the snake")
 
-  def firstCodeBlock(xs: List[MetaIntent.Jump]): AsmBlock.AnonymousCodeBlock =
+  def firstCodeBlock(xs: List[MetaIntent]): AsmBlock.AnonymousCodeBlock =
     AsmBlock
-      .AnonymousCodeBlock(xs.map(MetaIntent.Jump.toIntent))
+      .AnonymousCodeBlock(xs.map(_.toIntent))
 
-  def callGraph(xs: List[MetaIntent.Jump]): List[AsmBlock.NamedCodeBlock] =
+  def callGraph(xs: List[MetaIntent]): List[AsmBlock.NamedCodeBlock] =
     callGraphRecur(ListMap.empty, xs)
       .values
       .toList
@@ -43,9 +43,9 @@ object SnakeEasy6502:
   @tailrec
   private def callGraphRecur(
       callGraph: ListMap[String, AsmBlock.NamedCodeBlock],
-      todo: List[MetaIntent.Jump]
+      todo: List[MetaIntent]
   ): ListMap[String, AsmBlock.NamedCodeBlock] =
-    todo match
+    todo.collect { case x: MetaIntent.Jump => x } match
       case head :: tail =>
         if (callGraph.contains(head.target)) callGraphRecur(callGraph, tail)
         else
