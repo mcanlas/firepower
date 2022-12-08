@@ -11,25 +11,6 @@ object ScratchPad:
     def use[B](f: Reg[A] => B): B =
       f(a)
 
-  reg[Accumulator].use { a =>
-    AsmProgram(startA, "")
-      .widen[RegisterX]
-  }
-
-  lazy val startA =
-    ??? : StatefulRegister[Accumulator, Ignores]
-
-  lazy val startX =
-    ??? : StatefulRegister[RegisterX, Ignores]
-
-  lazy val startY =
-    ??? : StatefulRegister[RegisterY, Ignores]
-
-  (AsmProgram(startA, ""): AsmProgram[Accumulator, Ignores, String])
-
-  (AsmProgram(startA, "")
-    .widen[RegisterX]: AsmProgram2[Accumulator, Ignores, RegisterX, Ignores, String])
-
 //
 //  case class Subroutine2[A, B](name: String, f: (Lease[A], Lease[B]) => State2[A, B]) {
 //    def jump(a: Lease[A], b: Lease[B]): State[A] =
