@@ -19,22 +19,22 @@ object PrintPrograms extends ZIOAppDefault:
       "two-lines.txt" -> List("foo", "bar"),
 
       // FEATURE: writing paragraphs separated by newlines is easy
-      "two-paragraphs.txt"         -> List(
+      "two-paragraphs.txt" -> List(
         List("foo", "bar"),
         List("alpha", "bravo")
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity)),
-      "feature-demo.asm"           -> FeatureDemo.program,
+      "feature-demo.asm" -> FeatureDemo.program,
       "print-three-upper-math.asm" -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitionsWithMath)
       ),
-      "print-three-upper.asm"      -> PrintThree.assemble(
+      "print-three-upper.asm" -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitions)
       ),
-      "print-three-lower.asm"      -> PrintThree.assemble(
+      "print-three-lower.asm" -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Lowercase, DefinitionsMode.UseLiterals)
       ),
-      "snake-easy-6502.asm"        -> SnakeEasy6502.assemble(
+      "snake-easy-6502.asm" -> SnakeEasy6502.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitions)
       )
     )
@@ -43,6 +43,6 @@ object PrintPrograms extends ZIOAppDefault:
     for {
       // just a traverse in slow motion...
       _ <- programs
-             .map { case (f, xs) => File(s"data/$f").writeLines(xs) }
-             .foldLeft[Task[Unit]](ZIO.unit)((acc, z) => acc *> z)
+        .map { case (f, xs) => File(s"data/$f").writeLines(xs) }
+        .foldLeft[Task[Unit]](ZIO.unit)((acc, z) => acc *> z)
     } yield ()
