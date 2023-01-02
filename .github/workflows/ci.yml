@@ -15,3 +15,5 @@ jobs:
           cache: sbt
 
       - run: sbt 'scalafixAll --check' scalafmtCheck +test
+        env:
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
