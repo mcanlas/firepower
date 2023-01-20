@@ -29,3 +29,12 @@
       - and then very late into register assignment (above) it would occupy N registers
   - what if you model all functions using the same "bounce" area and then just use this as the canonical way to calculate stack depth
     - this would maybe be "optimal" register allocation?
+
+## Advanced vs basic interpreters
+
+- Given "basic" elements `foo` and `bar`
+- And given another advanced feature `superfoo`
+- `foo` and `bar` should inhereit both `BasicInterpreter` and `AdvancedInterpreter`
+- and `superfoo` should only inherit `AdvancedInterpreter`
+- Then `superfoo` just be desugared into many `BasicInterpreter` blocks
+- And then the interpretation for `foo` and `bar` under advanced just echos them as `BasicInterpreter`
