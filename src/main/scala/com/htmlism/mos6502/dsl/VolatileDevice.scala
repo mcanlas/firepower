@@ -20,6 +20,5 @@ object VolatileDevice:
   implicit def namedResourceForVolatileDevice[A]: NamedResource[VolatileDevice[A]] =
     new NamedResource[VolatileDevice[A]]:
       def toDefinitions(x: VolatileDevice[A]): List[Definition[ZeroAddress]] =
-        List {
+        List:
           Definition(x.name, x.address, "Volatile generator for A values")
-        }
