@@ -6,7 +6,7 @@ import org.scalatest.matchers._
 
 class DslSpec extends AnyFlatSpec with should.Matchers:
 
-  "the dsl" should "compile" in {
+  "the dsl" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         group("constants test") { implicit g =>
@@ -25,9 +25,8 @@ class DslSpec extends AnyFlatSpec with should.Matchers:
         )
       )
     )
-  }
 
-  "enum" should "compile" in {
+  "enum" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         enumAsm[Triforce]
@@ -45,9 +44,8 @@ class DslSpec extends AnyFlatSpec with should.Matchers:
         )
       )
     )
-  }
 
-  "bit field" should "compile" in {
+  "bit field" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         bitField[TestDirection]
@@ -66,9 +64,8 @@ class DslSpec extends AnyFlatSpec with should.Matchers:
         )
       )
     )
-  }
 
-  "label" should "compile" in {
+  "label" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         asm { implicit a =>
@@ -85,7 +82,6 @@ class DslSpec extends AnyFlatSpec with should.Matchers:
         )
       )
     )
-  }
 
 sealed trait Triforce
 

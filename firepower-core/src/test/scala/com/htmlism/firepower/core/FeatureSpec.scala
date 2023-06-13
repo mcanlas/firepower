@@ -10,17 +10,15 @@ object ExampleRegister extends ZeroPageAddress(0x01, "example") with WriteOnlyBy
 class ExampleRegister
 
 class FeatureSpec extends AnyFunSuite with Matchers:
-  test("zero page address as write only supports writing") {
+  test("zero page address as write only supports writing"):
     ExampleRegister
       .writeConst(2)[Reg.A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
-  }
 
-  test("zero page address as read/write supports writing") {
+  test("zero page address as read/write supports writing"):
     ExampleRegister
       .writeConst(2)[Reg.A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
-  }
 
-  test("writing to an address can use A, X, and Y registers for bouncing") {
+  test("writing to an address can use A, X, and Y registers for bouncing"):
     ExampleRegister
       .writeConst(2)[Reg.A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
 
@@ -29,7 +27,6 @@ class FeatureSpec extends AnyFunSuite with Matchers:
 
     ExampleRegister
       .writeConst(2)[Reg.Y] shouldBe "LDY 2 STY 1 ; example = 2, via Y"
-  }
 
   ignore("the write payload is a typesafe enum") {}
 

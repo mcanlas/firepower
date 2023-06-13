@@ -9,7 +9,7 @@ import com.htmlism.mos6502.model._
 
 class Easy6502Spec extends AnyFlatSpec with should.Matchers:
 
-  "the three pixel demo" should "have the right instructions" in {
+  "the three pixel demo" should "have the right instructions" in:
     val doc =
       withAssemblyContext { implicit ctx =>
         val scr =
@@ -30,9 +30,8 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
     )
 
     doc.printOut()
-  }
 
-  "define style dsl" should "compile" in {
+  "define style dsl" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         enumAsm[Color]
@@ -50,9 +49,8 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
     println(
       doc.toAsm
     )
-  }
 
-  "loop demo" should "compile" in {
+  "loop demo" should "compile" in:
     val doc =
       asmDoc { implicit ctx =>
         asm { implicit a =>
@@ -65,9 +63,8 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
     println(
       doc.toAsm
     )
-  }
 
-  "snake" should "compile" in {
+  "snake" should "compile" in:
     val sysRandom  = VolatileDevice[Int]("sysRandom", 0xfe.z)
     val sysLastKey = VolatileDevice[AsciiValue]("sysLastKey", 0xff.z)
 
@@ -161,7 +158,6 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
     println(
       doc.toAsm
     )
-  }
 
   def withAssemblyContext(f: AssemblyContext => Unit): AssemblyContext =
     val ctx: AssemblyContext =

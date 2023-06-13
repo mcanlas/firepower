@@ -30,7 +30,7 @@ object ComplicatedResourceSuite extends FunSuite:
       def canon: PlayerTwo =
         PlayerTwo
 
-  test("use write lease") {
+  test("use write lease"):
     val asm =
       PlayerOne
         .withWriteLease { implicit w =>
@@ -38,4 +38,3 @@ object ComplicatedResourceSuite extends FunSuite:
         }
 
     expect.eql(List("LDA 23", "STA 40"), asm)
-  }
