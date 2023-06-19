@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 sealed trait Color
 
 object Color:
-  implicit val colorOperand: Operand[Color] =
+  given colorOperand: Operand[Color] =
     new Operand[Color]:
       def toAddressLiteral(x: Color): String =
         "#" + x.toString.toLowerCase()
@@ -16,7 +16,7 @@ object Color:
       def operandType: OperandType =
         ValueLiteral
 
-  implicit val colorEnum: EnumAsm[Color] =
+  given colorEnum: EnumAsm[Color] =
     new EnumAsm[Color]:
       def comment: String =
         "Colors"

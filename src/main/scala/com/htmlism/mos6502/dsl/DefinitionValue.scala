@@ -8,5 +8,5 @@ trait DefinitionValue[A]:
   def value(x: A): String
 
 object DefinitionValue:
-  implicit val definitionValueForInt: DefinitionValue[Int] =
+  given definitionValueForInt: DefinitionValue[Int] =
     (x: Int) => String.format("$%02x", x)

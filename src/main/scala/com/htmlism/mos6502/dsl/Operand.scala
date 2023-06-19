@@ -13,7 +13,7 @@ trait Operand[A]:
   def operandType: OperandType
 
 object Operand:
-  implicit val operandInt: Operand[Int] =
+  given operandInt: Operand[Int] =
     new Operand[Int]:
       val operandType: OperandType =
         ValueLiteral
@@ -24,7 +24,7 @@ object Operand:
       def toAddressLiteral(x: Int): String =
         String.format("#$%02x", x)
 
-  implicit def operandForMapping[A](using ev: Mapping[A]): Operand[A] =
+  given operandForMapping[A](using ev: Mapping[A]): Operand[A] =
     new Operand[A]:
       def toAddressLiteral(x: A): String =
         "#" + ev.label(x)

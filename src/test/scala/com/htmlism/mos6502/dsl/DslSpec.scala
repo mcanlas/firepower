@@ -90,7 +90,7 @@ case object Wisdom  extends Triforce
 case object Power   extends Triforce
 
 object Triforce:
-  implicit val enumTriforce: EnumAsm[Triforce] =
+  given enumTriforce: EnumAsm[Triforce] =
     new EnumAsm[Triforce]:
       def comment: String =
         "foo as enum"
@@ -112,7 +112,7 @@ case object Left  extends TestDirection
 case object Right extends TestDirection
 
 object TestDirection:
-  implicit val bitFieldDirection: BitField[TestDirection] =
+  given bitFieldDirection: BitField[TestDirection] =
     new BitField[TestDirection]:
       def definitionGroupComment: String =
         "foo as bit field"

@@ -4,5 +4,5 @@ trait Operand[A]:
   def encode(x: A): String
 
 object Operand:
-  implicit val operandForInt: Operand[Int] =
+  given operandForInt: Operand[Int] =
     _.toString

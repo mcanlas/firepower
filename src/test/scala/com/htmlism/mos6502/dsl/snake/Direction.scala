@@ -4,7 +4,7 @@ package snake
 import cats.data.NonEmptyList
 
 object Direction:
-  implicit val directionBitField: BitField[Direction] =
+  given directionBitField: BitField[Direction] =
     new BitField[Direction]:
       def definitionGroupComment: String =
         "Directions"
