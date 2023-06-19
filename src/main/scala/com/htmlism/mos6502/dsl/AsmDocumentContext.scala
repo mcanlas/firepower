@@ -65,7 +65,7 @@ class DefinitionGroupContext:
   private val xs: ListBuffer[Definition[_]] =
     ListBuffer()
 
-  def push[A](x: A)(implicit ev: NamedResource[A]): Unit =
+  def push[A](x: A)(using ev: NamedResource[A]): Unit =
     ev
       .toDefinitions(x)
       .foreach(xs.append)
@@ -77,7 +77,7 @@ class DefinitionGroupContext:
   * @param comment
   *   Typically used by resources to describe their type safety
   */
-case class Definition[A](name: String, x: A, comment: Option[String])(implicit ev: DefinitionValue[A]):
+case class Definition[A](name: String, x: A, comment: Option[String])(using ev: DefinitionValue[A]):
   lazy val value: String =
     ev
       .value(x)

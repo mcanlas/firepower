@@ -58,7 +58,7 @@ object registers:
   sealed trait IndexRegister
 
   case object A extends Register:
-    def add[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
+    def add[A](x: A)(using ctx: AssemblyContext, ev: Operand[A]): Unit =
       ev.operandType match
         case ValueLiteral =>
           ctx.push(ADC, x, s"add LITERAL to a")
@@ -67,10 +67,10 @@ object registers:
           ctx.push(ADC, x, s"add ADDR to a")
 
   case object X extends Register with DestinationA with IndexRegister:
-    def incr(implicit ctx: AssemblyContext): Unit =
+    def incr(using ctx: AssemblyContext): Unit =
       ctx.push(INX, "incr x")
 
-    def loop(s: String, spec: RangeSpec)(f: AssemblyContext => Unit)(implicit ctx: AssemblyContext): Unit =
+    def loop(s: String, spec: RangeSpec)(f: AssemblyContext => Unit)(using ctx: AssemblyContext): Unit =
       val (start, stop, instruction) =
         spec match
           case Incrementing(from, to) =>
@@ -95,10 +95,10 @@ class CPU:
   def A: registers.A.type =
     registers.A
 
-  def A_=[A](x: A)(implicit ctx: AssemblyContext, ev: Operand[A]): Unit =
+  def A_=[A](x: A)(using ctx: AssemblyContext, ev: Operand[A]): Unit =
     ctx.push(LDA, x, "set A to " + ev.toShow(x))
 
-  def A_=(reg: registers.DestinationA)(implicit ctx: AssemblyContext): Unit =
+  def A_=(reg: registers.DestinationA)(using ctx: AssemblyContext): Unit =
     reg match
       case registers.X =>
         ctx.push(TXA)
@@ -108,13 +108,13 @@ class CPU:
   def X: registers.X.type =
     registers.X
 
-  def X_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
+  def X_=(reg: registers.A.type)(using ctx: AssemblyContext): Unit =
     ctx.push(TAX, s"set x to register $reg")
 
   def Y: registers.Y.type =
     registers.Y
 
-  def Y_=(reg: registers.A.type)(implicit ctx: AssemblyContext): Unit =
+  def Y_=(reg: registers.A.type)(using ctx: AssemblyContext): Unit =
     ctx.push(TAY, s"set x to register $reg")
 
 class AssemblyContext:

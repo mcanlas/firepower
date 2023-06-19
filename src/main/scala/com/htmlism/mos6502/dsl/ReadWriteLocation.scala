@@ -10,11 +10,11 @@ import com.htmlism.mos6502.model._
   *   The input type of the write and the output type of the read
   */
 case class ReadWriteLocation[A: Operand](name: String, address: ZeroAddress):
-  def read(implicit ctx: AssemblyContext): Unit =
+  def read(using ctx: AssemblyContext): Unit =
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
 
-  def write(x: A)(implicit ctx: AssemblyContext): Unit =
+  def write(x: A)(using ctx: AssemblyContext): Unit =
     ctx.push(LDA, x)
     ctx.push(STA, this)
 

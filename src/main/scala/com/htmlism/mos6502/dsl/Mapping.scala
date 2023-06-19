@@ -26,7 +26,7 @@ trait Mapping[A]:
   def comment(x: A): String
 
 object Mapping:
-  implicit def mappingForBitField[A](implicit ev: BitField[A]): Mapping[A] =
+  implicit def mappingForBitField[A](using ev: BitField[A]): Mapping[A] =
     new Mapping[A]:
       private lazy val valueMap =
         ev.all
@@ -49,7 +49,7 @@ object Mapping:
       def comment(x: A): String =
         "" // TODO
 
-  implicit def mappingForEnumAsm[A](implicit ev: EnumAsm[A]): Mapping[A] =
+  implicit def mappingForEnumAsm[A](using ev: EnumAsm[A]): Mapping[A] =
     new Mapping[A]:
       private lazy val valueMap =
         ev.all

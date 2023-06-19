@@ -12,7 +12,7 @@ package com.htmlism.mos6502.dsl
   *   The return type of the read
   */
 case class VolatileDevice[A](name: String, address: ZeroAddress):
-  def read(implicit ctx: AssemblyContext): Unit =
+  def read(using ctx: AssemblyContext): Unit =
     val _ = ctx
 //    ctx.push(LDA, ev, s"write ${ev.toShow(x)} to $name ($n)")
 

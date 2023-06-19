@@ -3,7 +3,7 @@ package com.htmlism.firepower.core
 import weaver.*
 
 object RegisterSuite extends FunSuite:
-  private def reg[A](implicit ev: Register[A]) =
+  private def reg[A](using ev: Register[A]) =
     ev
 
   test("the accumulator is a register"):

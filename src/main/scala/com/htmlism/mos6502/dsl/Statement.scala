@@ -27,7 +27,7 @@ case class UnaryInstruction(instruction: Instruction, comment: Option[String]) e
   def toTriplet: (String, Option[String], Option[String]) =
     (instruction.toString, None, comment)
 
-case class InstructionWithOperand[A](instruction: Instruction, operand: A, comment: Option[String])(implicit
+case class InstructionWithOperand[A](instruction: Instruction, operand: A, comment: Option[String])(using
     ev: Operand[A]
 ) extends Statement:
   def toAsm: String =

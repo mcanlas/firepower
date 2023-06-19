@@ -4,7 +4,7 @@ package syntax
 import com.htmlism.mos6502.model._
 
 trait AsmSyntax:
-  def label(s: String)(implicit ctx: AssemblyContext): Unit =
+  def label(s: String)(using ctx: AssemblyContext): Unit =
     ctx
       .label(s)
 
@@ -18,7 +18,7 @@ trait AsmSyntax:
 
     Subroutine(s, ctx.toFragment, ctx.getJumps)
 
-  def jump(s: Subroutine)(implicit ctx: AssemblyContext): Unit =
+  def jump(s: Subroutine)(using ctx: AssemblyContext): Unit =
     ctx
       .addJump(s)
 
