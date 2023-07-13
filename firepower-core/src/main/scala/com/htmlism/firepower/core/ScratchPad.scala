@@ -1,8 +1,5 @@
 package com.htmlism.firepower.core
 
-import cats._
-import cats.syntax.all._
-
 object ScratchPad:
   def reg[A: Reg]: PartialUsing[A] =
     new PartialUsing[A]

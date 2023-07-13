@@ -77,16 +77,6 @@ object CodeGenerator extends App:
     val nPlus =
       n + 1
 
-    val functionArgs =
-      val base =
-        letters
-          .map { s =>
-            s"StatefulRegister[$s, M$s]"
-          }
-          .mkString(", ")
-
-      if (n == 1) base else s"($base)"
-
     val arguments =
       letters
         .map(_.toLowerCase)

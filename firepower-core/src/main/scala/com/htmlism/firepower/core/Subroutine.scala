@@ -1,7 +1,5 @@
 package com.htmlism.firepower.core
 
-import cats.syntax.all.*
-
 import com.htmlism.firepower.core.AsmBlock._
 
 case class Subroutine(name: String, description: String, intents: () => List[MetaIntent]):

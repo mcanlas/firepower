@@ -1,10 +1,7 @@
 package com.htmlism.firepower.demo
 
-import java.io.IOException
-
 import scala.util.chaining._
 
-import cats.syntax.all._
 import zio.*
 
 import com.htmlism.firepower.core.AsmBlock._
