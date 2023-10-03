@@ -1,6 +1,6 @@
 package com.htmlism.firepower.core
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
 sealed trait AsmBlock
 
@@ -55,12 +55,9 @@ object AsmBlock:
 
   def toHex(n: Int): String =
     val hex =
-      if (n < 16 * 16)
-        String.format("%1$02x", n)
-      else if (n < 16 * 16 * 16)
-        String.format("%1$03x", n)
-      else
-        String.format("%1$04x", n)
+      if n < 16 * 16 then String.format("%1$02x", n)
+      else if n < 16 * 16 * 16 then String.format("%1$03x", n)
+      else String.format("%1$04x", n)
 
     "$" + hex.toUpperCase
 

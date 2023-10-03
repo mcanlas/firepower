@@ -3,9 +3,9 @@ package com.htmlism.mos6502.dsl
 import scala.collection.immutable.ListSet
 import scala.collection.mutable.ListBuffer
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 object DslDemo extends App:
   val cpu =

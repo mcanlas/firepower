@@ -5,7 +5,7 @@ object CodeGenerator extends App:
     ('A' to 'Z')
       .map(_.toString)
 
-  for (n <- 1 to 3)
+  for n <- 1 to 3 do
     val letters =
       allLetters.take(n)
 
@@ -44,7 +44,7 @@ object CodeGenerator extends App:
     println("    copy(oComment = Some(s))")
     println
 
-  for (n <- 1 to 3)
+  for n <- 1 to 3 do
     val classNum =
       n
 

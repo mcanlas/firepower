@@ -1,7 +1,7 @@
 package com.htmlism.mos6502.dsl
 package syntax
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 trait AsmSyntax:
   def label(s: String)(using ctx: AssemblyContext): Unit =

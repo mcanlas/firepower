@@ -2,9 +2,9 @@ package com.htmlism
 
 import java.io.PrintWriter
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 object MatchOpcodes:
   def paddedBinary(n: Int, width: Int) =
@@ -95,18 +95,17 @@ object MatchOpcodes:
         b <- 0 to 7
       } yield b * 4 + c
 
-    for (f <- fancyColumns)
-      out.print(s"<th>${paddedBinary(f, 8)}</th>")
+    for f <- fancyColumns do out.print(s"<th>${paddedBinary(f, 8)}</th>")
 
     out.print("</tr>")
 
-    for (r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0))
+    for r <- Seq(0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0) do
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (f <- fancyColumns)
+      for f <- fancyColumns do
         val fullInt = r + f
 
         lookup.get(fullInt) match
@@ -129,18 +128,17 @@ object MatchOpcodes:
     out.print("<tr>")
     out.print("<th/>")
 
-    for (c <- wideColumns)
-      out.print(s"<th>${paddedBinary(c, 5)}</th>")
+    for c <- wideColumns do out.print(s"<th>${paddedBinary(c, 5)}</th>")
 
     out.print("</tr>")
 
-    for (r <- wideRows)
+    for r <- wideRows do
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (c <- wideColumns)
+      for c <- wideColumns do
         val fullInt = (r << 5) + c
 
         lookup.get(fullInt) match
@@ -181,18 +179,17 @@ object MatchOpcodes:
     val rows =
       0 to 7
 
-    for (c <- columns)
-      out.print(s"<th>${paddedBinary(c, 3)}</th>")
+    for c <- columns do out.print(s"<th>${paddedBinary(c, 3)}</th>")
 
     out.print("</tr>")
 
-    for (r <- rows)
+    for r <- rows do
       out.print("<tr>")
 
       // left header
       out.print(s"<th>${paddedBinary(r, 3)}</th>")
 
-      for (c <- columns)
+      for c <- columns do
         val fullInt = (r << (3 + 2)) + (c << 2) + n
 
         lookup.get(fullInt) match

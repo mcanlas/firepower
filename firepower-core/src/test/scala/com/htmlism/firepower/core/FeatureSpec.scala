@@ -1,9 +1,9 @@
 package com.htmlism.firepower.core
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should._
+import org.scalatest.matchers.should.*
 
-import com.htmlism.firepower.core.syntax._
+import com.htmlism.firepower.core.syntax.*
 
 object ExampleRegister extends ZeroPageAddress(0x01, "example") with WriteOnlyByteAddress[ExampleRegister]
 

@@ -29,10 +29,8 @@ trait BitExtractor[A]:
 object AtomExtractor:
   @tailrec
   def pow(ex: Int, acc: Int = 1): Int =
-    if (ex == 0)
-      acc
-    else
-      pow(ex - 1, acc * 2)
+    if ex == 0 then acc
+    else pow(ex - 1, acc * 2)
 
 abstract class PrimitiveBitExtractor(val length: Int) extends BitExtractor[Int]:
   private lazy val mask =

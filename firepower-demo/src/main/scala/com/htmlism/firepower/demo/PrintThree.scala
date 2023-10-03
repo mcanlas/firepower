@@ -1,11 +1,11 @@
 package com.htmlism.firepower.demo
 
-import scala.util.chaining._
+import scala.util.chaining.*
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
-import com.htmlism.firepower.core.AsmBlock._
-import com.htmlism.firepower.core._
+import com.htmlism.firepower.core.AsmBlock.*
+import com.htmlism.firepower.core.*
 
 object PrintThree:
   def build(screen: Easy6502.Screen): List[MetaIntent.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =

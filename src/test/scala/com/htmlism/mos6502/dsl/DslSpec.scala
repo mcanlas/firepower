@@ -1,8 +1,8 @@
 package com.htmlism.mos6502.dsl
 
 import cats.data.NonEmptyList
-import org.scalatest.flatspec._
-import org.scalatest.matchers._
+import org.scalatest.flatspec.*
+import org.scalatest.matchers.*
 
 class DslSpec extends AnyFlatSpec with should.Matchers:
 

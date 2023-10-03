@@ -1,6 +1,6 @@
 package com.htmlism.mos6502.dsl
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 /**
   * A typed collection, like memory mapped to screen pixels. Access by index instead of by address.

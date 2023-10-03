@@ -1,6 +1,6 @@
 package com.htmlism.mos6502.dsl
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 /**
   * @param name

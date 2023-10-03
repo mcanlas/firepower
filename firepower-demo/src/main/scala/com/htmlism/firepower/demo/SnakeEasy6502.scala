@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.ListMap
 import scala.util.chaining.*
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
 import com.htmlism.firepower.core.AsmBlock.Intent
 import com.htmlism.firepower.core.*
@@ -51,7 +51,7 @@ object SnakeEasy6502:
   ): ListMap[String, AsmBlock.NamedCodeBlock] =
     todo.collect { case x: MetaIntent.Jump => x } match
       case head :: tail =>
-        if (callGraph.contains(head.target)) callGraphRecur(callGraph, tail)
+        if callGraph.contains(head.target) then callGraphRecur(callGraph, tail)
         else
           val rts =
             AsmBlock.Intent(

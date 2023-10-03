@@ -3,7 +3,7 @@ package com.htmlism.mos6502.dsl
 import scala.collection.immutable.ListSet
 import scala.collection.mutable.ListBuffer
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
 case class AsmDocument(xs: List[TopLevelAsmDocumentFragment]):
   def toAsm: String =

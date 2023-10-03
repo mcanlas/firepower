@@ -1,6 +1,6 @@
 package com.htmlism.firepower.core
 
-import weaver._
+import weaver.*
 
 object MoveSuite extends FunSuite:
   test("TODO move constant"):

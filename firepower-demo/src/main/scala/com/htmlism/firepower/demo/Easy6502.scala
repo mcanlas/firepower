@@ -60,10 +60,8 @@ object Easy6502:
 
         extension (x: Pixel)
           def toDefine: String =
-            if (x.offset == 0)
-              "SCREEN"
-            else
-              "TODO"
+            if x.offset == 0 then "SCREEN"
+            else "TODO"
 
         extension (x: Pixel)
           def toDefineWithMath: String =

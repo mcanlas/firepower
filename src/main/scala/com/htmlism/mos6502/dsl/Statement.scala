@@ -1,6 +1,6 @@
 package com.htmlism.mos6502.dsl
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
 import com.htmlism.mos6502.model.Instruction
 

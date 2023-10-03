@@ -1,5 +1,5 @@
-import sbt.Keys._
-import sbt._
+import sbt.Keys.*
+import sbt.*
 
 object ProjectPlugin extends AutoPlugin {
   override def trigger = allRequirements

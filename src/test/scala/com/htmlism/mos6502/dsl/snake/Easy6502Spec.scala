@@ -1,11 +1,11 @@
 package com.htmlism.mos6502.dsl
 package snake
 
-import cats.syntax.all._
-import org.scalatest.flatspec._
-import org.scalatest.matchers._
+import cats.syntax.all.*
+import org.scalatest.flatspec.*
+import org.scalatest.matchers.*
 
-import com.htmlism.mos6502.model._
+import com.htmlism.mos6502.model.*
 
 class Easy6502Spec extends AnyFlatSpec with should.Matchers:
 

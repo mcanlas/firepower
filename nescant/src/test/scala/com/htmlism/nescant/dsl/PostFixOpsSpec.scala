@@ -1,8 +1,8 @@
 package com.htmlism.nescant
 package dsl
 
-import org.scalatest.flatspec._
-import org.scalatest.matchers._
+import org.scalatest.flatspec.*
+import org.scalatest.matchers.*
 
 class PostFixOpsSpec extends AnyFlatSpec with should.Matchers:
   "Numbers" should "support zero page ops" in:
