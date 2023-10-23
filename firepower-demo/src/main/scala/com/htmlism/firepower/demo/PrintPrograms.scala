@@ -37,9 +37,9 @@ object PrintPrograms extends ZIOAppDefault:
     )
 
   def run: Task[Unit] =
-    for {
+    for
       // just a traverse in slow motion...
       _ <- programs
         .map { case (f, xs) => File(s"data/$f").writeLines(xs) }
         .foldLeft[Task[Unit]](ZIO.unit)((acc, z) => acc *> z)
-    } yield ()
+    yield ()

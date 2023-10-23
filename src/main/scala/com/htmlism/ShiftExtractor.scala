@@ -20,11 +20,11 @@ trait BitExtractor[A]:
       def length: Int = self.length + that.length
 
       def unapply(n: Int): Option[(A, B)] =
-        for {
+        for
           b      <- that.unapply(n)
           shifted = n >> that.length
           a      <- self.unapply(shifted)
-        } yield (a, b)
+        yield (a, b)
 
 object AtomExtractor:
   @tailrec

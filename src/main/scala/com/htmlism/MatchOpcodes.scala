@@ -90,10 +90,10 @@ object MatchOpcodes:
     out.print("<th/>")
 
     val fancyColumns =
-      for {
+      for
         c <- 0 to 3
         b <- 0 to 7
-      } yield b * 4 + c
+      yield b * 4 + c
 
     for f <- fancyColumns do out.print(s"<th>${paddedBinary(f, 8)}</th>")
 
@@ -170,11 +170,11 @@ object MatchOpcodes:
     out.print("<th/>")
 
     val columns =
-      for {
+      for
         y <- 0 to 1
         x <- 0 to 1
         z <- 0 to 1
-      } yield (z << 2) + (x << 1) + y
+      yield (z << 2) + (x << 1) + y
 
     val rows =
       0 to 7
@@ -207,11 +207,11 @@ object MatchOpcodes:
     out.print("</table>")
 
   def wideColumns: Seq[Int] =
-    for {
+    for
       cc <- 0 to 3
       y  <- 0 to 1
       xx <- 0 to 3
-    } yield (xx << 3) + (y << 2) + cc
+    yield (xx << 3) + (y << 2) + cc
 
   def wideRows: Seq[Int] =
     0 to 7

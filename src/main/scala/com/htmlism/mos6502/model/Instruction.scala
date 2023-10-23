@@ -1,6 +1,7 @@
 package com.htmlism.mos6502.model
 
-sealed trait Instruction { def theme: String; def color: String }
+sealed trait Instruction:
+  def theme: String; def color: String
 
 case object NoInstruction extends Instruction:
   def theme: String = "noop"; def color: String = "white"
