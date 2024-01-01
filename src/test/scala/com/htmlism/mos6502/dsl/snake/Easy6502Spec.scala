@@ -54,7 +54,7 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
     val doc =
       asmDoc { implicit ctx =>
         asm { implicit a =>
-          registers.X.loop("incrementing", 2 upTo 5) { implicit a =>
+          registers.X.loop("incrementing", 2.upTo(5)) { implicit a =>
             a.push(INY)
           }
         }
