@@ -42,7 +42,7 @@ case class Subroutine(name: String, fragment: AsmFragment, jumpRegistry: ListSet
   def toAsm: String =
     name + ":" + "\n" + fragment.toAsm
 
-case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends TopLevelAsmDocumentFragment:
+case class DefinitionGroup(comment: String, xs: List[Definition[?]]) extends TopLevelAsmDocumentFragment:
   def toAsm: String =
     val groupCommentLine =
       "; " + comment
@@ -62,7 +62,7 @@ case class DefinitionGroup(comment: String, xs: List[Definition[_]]) extends Top
       .mkString("\n")
 
 class DefinitionGroupContext:
-  private val xs: ListBuffer[Definition[_]] =
+  private val xs: ListBuffer[Definition[?]] =
     ListBuffer()
 
   def push[A](x: A)(using ev: NamedResource[A]): Unit =
@@ -85,7 +85,7 @@ case class Definition[A](name: String, x: A, comment: Option[String])(using ev: 
 object Definition:
   given namedResourceForDefinition[A]: NamedResource[Definition[A]] =
     new NamedResource[Definition[A]]:
-      def toDefinitions(x: Definition[A]): List[Definition[_]] =
+      def toDefinitions(x: Definition[A]): List[Definition[?]] =
         List(x)
 
   def apply[A: DefinitionValue](name: String, x: A): Definition[A] =
