@@ -2,7 +2,7 @@ package com.htmlism.firepower.core
 
 import weaver.*
 object ComplicatedResourceSuite extends FunSuite:
-  class Player[A <: Player[_]](address: Int):
+  class Player[A <: Player[?]](address: Int):
     def headAddr: Int =
       address
 
