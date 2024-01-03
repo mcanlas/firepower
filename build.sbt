@@ -3,7 +3,7 @@ lazy val firepower =
     .in(file("."))
     .withCats
     .withTesting
-    .aggregate(nescant, core, demo)
+    .aggregate(nescant, core, cpu, demo)
 
 lazy val nescant =
   project.withCats.withTesting
@@ -11,6 +11,11 @@ lazy val nescant =
 lazy val core =
   module("core")
     .withCats
+    .withTesting
+
+lazy val cpu =
+  module("cpu")
+    .settings(description := "CPU emulation suitable for unit testing")
     .withTesting
 
 lazy val demo =
