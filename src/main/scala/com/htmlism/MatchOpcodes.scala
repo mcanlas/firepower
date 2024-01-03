@@ -6,6 +6,7 @@ import cats.syntax.all.*
 
 import com.htmlism.mos6502.model.*
 
+// sbt "runMain com.htmlism.MatchOpcodes out.html" && open out.html
 object MatchOpcodes:
   def paddedBinary(n: Int, width: Int) =
     String.format(s"%${width}s", Integer.toBinaryString(n)).replace(" ", "0")
@@ -172,8 +173,8 @@ object MatchOpcodes:
     val columns =
       for
         y <- 0 to 1
+        z <- List(1, 0)
         x <- 0 to 1
-        z <- 0 to 1
       yield (z << 2) + (x << 1) + y
 
     val rows =
