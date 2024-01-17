@@ -12,5 +12,8 @@ object RegisterAllocatorSuite extends FunSuite:
   test("Allocates CPU registers first, then zero page, then global"):
     expect.eql("TODO", "TODO")
 
+  test("A single-byte register can specifically be an index register"):
+    expect.eql("TODO", "TODO")
+
   test("A register can be allocated to a two-byte width, always a memory register"):
     expect.eql("TODO", "TODO")
