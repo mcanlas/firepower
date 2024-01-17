@@ -1,5 +1,8 @@
-- it would be cool for the generated code writer to go to files
-  - and make the +1 methods optional (for when it is at max)
+- normalize A, X, Y, ZP, and GP to "registers", allocated by an allocator
+  - X and Y are also index registers, so slightly special
+    - unit test: what if a for loop is three deep? the outermost loop must be a memory register
+- it would be cool for the 22-tuple Scala code generator code writer to go to files
+  - and make the +1 methods optional (for when it is at max == 22)
 - the payload/`xs` of a program should be an ADT of either chunks or one instruction
   - where a chunk is just many instructions
   - and an instruction already has the value X with its encoder, but chooses an eternal mode
