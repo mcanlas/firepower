@@ -4,8 +4,8 @@ import scala.util.chaining.*
 
 import cats.syntax.all.*
 
-import com.htmlism.firepower.core.AsmBlock.*
 import com.htmlism.firepower.core.*
+import com.htmlism.firepower.core.AsmBlock.*
 
 object PrintThree:
   def build(screen: Easy6502.Screen): List[MetaIntent.Move[Easy6502.Color, Easy6502.Screen.Pixel]] =

@@ -4,8 +4,8 @@ import scala.util.chaining.*
 
 import cats.syntax.all.*
 
-import com.htmlism.firepower.core.AsmBlock.*
 import com.htmlism.firepower.core.*
+import com.htmlism.firepower.core.AsmBlock.*
 
 object FeatureDemo:
   val program: List[String] =
