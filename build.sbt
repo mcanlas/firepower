@@ -3,7 +3,7 @@ lazy val firepower =
     .in(file("."))
     .withCats
     .withTesting
-    .aggregate(nescant, core, cpu, demo)
+    .aggregate(nescant, core, cpu, demo, playground)
 
 lazy val nescant =
   project.withCats.withTesting
@@ -25,3 +25,7 @@ lazy val demo =
     .settings(libraryDependencies += "com.htmlism" %% "rufio-zio" % "76-c565ab28")
     .withGitHubPackagesCredentials
     .withResolver("rufio")
+
+lazy val playground =
+  module("playground")
+    .withCats
