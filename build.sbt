@@ -27,5 +27,4 @@ lazy val demo =
     .withResolver("rufio")
 
 lazy val playground =
-  module("playground")
-    .withCats
+  module("playground").withCats

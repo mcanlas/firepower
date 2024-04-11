@@ -14,7 +14,7 @@ trait AsmDocSyntax:
     ctx
       .push(asmCtx.toFragment)
 
-  def group[A](s: String)(f: DefinitionGroupContext => A)(using ctx: AsmDocumentContext): Unit =
+  def group(s: String)(f: DefinitionGroupContext => Unit)(using ctx: AsmDocumentContext): Unit =
     val g: DefinitionGroupContext =
       new DefinitionGroupContext
 

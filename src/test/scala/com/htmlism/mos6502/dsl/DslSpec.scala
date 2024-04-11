@@ -10,7 +10,8 @@ class DslSpec extends AnyFlatSpec with should.Matchers:
     val doc =
       asmDoc { implicit ctx =>
         group("constants test") { implicit g =>
-          (constant("margin", 16), constant("secret", 42))
+          constant("margin", 16)
+          constant("secret", 42)
         }
       }
 

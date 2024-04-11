@@ -11,11 +11,6 @@ trait DefinitionGroupSyntax:
 
     definition
 
-  def constant(name: String, x: Int)(using ctx: DefinitionGroupContext): Definition[Int] =
-    val definition =
-      Definition(name, x)
-
+  def constant(name: String, x: Int)(using ctx: DefinitionGroupContext): Unit =
     ctx
       .push(Definition(name, x))
-
-    definition
