@@ -18,13 +18,15 @@ class FeatureSpec extends AnyFunSuite with Matchers:
     ExampleRegister
       .writeConst(2)[Reg.A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
 
-  test("writing to an address can use A, X, and Y registers for bouncing"):
+  test("writing to an address can use A registers for bouncing"):
     ExampleRegister
       .writeConst(2)[Reg.A] shouldBe "LDA 2 STA 1 ; example = 2, via A"
 
+  test("writing to an address can use X registers for bouncing"):
     ExampleRegister
       .writeConst(2)[Reg.X] shouldBe "LDX 2 STX 1 ; example = 2, via X"
 
+  test("writing to an address can use Y registers for bouncing"):
     ExampleRegister
       .writeConst(2)[Reg.Y] shouldBe "LDY 2 STY 1 ; example = 2, via Y"
 
