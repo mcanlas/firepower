@@ -20,6 +20,8 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
         scr.write(2, Color.Orange)
       }
 
+    doc.printOut()
+
     doc.triplets shouldEqual List(
       ("LDA", "#white".some, "write White to screen (0)".some),
       ("STA", "$0200".some, "".some),
@@ -28,8 +30,6 @@ class Easy6502Spec extends AnyFlatSpec with should.Matchers:
       ("LDA", "#orange".some, "write Orange to screen (2)".some),
       ("STA", "$0202".some, "".some)
     )
-
-    doc.printOut()
 
   "define style dsl" should "compile" in:
     val doc =
