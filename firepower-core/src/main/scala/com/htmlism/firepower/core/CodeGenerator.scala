@@ -29,7 +29,7 @@ object CodeGenerator extends App:
     println(s"    Asm${n + 1}Instructions(xs, oComment)")
     println
     println(
-      s"case class AndThen${n}[$typeParameterList](left: Asm$n[$typeParameterList], right: Asm$n[$typeParameterList], oComment: Option[String]) extends Asm${n}[$typeParameterList]:"
+      s"case class AndThen$n[$typeParameterList](left: Asm$n[$typeParameterList], right: Asm$n[$typeParameterList], oComment: Option[String]) extends Asm$n[$typeParameterList]:"
     )
     println("  def xs: List[String] =")
     println("    left.xs ++ right.xs")
@@ -38,7 +38,7 @@ object CodeGenerator extends App:
     println("    copy(oComment = Some(s))")
     println
     println(
-      s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String] = None) extends Asm${n}[$typeParameterList]:"
+      s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String] = None) extends Asm$n[$typeParameterList]:"
     )
     println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
     println("    copy(oComment = Some(s))")
