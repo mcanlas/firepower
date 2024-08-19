@@ -5,7 +5,6 @@ import scala.util.chaining.*
 import zio.*
 
 import com.htmlism.firepower.core.*
-import com.htmlism.firepower.core.AsmBlock.*
 import com.htmlism.firepower.core.AssemblerOptions.*
 import com.htmlism.rufio.withzio.*
 

@@ -2,8 +2,6 @@ package com.htmlism.firepower.core
 
 import cats.syntax.all.*
 
-import com.htmlism.firepower.core.*
-
 /**
   * Anything that can be compiled into an `Intent`
   */

@@ -7,7 +7,6 @@ import scala.util.chaining.*
 import cats.syntax.all.*
 
 import com.htmlism.firepower.core.*
-import com.htmlism.firepower.core.AsmBlock.Intent
 
 object SnakeEasy6502:
   val program: List[MetaIntent] =
