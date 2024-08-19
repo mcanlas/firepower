@@ -26,7 +26,6 @@ object ProjectPlugin extends AutoPlugin {
           "0.8.4"
 
         p.settings(
-          testFrameworks += new TestFramework("weaver.framework.CatsEffect"),
           libraryDependencies ++= Seq(
             "org.scalatest"       %% "scalatest"         % "3.2.16"      % Test,
             "com.disneystreaming" %% "weaver-cats"       % weaverVersion % Test,
