@@ -27,7 +27,7 @@ object ProjectPlugin extends AutoPlugin {
 
         p.settings(
           libraryDependencies ++= Seq(
-            "org.scalatest"       %% "scalatest"         % "3.2.16"      % Test,
+            "org.scalatest"       %% "scalatest"         % "3.2.19"      % Test,
             "com.disneystreaming" %% "weaver-cats"       % weaverVersion % Test,
             "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion % Test
           )
