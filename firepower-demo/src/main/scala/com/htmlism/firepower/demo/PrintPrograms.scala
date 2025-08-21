@@ -20,7 +20,7 @@ object PrintPrograms extends ZIOAppDefault:
         List("alpha", "bravo")
       )
         .pipe(xxs => AsmBlock.interFlatMap(xxs)(List("", ""), identity)),
-      "feature-demo.asm" -> FeatureDemo.program,
+      "feature-demo.asm"           -> FeatureDemo.program,
       "print-three-upper-math.asm" -> PrintThree.assemble(
         AssemblerOptions(InstructionCase.Uppercase, DefinitionsMode.UseDefinitionsWithMath)
       ),
