@@ -23,13 +23,13 @@ object ProjectPlugin extends AutoPlugin {
 
       def withTesting: Project = {
         val weaverVersion =
-          "0.8.4"
+          "0.10.1"
 
         p.settings(
           libraryDependencies ++= Seq(
-            "org.scalatest"       %% "scalatest"         % "3.2.19"      % Test,
-            "com.disneystreaming" %% "weaver-cats"       % weaverVersion % Test,
-            "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion % Test
+            "org.scalatest" %% "scalatest"         % "3.2.19"      % Test,
+            "org.typelevel" %% "weaver-cats"       % weaverVersion % Test,
+            "org.typelevel" %% "weaver-scalacheck" % weaverVersion % Test
           )
         )
       }
