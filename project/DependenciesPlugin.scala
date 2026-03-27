@@ -18,7 +18,7 @@ object DependenciesPlugin extends AutoPlugin {
 
         p.settings(
           libraryDependencies ++= Seq(
-            "org.scalatest" %% "scalatest"         % "3.2.19"      % Test,
+            "org.scalatest" %% "scalatest"         % "3.2.20"      % Test,
             "org.typelevel" %% "weaver-cats"       % weaverVersion % Test,
             "org.typelevel" %% "weaver-scalacheck" % weaverVersion % Test
           )
