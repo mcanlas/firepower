@@ -7,38 +7,39 @@ import cats.syntax.all.*
 
 import com.htmlism.mos6502.model.*
 
-object DslDemo extends App:
-  val cpu =
-    new CPU
+object DslDemo:
+  def main(args: Array[String]): Unit =
+    val cpu =
+      new CPU
 
-  import registers.{A, X}
+    import registers.{A, X}
 
-  // address demonstration
-  withAssemblyContext { implicit ctx =>
-    val payloadLocation =
-      0x01.z
+    // address demonstration
+    withAssemblyContext { implicit ctx =>
+      val payloadLocation =
+        0x01.z
 
-    cpu.A = 0x40
+      cpu.A = 0x40
 
-    A.add(payloadLocation)
-  }
+      A.add(payloadLocation)
+    }
 
-  // a becomes others
-  withAssemblyContext { implicit ctx =>
-    cpu.A = cpu.X
-    cpu.A = cpu.Y
-  }
+    // a becomes others
+    withAssemblyContext { implicit ctx =>
+      cpu.A = cpu.X
+      cpu.A = cpu.Y
+    }
 
-  // demonstrate first example
-  withAssemblyContext { implicit ctx =>
-    cpu.A = 0xc0
+    // demonstrate first example
+    withAssemblyContext { implicit ctx =>
+      cpu.A = 0xc0
 
-    cpu.X = cpu.A
+      cpu.X = cpu.A
 
-    X.incr
+      X.incr
 
-    A.add(0xc4)
-  }
+      A.add(0xc4)
+    }
 
   def withAssemblyContext(f: AssemblyContext => Unit): Unit =
     val ctx: AssemblyContext =
