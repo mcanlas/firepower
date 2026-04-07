@@ -18,32 +18,32 @@ object CodeGenerator:
 
       println(s"sealed trait Asm$n[$typeParameterList]:")
       println("  def xs: List[String]")
-      println
+      println()
       println("  def oComment: Option[String]")
-      println
+      println()
       println(s"  def comment(s: String): Asm$n[$typeParameterList]")
-      println
+      println()
       println(s"  def andThen(that: Asm$n[$typeParameterList]): Asm$n[$typeParameterList] =")
       println(s"    AndThen$n[$typeParameterList](this, that, None)")
-      println
+      println()
       println(s"  def widenWith[$nextLetter]: Asm${n + 1}[$typeParameterList, $nextLetter] =")
       println(s"    Asm${n + 1}Instructions(xs, oComment)")
-      println
+      println()
       println(
         s"case class AndThen$n[$typeParameterList](left: Asm$n[$typeParameterList], right: Asm$n[$typeParameterList], oComment: Option[String]) extends Asm$n[$typeParameterList]:"
       )
       println("  def xs: List[String] =")
       println("    left.xs ++ right.xs")
-      println
+      println()
       println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
       println("    copy(oComment = Some(s))")
-      println
+      println()
       println(
         s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String] = None) extends Asm$n[$typeParameterList]:"
       )
       println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
       println("    copy(oComment = Some(s))")
-      println
+      println()
 
     for n <- 1 to 3 do
       val classNum =
