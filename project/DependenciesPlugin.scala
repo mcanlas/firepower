@@ -7,7 +7,7 @@ object DependenciesPlugin extends AutoPlugin {
   object autoImport {
     implicit class DependencyOps(p: Project) {
       def withCats: Project =
-        p.settings(libraryDependencies += "org.typelevel" %% "cats-core" % "2.13.0")
+        p.settings(libraryDependencies += "org.typelevel" %% "cats-core" % Versions.catsCore)
 
       def withEfectMonad: Project =
         p.settings(libraryDependencies += "dev.zio" %% "zio" % "2.0.4")
