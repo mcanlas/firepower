@@ -3,6 +3,7 @@ lazy val firepower =
     .in(file("."))
     .withCats
     .withTesting
+    .enablePlugins(JavaAppPackaging)
     .aggregate(nescant, core, cpu, demo, playground)
 
 lazy val nescant =

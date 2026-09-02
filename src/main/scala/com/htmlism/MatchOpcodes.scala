@@ -6,13 +6,13 @@ import cats.syntax.all.*
 
 import com.htmlism.mos6502.model.*
 
-// sbt "runMain com.htmlism.MatchOpcodes out.html" && open out.html
+// sbt stage && ./target/universal/stage/bin/match-opcodes > out.html && open out.html
 object MatchOpcodes:
   def paddedBinary(n: Int, width: Int) =
     String.format(s"%${width}s", Integer.toBinaryString(n)).replace(" ", "0")
 
   def main(args: Array[String]): Unit =
-    write(args(0))(doStuff)
+    write(doStuff)
 
   def generatedOpcodes: Map[Int, (Instruction, AddressingMode)] =
     (0 to 255)
@@ -217,10 +217,10 @@ object MatchOpcodes:
   def wideRows: Seq[Int] =
     0 to 7
 
-  private def write(file: String)(f: PrintWriter => Unit) =
-    val out = new PrintWriter(file)
+  private def write(f: PrintWriter => Unit) =
+    val out = new PrintWriter(System.out)
     f(out)
-    out.close()
+    out.flush()
 
   def toOpcode(n: Int): Option[(Instruction, AddressingMode)] =
     val BitPattern = ThreeBits >> ThreeBits >> TwoBits
