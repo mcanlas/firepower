@@ -70,7 +70,8 @@ object AsmBlock:
         val maximumLength =
           kvs
             .map(_._1.length)
-            .max
+            .maxOption
+            .getOrElse(0)
 
         val defines =
           kvs
@@ -120,7 +121,8 @@ object AsmBlock:
         x
           .instructions
           .map(_.length)
-          .max
+          .maxOption
+          .getOrElse(0)
 
       val instructions =
         x
