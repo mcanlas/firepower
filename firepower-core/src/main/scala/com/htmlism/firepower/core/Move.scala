@@ -9,10 +9,16 @@ object Move:
       .andThen(Store.fromA(dest))
 
   def from[R: Register, A: ReadLease.ByteAddress, B: WriteLease.ByteAddress]: Asm3[R, A, B] =
+    val _ = summon[Register[R]]
+    val _ = summon[ReadLease.ByteAddress[A]]
+    val _ = summon[WriteLease.ByteAddress[B]]
+
     Asm3Instructions(List(""))
 
   object Word:
     def const[R: Register, A, X: Encoded.Word](x: X, dest: WriteLease.ByteAddress[A]): Asm2[R, A] =
+      val _ = summon[Register[R]]
+      val _ = summon[Encoded.Word[X]]
       val _ = x
       val _ = dest
 

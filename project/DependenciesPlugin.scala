@@ -12,15 +12,14 @@ object DependenciesPlugin extends AutoPlugin {
       def withEfectMonad: Project =
         p.settings(libraryDependencies += "dev.zio" %% "zio" % "2.0.4")
 
-      def withTesting: Project = {
+      def withTesting: Project =
         p.settings(
           libraryDependencies ++= Seq(
-            "org.scalatest" %% "scalatest"         % "3.2.20"      % Test,
+            "org.scalatest" %% "scalatest"         % "3.2.20"        % Test,
             "org.typelevel" %% "weaver-cats"       % Versions.weaver % Test,
             "org.typelevel" %% "weaver-scalacheck" % Versions.weaver % Test
           )
         )
-      }
     }
   }
 }

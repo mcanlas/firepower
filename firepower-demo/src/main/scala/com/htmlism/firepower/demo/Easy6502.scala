@@ -65,4 +65,4 @@ object Easy6502:
 
         extension (x: Pixel)
           def toDefineWithMath: String =
-            "SCREEN+" + x.offset
+            "SCREEN+" + x.offset.toString
