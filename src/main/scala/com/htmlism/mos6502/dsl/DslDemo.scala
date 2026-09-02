@@ -122,6 +122,7 @@ class AssemblyContext:
   private val xs: ListBuffer[Statement] =
     ListBuffer()
 
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
   private var jumps: ListSet[Subroutine] =
     ListSet()
 

@@ -15,6 +15,7 @@ class AsmDocumentContext:
   private val xs: ListBuffer[TopLevelAsmDocumentFragment] =
     ListBuffer()
 
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
   private var jumps: ListSet[Subroutine] =
     ListSet()
 
