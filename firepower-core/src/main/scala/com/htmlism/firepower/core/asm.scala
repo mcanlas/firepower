@@ -51,6 +51,8 @@ case class Asm2Instructions[A, B](xs: List[String], oComment: Option[String] = N
 
 object Asm2Instructions:
   def from[A, B](t2: (R[A], R[B]), xs: List[String]) =
+    val _ = t2
+
     Asm2Instructions[A, B](xs)
 
 trait Asm3[A, B, C]:

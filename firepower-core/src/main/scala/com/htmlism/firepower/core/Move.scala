@@ -13,4 +13,7 @@ object Move:
 
   object Word:
     def const[R: Register, A, X: Encoded.Word](x: X, dest: WriteLease.ByteAddress[A]): Asm2[R, A] =
+      val _ = x
+      val _ = dest
+
       Asm2Instructions(List(""))

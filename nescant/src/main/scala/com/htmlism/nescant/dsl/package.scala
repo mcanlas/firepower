@@ -9,5 +9,7 @@ package object dsl:
       GlobalAddress(n)
 
   implicit class SinkOps[A: ByteSink](x: A):
+    val _ = x
+
     def write[B](src: B): Unit =
       val _ = src
