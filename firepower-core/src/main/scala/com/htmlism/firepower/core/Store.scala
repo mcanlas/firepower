@@ -11,4 +11,4 @@ object Store:
     from[Reg.Y, A](dest)
 
   private def from[R, A](dest: WriteLease.ByteAddress[A])(using R: Register[R]) =
-    Asm2Instructions[R, A](List(R.store + " " + dest.address))
+    Asm2Instructions[R, A](List(R.store + " " + dest.address.toString))
