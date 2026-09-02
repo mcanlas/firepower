@@ -39,10 +39,16 @@ object CodeGenerator:
       println("    copy(oComment = Some(s))")
       println()
       println(
-        s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String] = None) extends Asm$n[$typeParameterList]:"
+        s"case class Asm${n}Instructions[$typeParameterList](xs: List[String], oComment: Option[String]) extends Asm$n[$typeParameterList]:"
       )
       println(s"  def comment(s: String): Asm$n[$typeParameterList] =")
       println("    copy(oComment = Some(s))")
+      println()
+      println(s"object Asm${n}Instructions:")
+      println(
+        s"  def apply[$typeParameterList](xs: List[String]): Asm${n}Instructions[$typeParameterList] ="
+      )
+      println(s"    Asm${n}Instructions[$typeParameterList](xs, None)")
       println()
 
     for n <- 1 to 3 do

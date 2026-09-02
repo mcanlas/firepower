@@ -20,9 +20,13 @@ case class AndThen1[A](left: Asm1[A], right: Asm1[A], oComment: Option[String]) 
   def comment(s: String): Asm1[A] =
     copy(oComment = Some(s))
 
-case class Asm1Instructions[A](xs: List[String], oComment: Option[String] = None) extends Asm1[A]:
+case class Asm1Instructions[A](xs: List[String], oComment: Option[String]) extends Asm1[A]:
   def comment(s: String): Asm1[A] =
     copy(oComment = Some(s))
+
+object Asm1Instructions:
+  def apply[A](xs: List[String]): Asm1Instructions[A] =
+    Asm1Instructions(xs, None)
 
 sealed trait Asm2[A, B]:
   def xs: List[String]
@@ -41,7 +45,7 @@ case class AndThen2[A, B](left: Asm2[A, B], right: Asm2[A, B], oComment: Option[
   def comment(s: String): Asm2[A, B] =
     copy(oComment = Some(s))
 
-case class Asm2Instructions[A, B](xs: List[String], oComment: Option[String] = None) extends Asm2[A, B]:
+case class Asm2Instructions[A, B](xs: List[String], oComment: Option[String]) extends Asm2[A, B]:
   def comment(s: String): Asm2[A, B] =
     copy(oComment = Some(s))
   // TODO not tested
@@ -50,6 +54,9 @@ case class Asm2Instructions[A, B](xs: List[String], oComment: Option[String] = N
     Asm2Instructions.from(f(R[A](), R[B]()), xs)
 
 object Asm2Instructions:
+  def apply[A, B](xs: List[String]): Asm2Instructions[A, B] =
+    Asm2Instructions(xs, None)
+
   def from[A, B](t2: (R[A], R[B]), xs: List[String]) =
     val _ = t2
 

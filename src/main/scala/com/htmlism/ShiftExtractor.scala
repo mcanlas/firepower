@@ -27,8 +27,11 @@ trait BitExtractor[A]:
         yield (a, b)
 
 object AtomExtractor:
+  def pow(ex: Int): Int =
+    pow(ex, 1)
+
   @tailrec
-  def pow(ex: Int, acc: Int = 1): Int =
+  def pow(ex: Int, acc: Int): Int =
     if ex == 0 then acc
     else pow(ex - 1, acc * 2)
 
