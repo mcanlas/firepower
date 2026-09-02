@@ -231,8 +231,8 @@ object MatchOpcodes:
           case 0 => c00(aaa, bbb)
           case 1 => c01(aaa, bbb)
           case 2 => c10(aaa, bbb)
-          case 3 => None
-      case _ => throw new IllegalStateException("an int should always have bits to find")
+          case _ => None
+      case _ => None
 
   def c01(aaa: Int, bbb: Int): Option[(Instruction, AddressingMode)] =
     val instruction =
